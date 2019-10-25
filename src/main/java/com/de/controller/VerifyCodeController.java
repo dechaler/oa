@@ -5,7 +5,6 @@ import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -28,7 +27,7 @@ public class VerifyCodeController {
     private Producer captchaProducer;
 
     @RequestMapping("/verifyCode")
-    public ModelAndView verifyCode(Date date, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void verifyCode(Date date, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setDateHeader("Expires", 0);
         // Set standard HTTP/1.1 no-cache headers.
         response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
@@ -54,7 +53,6 @@ public class VerifyCodeController {
         } finally {
             out.close();
         }
-        return null;
 
     }
 }
