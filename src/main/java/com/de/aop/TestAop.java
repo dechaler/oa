@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class TestAop {
 
 //    @Autowired
+//    aop
     public ExmService exmService;
 
 
