@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class Exmaop {
 //    lalala
+//    嘻嘻
 //    @Pointcut("execution(* com.de.service..*(..)) && args(count,msg)")
 ////    public void empServicePointCut(int count,String msg){}
 ////
