@@ -1,0 +1,65 @@
+package com.de.controller;
+
+import com.de.Utils.DateUtils;
+import com.de.Utils.JsonResultType;
+import com.de.Utils.RequestParams;
+import com.de.Utils.ResponseInfo;
+import com.de.entity.Attendance;
+import com.de.entity.Employee;
+import com.de.service.AttendService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import javax.servlet.http.HttpServletResponse;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @编写人:de
+ * @时间:2019/10/22
+ * @描述:考勤模块控制器
+ */
+@Controller
+@RequestMapping("/attendance")
+public class AttendController {
+    @Autowired
+    private AttendService attendService;
+    @Autowired
+    private JsonResultType<Attendance> jsonResultType;
+    private PageInfo<Attendance> pageInfo;
+
+
+    @ResponseBody
+    @RequestMapping(value = "/signIn",method = RequestMethod.POST)
+    public int signIn(Attendance attendance, @SessionAttribute Employee employee, HttpServletResponse response) throws ParseException {
+        attendance.setEmployee(employee);
+        String attendDate = DateUtils.dateToStrDateTime(new Date(), DateUtils.DATEFORMATWITHDATE);
+        attendance.setAttendDate(attendDate);
+        int re = attendService.signIn(attendance);
+        re = ResponseInfo.verifyDatas(response, re);
+        return re;
+    }
+
+    @ResponseBody
+    @RequestMapping("/selectAttendInfo")
+    public JsonResultType<Attendance> selectAttendInfoByEmpIdAndDateScopeAndFlag(@SessionAttribute Employee employee, RequestParams params,HttpServletResponse response){
+        int page = params.getPage();
+        int limit = params.getLimit();
+        Integer id = employee.getId();
+        String startDate = params.getStartDate();
+        String endDate = params.getEndDate();
+        Integer kqFlag = params.getKqFlag();
+        PageHelper.startPage(page,limit);
+        List<Attendance> attendances = attendService.selectAttendInfoByEmpIdAndDateScopeAndFlag(id, startDate, endDate, kqFlag);
+        pageInfo = new PageInfo<>(attendances);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+}

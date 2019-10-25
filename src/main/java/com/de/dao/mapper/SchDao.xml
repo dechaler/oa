@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.de.dao.SchDao">
+
+    <!--增加日程-->
+    <insert id="addSch" parameterType="Schedule">
+        INSERT INTO `schedule`(sch_task,start_time,emp_id)
+        VALUES(#{schTask},#{startTime},#{employee.id});
+    </insert>
+
+    <!--查看部门发布的日程-->
+
+    <resultMap id="selectSchByDepartIdAndDateMap" type="Schedule">
+        <id property="id" column="id"/>
+        <result property="schTask" column="sch_task"/>
+        <result property="startTime" column="start_time"/>
+
+        <association property="employee" javaType="Employee">
+            <id property="id" column="emp_id"/>
+            <result property="name" column="emp_name"/>
+            <association property="department" javaType="Department">
+                <result property="name" column="depart_name"/>
+            </association>
+        </association>
+    </resultMap>
+
+    <select id="selectSchByDepartIdAndDate"  resultMap="selectSchByDepartIdAndDateMap">
+        SELECT s.*,e.emp_name,e.depart_id, d.depart_name FROM
+         employee e
+         INNER JOIN `schedule` s ON s.`emp_id`=e.`id`
+         INNER JOIN department d ON e.`depart_id`=d.`id`
+        <where>
+            <if test="id != null and id !=''">
+                and d.id=#{id}
+            </if>
+           <if test="startTime != null and startTime != ''">
+               and DATE_FORMAT(start_time, '%Y-%m-%d') = #{startTime}
+           </if>
+        </where>
+    </select>
+
+    <!--根据id删除日程-->
+    <delete id="delSchById" parameterType="Integer">
+        DELETE FROM `schedule` WHERE id = #{id};
+    </delete>
+
+</mapper>

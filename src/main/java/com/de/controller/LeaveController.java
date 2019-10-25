@@ -1,0 +1,61 @@
+package com.de.controller;
+
+import com.de.Utils.JsonResultType;
+import com.de.Utils.LeaveStatus;
+import com.de.Utils.RequestParams;
+import com.de.Utils.ResponseInfo;
+import com.de.entity.Employee;
+import com.de.entity.Leave;
+import com.de.service.LeaveService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+
+/**
+ * @编写人:de
+ * @时间:2019/10/23
+ * @描述:
+ */
+@Controller
+@RequestMapping("/leave")
+public class LeaveController {
+
+    @Autowired
+    private JsonResultType<Leave> jsonResultType;
+
+    @Autowired
+    private LeaveService leaveService;
+
+    private PageInfo<Leave> pageInfo;
+
+
+    @RequestMapping("/addLeave")
+    @ResponseBody
+    public int addLeave(Leave leave , @SessionAttribute Employee employee ,HttpServletResponse response){
+        leave.setEmployee(employee);
+        leave.setStatus(LeaveStatus.WAIT);
+        int re = leaveService.addLeave(leave);
+        re = ResponseInfo.verifyDatas(response,re);
+        return re;
+    }
+
+    @RequestMapping("/selectLeaveInfo")
+    @ResponseBody
+    public JsonResultType<Leave> selectLeaveInfoByEmpId(RequestParams params, @SessionAttribute Employee employee, HttpServletResponse response) {
+        int page = params.getPage();
+        int limit = params.getLimit();
+        Integer empId = employee.getId();
+        PageHelper.startPage(page,limit);
+        List<Leave> leaves = leaveService.selectLeaveInfoByEmpId(empId);
+        pageInfo = new PageInfo<>(leaves);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+}

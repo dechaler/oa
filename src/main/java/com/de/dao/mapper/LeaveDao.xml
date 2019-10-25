@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.de.dao.LeaveDao">
+
+
+    <!--添加请假信息-->
+    <insert id="addLeave" parameterType="Leave" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO qingjia(emp_id,reason,le_start_time,le_end_time,status)
+    VALUES(#{employee.id},#{reason},#{startTime},#{endTime},#{status});
+  </insert>
+
+    <!--查询请假信息-->
+
+    <resultMap id="selectLeaveInfoByEmpIdMap" type="Leave">
+        <id property="id" column="id"/>
+        <result property="reason" column="reason"/>
+        <result property="startTime" column="le_start_time"/>
+        <result property="endTime" column="le_end_time"/>
+        <result property="status" column="status"/>
+        <association property="employee" javaType="Employee" >
+            <id property="id" column="emp_id"/>
+        </association>
+    </resultMap>
+    <select id="selectLeaveInfoByEmpId" resultMap="selectLeaveInfoByEmpIdMap">
+        SELECT id,reason, le_start_time,le_end_time,emp_id,`status` FROM qingjia
+        WHERE emp_id = 1000 ORDER BY le_start_time DESC;
+    </select>
+
+
+</mapper>

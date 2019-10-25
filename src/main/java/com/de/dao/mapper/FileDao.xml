@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.de.dao.FileDao">
+
+    <!--上传文件-->
+    <insert id="upLoadFile" parameterType="com.de.entity.File" useGeneratedKeys="true">
+        INSERT INTO `file`(file_name,emp_id,upload_time,file_path)
+        VALUES(#{fileName},#{employee.id},#{upTime},#{filePath});
+    </insert>
+
+    <!--查询全部文件信息-->
+    <resultMap id="selectAllFileMap" type="File">
+        <id property="id" column="id"/>
+        <result property="fileName" column="file_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="upTime" column="upload_time"/>
+        <association property="employee" javaType="Employee">
+            <result property="name" column="emp_name"/>
+            <association property="department" javaType="Department">
+                <id property="id" column="did"/>
+                <result property="name" column="depart_name"/>
+            </association>
+        </association>
+    </resultMap>
+    <select id="selectAllFile" resultMap="selectAllFileMap">
+        SELECT f.id,f.file_name, f.`file_path`,f.`upload_time`,e.`emp_name`,d.id did,d.`depart_name`
+        FROM `file` f
+        INNER JOIN employee e ON e.`id` = f.`emp_id`
+        INNER JOIN department d ON e.`depart_id` = d.`id`
+    </select>
+
+    <select id="selectFileByDepartIdAndEmpId" resultMap="selectAllFileMap">
+        SELECT f.id,f.file_name, f.`upload_time`,e.`emp_name`,d.id did,d.`depart_name`
+        FROM `file` f
+        INNER JOIN employee e ON e.`id` = f.`emp_id`
+        INNER JOIN department d ON e.`depart_id` = d.`id`
+        <where>
+            <if test="departId != null and departId != ''">
+                and  d.`id` = #{departId}
+            </if>
+            <if test="empId != null">
+                AND e.`id` = #{empId};
+            </if>
+        </where>
+    </select>
+
+    <!--通过id删除文件-->
+    <delete id="deleteFileById" parameterType="Integer">
+        DELETE FROM `file` WHERE id = #{id};
+    </delete>
+</mapper>

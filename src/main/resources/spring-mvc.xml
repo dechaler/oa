@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--配置扫描器-->
+    <context:component-scan base-package="com.de.controller"/>
+    <!--注解驱动，使得访问路径和方法可以通过注解配置-->
+    <mvc:annotation-driven/>
+
+    <!--配置jsp的视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/views/"/>
+        <!--<property name="suffix" value=".jsp"/>-->
+    </bean>
+
+    <!--配置CommonsMultipartResolver,用于实现上传-->
+    <!--SpringIoc容器在初始化时，会自动寻找一个Id=multipartResolver的bean，并加入ioc容器中-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="defaultEncoding" value="UTF-8"/>
+    <property name="maxUploadSize" value="102400000"/>
+    </bean>
+
+    <!--配置拦截器-->
+    <!--<mvc:default-servlet-handler/>-->
+    <!--<mvc:interceptors>-->
+    <!--&lt;!&ndash;<mvc:interceptor>&ndash;&gt;-->
+        <!--&lt;!&ndash;<mvc:mapping path="views/index.html"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;<mvc:exclude-mapping path="/admin/**"/>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;<bean class="com.de.Interceptor.MyInterceptor"/>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;<bean class="org.springframework.web.servlet.handler.MappedInterceptor">&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<property name="pathMatcher"&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+    <!--&lt;!&ndash;</mvc:interceptor>&ndash;&gt;-->
+<!--</mvc:interceptors>-->
+</beans>
