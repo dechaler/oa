@@ -1,0 +1,5 @@
+
+#忽略下面文件目录
+.idea/
+item.iml
+arget/

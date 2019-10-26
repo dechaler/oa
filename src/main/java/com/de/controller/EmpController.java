@@ -31,18 +31,14 @@ public class EmpController {
 
     @Autowired
     private JsonResultType<Employee> jsonResultType;
-
     private PageInfo<Employee> pageInfo;
-
-
 
     @ResponseBody
     @RequestMapping("/login")
-    public JsonResultType<Employee> login(Employee employee,HttpSession session,HttpServletResponse response){
+    public JsonResultType<Employee> login(Employee employee, String verifyCode,HttpSession session,HttpServletResponse response){
         String code = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         Integer id = employee.getId();
         String password = employee.getPassword();
-        String verifyCode = employee.getVerifyCode();
        //先验证码验证信息
         if (code.equals(verifyCode)) {
             int re = empService.login(id, password);
@@ -117,8 +113,9 @@ public class EmpController {
 
     @RequestMapping("/logout")
     @ResponseBody
-    public void logout(HttpSession session) {
+    public int logout(HttpSession session) {
         session.invalidate();
+        return 1;
     }
 
 }

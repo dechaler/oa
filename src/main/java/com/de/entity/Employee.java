@@ -21,9 +21,6 @@ public class Employee implements Serializable {
     private String inerDate;
     private Department department;
 
-    //验证码
-    private String verifyCode;
-
     public Employee() {
     }
 
@@ -138,13 +135,6 @@ public class Employee implements Serializable {
         this.inerDate = inerDate;
     }
 
-    public String getVerifyCode() {
-        return verifyCode;
-    }
-
-    public void setVerifyCode(String verifyCode) {
-        this.verifyCode = verifyCode;
-    }
 
     @Override
     public String toString() {

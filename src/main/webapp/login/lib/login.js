@@ -1,7 +1,5 @@
 layui.define(['index', "form"], function(exports){
     var $ = layui.$
-        ,setter = layui.setter
-        ,admin = layui.admin
         ,form = layui.form;
     form.render();
     // 验证
@@ -73,7 +71,7 @@ layui.define(['index', "form"], function(exports){
                     console.log(res);
                     layer.msg('验证码输入有误', {
                         offset: '15px'
-                        ,icon: 1
+                        ,icon: 2
                         ,time: 1000
                     }, function(){
                         reflush();
