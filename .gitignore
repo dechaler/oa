@@ -1,0 +1,5 @@
+ 
+#忽略要提交的文件
+.idea/
+item.iml
+target/
