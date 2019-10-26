@@ -33,6 +33,8 @@ public class EmpController {
     private JsonResultType<Employee> jsonResultType;
     private PageInfo<Employee> pageInfo;
 
+
+
     @ResponseBody
     @RequestMapping("/login")
     public JsonResultType<Employee> login(Employee employee, String verifyCode,HttpSession session,HttpServletResponse response){
