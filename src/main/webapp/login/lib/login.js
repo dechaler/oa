@@ -83,7 +83,7 @@ layui.define(['index', "form"], function(exports){
                     console.log(res);
                     layer.msg('登陆失败，信息有误，请重新填写', {
                         offset: '15px'
-                        ,icon: 1
+                        ,icon: 2
                         ,time: 1000
                     }, function(){
                         location.href = './login.html';
