@@ -38,7 +38,7 @@
         <result property="name" column="emp_name"/>
         <!--<result property="password" column="emp_pwd"/>-->
         <result property="sex" column="sex"/>
-        <result property="phone" column="age"/>
+        <result property="age" column="age"/>
         <result property="inerDate" column="iner_date"/>
         <association property="job" javaType="Job">
             <id property="id" column="jid"/>
