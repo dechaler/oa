@@ -123,4 +123,7 @@ public interface EmpDao {
      */
     List<Employee> selectEmpByIdOrNameOrDepartId(@Param("id") Integer id,@Param("name") String name, @Param("departId") Integer departId);
 
+
+
+        int initEmp(List<Employee> list);
 }

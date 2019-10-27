@@ -17,11 +17,31 @@ public class Employee implements Serializable {
     private String sex;
     private Integer age;
     private Long phone;
-    private String job;
     private String inerDate;
     private Department department;
+    private Job job;
 
     public Employee() {
+    }
+
+    public Employee(Integer id, String name, String password, String sex, Integer age, Long phone, String inerDate, Department department, Job job) {
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.sex = sex;
+        this.age = age;
+        this.phone = phone;
+        this.inerDate = inerDate;
+        this.department = department;
+        this.job = job;
+    }
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public Employee(Integer id) {
@@ -46,28 +66,6 @@ public class Employee implements Serializable {
         this.department = department;
     }
 
-    public Employee(Integer id, String name, String password, String sex, Integer age, Long phone, String job, String inerDate, Department department) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
-        this.sex = sex;
-        this.age = age;
-        this.phone = phone;
-        this.job = job;
-        this.inerDate = inerDate;
-        this.department = department;
-    }
-
-    public Employee(String name, String password, String sex, Integer age, Long phone, String job, String inerDate) {
-
-        this.name = name;
-        this.password = password;
-        this.sex = sex;
-        this.age = age;
-        this.phone = phone;
-        this.job = job;
-        this.inerDate = inerDate;
-    }
 
     public Integer getId() {
         return id;
@@ -117,14 +115,6 @@ public class Employee implements Serializable {
         this.phone = phone;
     }
 
-    public String getJob() {
-        return job;
-    }
-
-    public void setJob(String job) {
-        this.job = job;
-    }
-
 
     public String getInerDate() {
 
@@ -145,7 +135,7 @@ public class Employee implements Serializable {
                 ", sex='" + sex + '\'' +
                 ", age=" + age +
                 ", phone=" + phone +
-                ", job='" + job + '\'' +
+                ", job='" + job.getId() + '\'' +
                 ", inerDate='" + inerDate + '\'' +
      //           ", depart_id='" + department.getId() + '\'' +
        //         ", depart_name='" + department.getName() + '\'' +

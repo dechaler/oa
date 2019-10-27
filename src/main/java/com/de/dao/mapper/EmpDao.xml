@@ -23,7 +23,7 @@
 
     <!--更新员工信息-->
     <update id="updateEmpById" useGeneratedKeys="true" keyProperty="id">
-        UPDATE employee SET sex=#{emp.sex},age=#{emp.age},phone=#{emp.phone},job=#{emp.job},iner_date=#{emp.inerDate},depart_id=#{emp.department.id}
+        UPDATE employee SET sex=#{emp.sex},age=#{emp.age},phone=#{emp.phone},job=#{emp.job.id},iner_date=#{emp.inerDate},depart_id=#{emp.department.id}
         WHERE id =#{id}
     </update>
 
@@ -39,8 +39,11 @@
         <!--<result property="password" column="emp_pwd"/>-->
         <result property="sex" column="sex"/>
         <result property="phone" column="age"/>
-        <result property="job" column="job"/>
         <result property="inerDate" column="iner_date"/>
+        <association property="job" javaType="Job">
+            <id property="id" column="jid"/>
+            <result property="name" column="job_name"/>
+        </association>
         <association property="department" javaType="Department">
             <id property="id" column="did"/>
             <result property="name" column="depart_name"/>
@@ -49,24 +52,27 @@
 
     <!--查询全部员工信息）-->
     <select id="selectAllEmp" resultMap="selectEmpMap">
-        SELECT e.id,emp_name,emp_pwd, sex,age,phone,iner_date,job,d,id did,d.depart_name
+        SELECT e.id,emp_name,emp_pwd, sex,age,phone,iner_date,j.id jid,j.job_name, d.id did,d.depart_name
         FROM employee e
                  LEFT JOIN department d ON e.depart_id = d.id
+                 LEFT JOIN job j ON e.job_id = j.id
     </select>
 
     <!--根据id查询员工信息-->
     <select id="selectEmpById" parameterType="Integer" resultMap="selectEmpMap">
-        SELECT e.id,emp_name,sex,age,phone,iner_date,job,d.id did,d.depart_name
+        SELECT e.id,emp_name,sex,age,phone,iner_date,j.`id` jid,j.`job_name`,d.id did,d.depart_name
         FROM employee e
                  LEFT JOIN department d ON e.depart_id = d.id
+                 LEFT JOIN job j ON e.job_id = j.id
         WHERE e.id = #{id}
     </select>
 
     <!--通过员工号或员工名查询员工信息-->
     <select id="selectEmpByIdOrNameOrDepartId" parameterType="String" resultMap="selectEmpMap">
-        SELECT e.id,emp_name,emp_pwd, sex,age,phone,iner_date,job,d.depart_name
+        SELECT e.id,emp_name,sex,age,phone,iner_date,j.`id` jid,j.`job_name`,d.id did,d.depart_name
         FROM employee e
-         LEFT JOIN department d ON e.depart_id = d.id
+        LEFT JOIN department d ON e.depart_id = d.id
+        LEFT JOIN job j ON e.job_id = j.id
         <where>
             <if test="id != null and id != ''">
             e.id = #{id}
@@ -98,4 +104,16 @@
     <select id="selectAllEmpId" resultType="Integer">
         SELECT DISTINCT id FROM employee order by id;
     </select>
+
+
+
+
+    <!--初始化员工信息-->
+    <insert id="initEmp" useGeneratedKeys="true">
+        INSERT INTO employee(emp_name,emp_pwd,sex,age,phone,job_id,iner_date)
+        values
+               <foreach collection="list" item="employee" separator=",">
+                   (#{employee.name},#{employee.password},#{employee.sex},#{employee.age},#{employee.phone},#{employee.job.id},#{employee.inerDate})
+               </foreach>
+    </insert>
 </mapper>
