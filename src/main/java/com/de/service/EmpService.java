@@ -1,7 +1,6 @@
 package com.de.service;
 
 import com.de.entity.Employee;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -67,7 +66,7 @@ public interface EmpService {
      * @编写人：de
      * @时间： 2019/10/9
      */
-    List<Employee> selectEmpByIdOrNameOrDepartId(@Param("id") Integer id, @Param("name") String name, @Param("departId") Integer departId);
+    List<Employee> selectEmpByIdOrNameOrDepartName(Integer id, String name, String departName);
 
     /**
      *@描述信息：根据员工名查询员工信息

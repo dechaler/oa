@@ -21,12 +21,14 @@ public class ResponseInfo {
 
     public static <T> JsonResultType<T> verifyDatas(HttpServletResponse response,JsonResultType<T> jsonResultType,PageInfo<T> pageInfo){
         if (response.getStatus() == HttpServletResponse.SC_OK) {
+            jsonResultType.setCode("" + 0);
             jsonResultType.setCount("" + pageInfo.getTotal());
             jsonResultType.setData(pageInfo.getList());
             return jsonResultType;
         } else {
-            jsonResultType.setCode("" + -1);
+            jsonResultType.setCode("" + 0);
             jsonResultType.setMsg("数据为空");
+            jsonResultType.setData(null);
             return jsonResultType;
         }
     }

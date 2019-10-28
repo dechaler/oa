@@ -121,9 +121,16 @@ public interface EmpDao {
      * @编写人：de
      * @时间： 2019/10/9
      */
-    List<Employee> selectEmpByIdOrNameOrDepartId(@Param("id") Integer id,@Param("name") String name, @Param("departId") Integer departId);
+    List<Employee> selectEmpByIdOrNameOrDepartName(@Param("id") Integer id,@Param("name") String name, @Param("departName") String departName);
 
-
+    /**
+     *@描述信息：初始化员工数据
+     *
+     * @参数：   员工列表
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/10/28
+     */
 
         int initEmp(List<Employee> list);
 }

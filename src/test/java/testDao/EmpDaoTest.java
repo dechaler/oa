@@ -86,7 +86,7 @@ public class EmpDaoTest {
 
     @Test
     public void selectEmpByIdOrName(){
-        List<Employee> employees = empDao.selectEmpByIdOrNameOrDepartId(null, null,1);
+        List<Employee> employees = empDao.selectEmpByIdOrNameOrDepartName(null, null,null);
         for (Employee employee:employees){
             System.out.println(employee);
         }

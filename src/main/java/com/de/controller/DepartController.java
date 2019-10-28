@@ -37,13 +37,11 @@ public class DepartController {
     public JsonResultType<Department> selectDepartInfo(RequestParams params , HttpServletResponse response) {
         int page = params.getPage();
         int limit = params.getLimit();
-        PageHelper.startPage(page,page);
+        PageHelper.startPage(page,limit);
         List<Department> departments = departService.selectAllDepart();
         pageInfo = new PageInfo<>(departments);
         jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
         return jsonResultType;
-
-
 
     }
 }

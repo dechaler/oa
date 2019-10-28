@@ -23,6 +23,8 @@ public class RequestParams extends MyPageParams {
 
     //flag（考勤）
     private Integer kqFlag;
+
+    private String departName;
     public Integer getEmpId() {
 
         return empId;
@@ -79,5 +81,13 @@ public class RequestParams extends MyPageParams {
 
     public void setKqFlag(Integer kqFlag) {
         this.kqFlag = kqFlag;
+    }
+
+    public String getDepartName() {
+        return departName;
+    }
+
+    public void setDepartName(String departName) {
+        this.departName = departName;
     }
 }

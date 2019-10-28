@@ -68,7 +68,7 @@
     </select>
 
     <!--通过员工号或员工名查询员工信息-->
-    <select id="selectEmpByIdOrNameOrDepartId" parameterType="String" resultMap="selectEmpMap">
+    <select id="selectEmpByIdOrNameOrDepartName" parameterType="String" resultMap="selectEmpMap">
         SELECT e.id,emp_name,sex,age,phone,iner_date,j.`id` jid,j.`job_name`,d.id did,d.depart_name
         FROM employee e
         LEFT JOIN department d ON e.depart_id = d.id
@@ -80,8 +80,8 @@
             <if test="name != null and name != ''">
                 or e.`emp_name` LIKE '%${name}%'
             </if>
-            <if test="departId != null and departId != ''">
-                or e.`depart_id` = #{departId}
+            <if test="departName != null and departName != ''">
+                or d.`depart_name` = #{departName}
             </if>
         </where>
 

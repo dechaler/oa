@@ -7,7 +7,7 @@ layui.define(['index', "form"], function(exports){
         empId: [
             /^[0-9]{6}$/
             // /^[0-9]{4}$/
-            ,'必须为6位员工号码'
+            ,'必须为6位员工号'
         ],
         pwd: [
             /^[\S]{6,12}$/

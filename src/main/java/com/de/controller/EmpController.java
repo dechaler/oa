@@ -72,9 +72,9 @@ public class EmpController {
         }
     }
 
-    @RequestMapping(value = "/selectAllEmp/s")
+    @RequestMapping(value = "/selectAllEmp")
     @ResponseBody
-    public JsonResultType<Employee> selectAllEmp(RequestParams requestParams, HttpServletResponse response) {
+    public JsonResultType<Employee> selectAllEmp(RequestParams params, HttpServletResponse response) {
         /**
          *@描述信息：以json格式返回员工数据
          *
@@ -83,13 +83,13 @@ public class EmpController {
          * @编写人：de
          * @时间： 2019/9/5
          */
-        Integer empId = requestParams.getEmpId();
-        String name = requestParams.getName();
-        Integer departId = requestParams.getDepartId();
-        int limit = requestParams.getLimit();
-        int page = requestParams.getPage();
+        Integer empId = params.getEmpId();
+        String name = params.getName();
+        String departName = params.getDepartName();
+        int limit = params.getLimit();
+        int page = params.getPage();
         PageHelper.startPage(page, limit);
-        List<Employee> employees = empService.selectEmpByIdOrNameOrDepartId(empId, name, departId);
+        List<Employee> employees = empService.selectEmpByIdOrNameOrDepartName(empId, name, departName);
         pageInfo = new PageInfo<>(employees);
         //("" +  ) 返回String
 //        response.setContentType("application/json; charset=utf-8");
@@ -106,13 +106,42 @@ public class EmpController {
         int re = empService.updateEmpById(empId, employee);
         Employee emp1 = (Employee)session.getAttribute("employee");
         System.out.println(emp1.getAge());
-//        session.setAttribute();
         if (re > 0) {
             return re;
         }
         return re;
     }
 
+
+    @RequestMapping("/selectEmpByIdOrNameOrDepartId")
+    @ResponseBody
+    public JsonResultType<Employee> selectEmpByIdOrNameOrDepartName(RequestParams params, HttpServletResponse response) {
+        Integer empId = params.getEmpId();
+        String name = params.getName();
+        String departName = params.getDepartName();
+        int page = params.getPage();
+        int limit = params.getLimit();
+        PageHelper.startPage(page,limit);
+        List<Employee> employees = empService.selectEmpByIdOrNameOrDepartName(empId, name, departName);
+        pageInfo = new PageInfo<>(employees);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+
+
+//    @RequestMapping("/selectEmp")
+//    @ResponseBody
+//    public JsonResultType<Employee> selectEmp(RequestParams params, HttpServletResponse response){
+//        Integer empId = params.getEmpId();
+//        Integer departId = params.getDepartId();
+//        String name = params.getName();
+//        int page = params.getPage();
+//        int limit = params.getLimit();
+//        if (null == empId  && null == departId && null == name) {
+//
+//            List<Employee> employees = empService.selectAllEmp();
+//        }
+//    }
     @RequestMapping("/logout")
     @ResponseBody
     public int logout(HttpSession session) {

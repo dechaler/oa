@@ -33,7 +33,7 @@ public class FileDaoTest {
         File file = new File();
         file.setFileName("开会报告");
         file.setFilePath("d:/a.txt");
-        List<Employee> employees = empDao.selectEmpByIdOrNameOrDepartId(1000, null,null);
+        List<Employee> employees = empDao.selectEmpByIdOrNameOrDepartName(1000, null,null);
         file.setEmployee(employees.get(0));
         Date date = new Date();
         String dateTime = DateUtils.dateToStrDateTime(date, "yyyy-MM-dd HH:mm:ss");

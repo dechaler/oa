@@ -11,7 +11,7 @@ layui.define(['index', "form"], function(){
     form.verify({
         empId: [
             /^[0-9]{6}$/
-            ,'必须为6位员工号码'
+            ,'必须为6位员工号'
         ],
         pwd: [
             /^[\S]{6,12}$/

@@ -80,14 +80,14 @@ public class JsonResultType<T> {
         this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return "JsonResultType{" +
-                "status='" + status + '\'' +
-                ", code='" + code + '\'' +
-                ", msg='" + msg + '\'' +
-                ", count='" + count + '\'' +
-                ", data=" + data +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "JsonResultType{" +
+//                "status='" + status + '\'' +
+//                ", code='" + code + '\'' +
+//                ", msg='" + msg + '\'' +
+//                ", count='" + count + '\'' +
+//                ", data=" + data +
+//                '}';
+//    }
 }

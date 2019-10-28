@@ -56,8 +56,8 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
-    public List<Employee> selectEmpByIdOrNameOrDepartId(Integer id, String name, Integer departId) {
-        List<Employee> employees = empDao.selectEmpByIdOrNameOrDepartId(id, name, departId);
+    public List<Employee> selectEmpByIdOrNameOrDepartName(Integer id, String name, String departName) {
+        List<Employee> employees = empDao.selectEmpByIdOrNameOrDepartName(id, name, departName);
         return employees;
     }
 
