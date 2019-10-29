@@ -46,7 +46,7 @@ public interface TaskDao {
      * @时间： 2019/9/9
      */
 
-    List<Task> selectEmpTaskByEmpId(Integer empId);
+    List<Task> selectEmpTaskByEmpId(@Param("empId") Integer empId);
 
     /**
      *@描述信息：修改任务
@@ -58,4 +58,16 @@ public interface TaskDao {
      */
 
     int updateTaskById(@Param("id") Integer id,@Param("task") Task task);
+
+
+    /**
+     *@描述信息：初始化任务管理数据
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/10/29
+     */
+
+    int initTaskInfo(List<Task> list);
 }

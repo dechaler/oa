@@ -15,7 +15,6 @@ import java.util.List;
  */
 @Service
 public class TaskServiceImpl implements TaskService {
-
     @Autowired
     private TaskDao taskDao;
 
@@ -34,11 +33,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> selectEmpTaskByEmpId(Integer empId) {
-        if (empId > 0){
             List<Task> tasks = taskDao.selectEmpTaskByEmpId(empId);
             return tasks;
-        }
-        return null;
     }
 
     @Override

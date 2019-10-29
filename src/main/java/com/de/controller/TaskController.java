@@ -2,6 +2,7 @@ package com.de.controller;
 import com.de.Utils.JsonResultType;
 import com.de.Utils.RequestParams;
 import com.de.Utils.ResponseInfo;
+import com.de.entity.Employee;
 import com.de.entity.Task;
 import com.de.service.TaskService;
 import com.github.pagehelper.PageHelper;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
  * @描述:计划任务控制器
  */
 @Controller
-@RequestMapping("/Task")
+@RequestMapping("/task")
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -34,10 +36,11 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/selectEmpTask")
-    public JsonResultType<Task> selectEmpTask(RequestParams params, HttpServletResponse response) {
+    public JsonResultType<Task> selectEmpTask(/*@SessionAttribute Employee employee,*/ RequestParams params, HttpServletResponse response) {
         int page = params.getPage();
         int limit = params.getLimit();
-        Integer empId = params.getEmpId();
+        Integer empId = 100000;
+//       Integer empId = employee.getId();
         PageHelper.startPage(page,limit);
        List<Task> tasks = taskService.selectEmpTaskByEmpId(empId);
        pageInfo = new PageInfo<>(tasks);
@@ -47,7 +50,8 @@ public class TaskController {
 
    @ResponseBody
    @RequestMapping("/upTask")
-   public int upTask(Task task, HttpServletResponse response) {
+   public int upTask(@SessionAttribute Employee employee, Task task, HttpServletResponse response) {
+       task.setEmployee(employee);
        int re = taskService.upTask(task);
        return  ResponseInfo.verifyDatas(response, re);
    }

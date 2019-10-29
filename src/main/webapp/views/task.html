@@ -8,21 +8,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <!--<style>-->
+    <!--body .btn-class .layui-layer-btn .layui-layer-btn0{background:#009688; }-->
+    <!--</style>-->
 </head>
+
 <body>
+<!--添加数据弹出层-->
+<form class="layui-form" id="pop" hidden="hidden">
+    <div class="layui-form-item" style="margin-top: 15px">
+        <label class="layui-form-label">计划任务</label>
+        <div class="layui-input-inline">
+            <input type="text" autocomplete="off" id="ipt" name="content" lay-verify="required" class="layui-input" placeholder="请输入计划任务">
+        </div>
+    </div>
 
-<table class="layui-hide" id="test" lay-filter="test"></table>
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="startTime" id="startTime" lay-verify="required" placeholder="请选择开始时间">
+            </div>
+        </div>
+    </div>
 
-<script type="text/html" id="toolbarDemo">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="endTime" id="endTime" lay-verify="required|empty" placeholder="请选择结束时间">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline" style="text-align:center; width: 100%; margin-top: 20px; margin-bottom: 30px">
+        <button type="button" class="layui-btn layui-btn" lay-submit lay-filter="add">添加</button>
+        <button type="button" class="layui-btn layui-btn-primary" lay-filter="close" id="close-btn">关闭</button>
+    </div>
+</form>
+
+<!--添加数据弹出层-->
+
+<table class="layui-hide" id="task_list" lay-filter="task"></table>
+
+<script type="text/html" id="headToolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+        <button class="layui-btn layui-btn-sm" lay-event="add">
+            <i class="layui-icon">&#xe608;</i> 添加任务
+        </button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del_more">
+            <i class="layui-icon">&#xe640;</i>批量删除
+        </button>
+        <!--<button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
         <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+        <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>-->
     </div>
 </script>
 
-<script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+<script type="text/html" id="rowToolbar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 
@@ -31,53 +74,137 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>
-    layui.use('table', function(){
-        var table = layui.table;
 
+    layui.use(['table','layer','laydate','form'], function(){
+        var table = layui.table;
+        var $ = layui.$;
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var layer = layui.layer;
+
+        //日期时间选择器
+        laydate.render({
+            elem: '#endTime'
+            ,type: 'datetime'
+        });
+        laydate.render({
+            elem: '#startTime'
+            ,type: 'datetime'
+        });
+
+        //初始化渲染
         table.render({
-            elem: '#test'
-            ,url:'/test/table/demo1.json'
-            ,toolbar: '#toolbarDemo'
+            elem: '#task_list'
+            ,url:'/task/selectEmpTask'
+            ,toolbar: '#headToolbar'
             ,title: '用户数据表'
+            ,parseData: function(res){ //res 即为原始返回的数据
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": res.message, //解析提示文本
+                    "count": res.count, //解析数据长度
+                    "data": res.data //解析数据列表
+                };
+            }
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
-                ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}
-                ,{field:'username', title:'用户名', width:120, edit: 'text'}
-                ,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
-                        return '<em>'+ res.email +'</em>'
-                    }}
-                ,{field:'sex', title:'性别', width:80, edit: 'text', sort: true}
-                ,{field:'city', title:'城市', width:100}
-                ,{field:'sign', title:'签名'}
-                ,{field:'experience', title:'积分', width:80, sort: true}
-                ,{field:'ip', title:'IP', width:120}
-                ,{field:'logins', title:'登入次数', width:100, sort: true}
-                ,{field:'joinTime', title:'加入时间', width:120}
-                ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+                ,{field:'id', title:'ID',hide: true}
+                ,{field:'content', title:'任务', }
+                ,{field:'startTime', title:'开始时间', sort: true}
+                ,{field:'endTime', title:'结束时间', sort: true}
+                ,{field:'empId', title:'员工号',templet: function(res){
+                        return res.employee.id }}
+                ,{fixed: 'right', title:'操作', toolbar: '#rowToolbar'}
             ]]
             ,page: true
         });
 
-        //头工具栏事件
-        table.on('toolbar(test)', function(obj){
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
+        //监听弹出层提交
+        form.on('submit(add)',function (obj) {
+            $.ajax({
+                url:'/task/upTask',
+                type: 'GET',
+                data: obj.field,
+                dataType: 'json',
+                success: function (res) {
+                    if (res > 0) {
+                        layer.msg("添加成功", {
+                            icon: 1,
+                            time: 1000,
+                            offset: '100px'
+                        });
+                        setTimeout('layer.closeAll(\'page\')', 1000);
+                        //重新刷新页面
+                        // 方式一（会闪）
+                        // setTimeout('window.location.reload()',1000);
+                        $.ajax({
+                            url:'/task/selectEmpTask',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (res) {
+                                    table.render({
+                                        elem: '#task_list'
+                                        ,toolbar: '#headToolbar'
+                                        ,title: '任务数据表'
+                                        ,data:res.data
+                                        ,cols: [[
+                                            {type: 'checkbox', fixed: 'left'}
+                                            ,{field:'id', title:'ID',hide: true}
+                                            ,{field:'content', title:'任务', }
+                                            ,{field:'startTime', title:'开始时间', sort: true}
+                                            ,{field:'endTime', title:'结束时间', sort: true}
+                                            ,{field:'empId', title:'员工号',templet: function(res){
+                                                    return res.employee.id }}
+                                            ,{fixed: 'right', title:'操作', toolbar: '#rowToolbar'}
+                                        ]]
+                                        ,page: true
+                                    });
+                            }
+                        })
+                    }else{
+                        layer.msg("添加失败", {
+                            icon: 2,
+                            time: 1000,
+                            offset: '100px'
+                        });
+                    }
+
+                },
+                error: function () {
+                    layer.alert("请求信息发生异常",{icon: 2});
+                }
+            })
+        })
+
+
+        //监听弹出层关闭按钮
+        $('#close-btn').on('click', function(){
+            layer.closeAll('page');
+        });
+
+
+        //监听表头工具栏按钮
+        table.on('toolbar(task)', function(obj){
+            // console.log(obj);
+            // console.log(obj.event);
+            switch (obj.event) {
+                case 'add':
+                //     // layer.msg(obj.event);
+                    //弹出层
+                    layer.open({
+                        title: '添加任务',
+                        offset: '10px',
+                        type: 1,
+                        content: $('#pop'),
+                    });
                     break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：'+ data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
-            };
+                case 'del_more':
+                    layer.msg(obj.event);
+            }
         });
 
         //监听行工具事件
-        table.on('tool(test)', function(obj){
+        table.on('tool(task)', function(obj){
             var data = obj.data;
             //console.log(obj)
             if(obj.event === 'del'){

@@ -16,8 +16,8 @@
     <!--</style>-->
 </head>
 <body>
-
-<form class="layui-form layui-form-pane" style="text-align: center; margin-top: 25px;">
+<script type="text/html" id="empToolbar">
+<form class="layui-form layui-form-pane" style="text-align: center;">
     <div class="layui-form-item layui-inline">
         <div class="layui-input-inline">
                 <input type="text" autocomplete="off" id="ipt" class="layui-input" placeholder="员工号/员工名/部门名">
@@ -38,7 +38,7 @@
         <button type="button" class="layui-btn" lay-submit lay-filter="show_all">显示全部</button>
     </div>
 </form>
-
+</script>
 
 <table class="layui-hide" id="employee_list"></table>
 <!--<script src="../layui/myindex.js" charset="utf-8"></script>-->
@@ -51,6 +51,7 @@
         var table = layui.table;
         var $ = layui.$;
         var form = layui.form;
+        var layer = layui.layer;
 
         /*form.on('select(selecting)', function(data){
             console.log(data.elem); //得到select原始DOM对象
@@ -60,14 +61,16 @@
         var params = {};
         form.on('submit(find)', function(data){
             var val = $("#ipt").val();
-            console.log(val);
+            // console.log(val);
             if (val == ""){
-                alert("请输入查询")
+                layer.alert("请输入查询",{icon: 3});
+                return;
             }else {
-                console.log("拿到val= " + val)
+                // console.log("拿到val= " + val)
                 var selected = data.field.selected;
                 if (selected == "") {
-                    alert("请选择查询类型")
+                    layer.alert("请选择查询类型",{icon: 3});
+                    return;
                 } else {
                     if (selected == 1) {
                         if (!isNaN(val)) { //isNaN 判断是否为非数字，
@@ -75,8 +78,10 @@
                                 empId: val
                             }
                         } else {
-                            console.log("selected == " + val)
-                            alert("请输入正确的员工号")
+                            // console.log("selected == " + val)
+                            layer.alert("请输入正确的员工号",{icon: 5});
+                            return;
+
                         }
                     }
                     if (selected == 2) {
@@ -85,8 +90,10 @@
                                 name: val
                             }
                         } else {
-                            console.log("selected == " + val)
-                            alert("请输入正确的员工名")
+                            // console.log("selected == " + val)
+                            layer.alert("请输入正确的员工名",{icon: 5});
+                            return;
+
                         }
                     }
 
@@ -96,8 +103,9 @@
                                 departName: val
                             }
                         } else {
-                            console.log("selected == " + val)
-                            alert("请输入正确的部门名")
+                            // console.log("selected == " + val)
+                            layer.alert("请输入正确的部门名",{icon: 5});
+                            return;
                         }
                     }
                 }
@@ -112,6 +120,7 @@
                     table.render({
                         elem: '#employee_list',
                         data: res.data,
+                        toolbar: '#empToolbar',
                         cols: [[
                             {field:'id', title: '员工号',sort: true}
                             ,{field:'name', title: '员工名'}
@@ -125,7 +134,7 @@
                     });
                 },
                 error: function () {
-                    alert("请求信息发生异常");
+                    layer.alert("请求信息发生异常",{icon: 2});
                 }
             })
         });
@@ -135,6 +144,7 @@
                 elem: '#employee_list',
                 url:'/emp/selectAllEmp',
                 type: 'GET',
+                toolbar: '#empToolbar',
                 // contentType:'application/json',
                 request: {
                     pageName: 'page', //页码的参数名称，默认：page
@@ -174,6 +184,7 @@
             elem: '#employee_list',
             url:'/emp/selectAllEmp',
             type: 'GET',
+            toolbar: '#empToolbar',
             // contentType:'application/json',
             request: {
                 pageName: 'page', //页码的参数名称，默认：page

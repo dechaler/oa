@@ -1,6 +1,5 @@
 layui.define(['index', "form"], function(exports){
-    var $ = layui.$
-        ,form = layui.form;
+    var $ = layui.$,form = layui.form;
     form.render();
     // 验证
     form.verify({

@@ -12,7 +12,7 @@
         <if test="startTime != null and startTime != ''">
         start_time,
         </if>
-        <if test="endTime != null and endTime != ''">=
+        <if test="endTime != null and endTime != ''">
         end_time,
         </if>
         emp_id)
@@ -50,10 +50,16 @@
             <result property="name" column="emp_name"/>
         </association>
     </resultMap>
-    <select id="selectEmpTaskByEmpId" parameterType="Integer" resultMap="selectEmpTaskByEmpIdMap">
+    <select id="selectEmpTaskByEmpId" resultMap="selectEmpTaskByEmpIdMap">
         SELECT t.*, e.id eid,e.emp_name FROM task t
         LEFT JOIN employee e ON
-        t.emp_id = e.id WHERE emp_id = #{empId}
+        t.emp_id = e.id
+        <where>
+           <if test="empId != null">
+               emp_id = #{empId}
+           </if>
+        </where>
+        ORDER BY t.id DESC
     </select>
 
     <!--修改任务-->
@@ -61,5 +67,16 @@
         UPDATE task SET content = #{task.content},start_time=#{task.startTime},end_time=#{task.endTime}
         WHERE id = #{id};
     </update>
+
+
+
+    <!--初始化数据-->
+    <insert id="initTaskInfo" useGeneratedKeys="true">
+        INSERT task(content,start_time,end_time,emp_id) VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.content},#{item.startTime},#{item.endTime},#{item.employee.id})
+        </foreach>
+
+    </insert>
 
 </mapper>

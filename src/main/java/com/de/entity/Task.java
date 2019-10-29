@@ -78,7 +78,7 @@ public class Task {
                 ", content='" + content + '\'' +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
-                ", employee=" + employee.getName() +
+                ", employee=" + employee.getId() +
                 '}';
     }
 }

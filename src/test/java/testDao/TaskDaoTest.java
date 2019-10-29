@@ -63,8 +63,9 @@ public class TaskDaoTest {
         }
     }
 
-    public void selectEmpTaskByEmpId(Integer id){
-        List<Task> tasks = taskDao.selectEmpTaskByEmpId(id);
+    @Test
+    public void selectEmpTaskByEmpId(){
+        List<Task> tasks = taskDao.selectEmpTaskByEmpId(100000);
         for (Task task : tasks) {
             System.out.println(task);
         }
