@@ -7,8 +7,17 @@
 <body>
 <!--测试视图解析器解析html-->
 
-    <form method="get" action="/test/jump">
-        <button type="submit">提交</button>
-    </form>
+        <input type="text" name="name" id="ipt">
+        <button type="submit" id="sub">提交</button>
+
+<script>
+    var id = document.getElementById("sub");
+    var ipt = document.getElementById("ipt");
+    id.addEventListener('click',function (ev) {
+        console.log(ipt.value);
+    })
+
+</script>
+
 </body>
 </html>

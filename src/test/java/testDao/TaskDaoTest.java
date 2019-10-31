@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,5 +77,15 @@ public class TaskDaoTest {
         if (i > 0) {
             System.out.println("成功修改" + i + "条任务");
         }
+    }
+
+    @Test
+    public void deleteTaskByIds() {
+        List<Integer> list = new ArrayList<>();
+        list.add(522);
+        list.add(521);
+        list.add(524);
+        int i = taskDao.deleteTaskByIds(list);
+        System.out.println("成功删除 " + i + "条数据");
     }
 }

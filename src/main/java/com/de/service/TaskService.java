@@ -35,6 +35,17 @@ public interface TaskService {
     int deleteTaskById(Integer id);
 
     /**
+     *@描述信息：批量删除
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/10/30
+     */
+    int deleteTaskByIds(List<Integer> tIds);
+
+
+    /**
      *@描述信息：查询所属员工的任务
      *
      * @参数：员工编号

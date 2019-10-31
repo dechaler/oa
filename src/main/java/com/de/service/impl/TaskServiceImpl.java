@@ -32,6 +32,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public int deleteTaskByIds(List<Integer> tIds) {
+        int result = taskDao.deleteTaskByIds(tIds);
+        return result;
+    }
+
+    @Override
     public List<Task> selectEmpTaskByEmpId(Integer empId) {
             List<Task> tasks = taskDao.selectEmpTaskByEmpId(empId);
             return tasks;

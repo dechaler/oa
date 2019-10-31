@@ -34,6 +34,15 @@
         DELETE FROM task WHERE id =#{id};
     </delete>
 
+    <!--批量删除-->
+    <delete id="deleteTaskByIds" >
+        DELETE FROM task WHERE id in(
+        <foreach collection="list" item="item" separator=",">
+            #{item}
+        </foreach>
+        )
+    </delete>
+
 
     <!--查询所属员工的任务-->
     <!--private String content;-->

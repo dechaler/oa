@@ -10,10 +10,12 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,4 +74,21 @@ public class TaskController {
        return ResponseInfo.verifyDatas(response, re);
    }
 
+    @ResponseBody
+    @RequestMapping(value = "/deleteTasks",method = RequestMethod.POST)
+    public int deleteTasks(String taskIds, HttpServletResponse response) {
+        //取参数
+        System.out.println(taskIds);
+        String substr = taskIds.substring(1, taskIds.length()- 1);
+        String[] split = substr.split(",");
+        List<Integer> tIds = new ArrayList<>();
+
+        for (String s: split) {
+            tIds.add(Integer.valueOf(s));
+        }
+        System.out.println(tIds);
+        int re = taskService.deleteTaskByIds(tIds);
+        re = ResponseInfo.verifyDatas(response,re);
+        return re;
+    }
 }

@@ -27,7 +27,7 @@ public class TaskInit {
 
 
     public List<Task> init() throws ParseException {
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 100; i++) {
             Task  task = new Task();
             Date date = new Date();
             String startTime = DateUtils.dateToStrDateTime(date,DateUtils.DATEFORMATWITHTIME);
@@ -39,7 +39,8 @@ public class TaskInit {
             String content = "xxx任务";
             task.setContent(content);
             Employee employee = new Employee();
-            int empId = 100000 + (new Random().nextInt(50));
+//            int empId = 100000 + (new Random().nextInt(50));
+            int empId = 100000;
             employee.setId(empId);
             task.setEmployee(employee);
             list.add(task);

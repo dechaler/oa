@@ -1,33 +1,91 @@
-/**
- 项目JS主入口
- 以依赖layui的layer和form模块为例
- **/
+//jquery
+//请求session
+// $(function(){
+//     $.ajax({
+//                 url: "../RequiredSession",
+//                 type: "POST",
+//                 dataType: "json",
+//                 async: false,
+//                 success:function (res) {
+//                     if (res.code == 0){
+//                         console.log(res);
+//                         $("#black_box").hide();
+//                         $("#emp").html(res.data.employee.name);
+//                     }else {
+//                         alert("请先登录");
+//                         location.href = "login.html";
+//                     }
+//                 }
+//             })
+// })
 
-layui.use(['element','table',], function(){
+//layui 组件
+layui.use(['layer', 'form','element'], function() {
+    var $ = layui.$;
     var element = layui.element;
+    var layer = layui.layer;
 
-    var table = layui.table;
-    //第一个实例
-    table.render({
-        elem: '#demo'
-        ,height: 312
-        ,url: 'demo/table/user//' //数据接口
-        ,page: true //开启分页
-        ,cols: [[ //表头
-            {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
-            ,{field: 'username', title: '用户名', width:80}
-            ,{field: 'sex', title: '性别', width:80, sort: true}
-            ,{field: 'city', title: '城市', width:80}
-            ,{field: 'sign', title: '签名', width: 177}
-            ,{field: 'experience', title: '积分', width: 80, sort: true}
-            ,{field: 'score', title: '评分', width: 80, sort: true}
-            ,{field: 'classify', title: '职业', width: 80}
-            ,{field: 'wealth', title: '财富', width: 135, sort: true}
-        ]]
+
+    /*请求主页判断session
+    $.ajax({
+        url: "../RequiredSession",
+        type: "POST",
+        dataType: "json",
+        async: false,
+        success: function (res) {
+            if (res.code == 0) {
+                $("#black_box").hide();
+                $("#emp").html(res.data[0].name);
+            } else {
+                // alert("请先登录");
+                location.href = "login.html";
+            }
+        },
+        error: function () {
+            alert("访问异常");
+            location.href = "login.html";
+        }
+    });*/
+    //退出
+    $("#logout").on('click',function(e){
+        e.preventDefault();
+        layer.confirm('确定退出吗？', {icon: 3, title:'提示'},function(index){
+            //do something
+            // layer.close(index);
+            $.ajax({
+                url: "../emp/logout",
+                type: "POST",
+                success: function (res) {
+                    if (res == 1) {
+                        location.href="./login.html";
+                    }
+                }
+            })
+
+        });
+    });
+    
+
+       /* 模拟单页跳转*/
+        $("dd>a, .index").click(function (e) {
+            e.preventDefault();
+            $("#iframeMain").attr("src",$(this).attr("href"));
+        });
+
+});
+// layui.config({
+//     base: '../js/' //你存放新模块的目录，注意，不是layui的模块目录
+// }).use('index'); //加载入口
+
+//模拟单页跳转
+/*
+$(document).ready(function(){
+    $("dd>a, .index").click(function (e) {
+        e.preventDefault();
+        $("#iframeMain").attr("src",$(this).attr("href"));
     });
 });
-
-
+*/
 
 
 
