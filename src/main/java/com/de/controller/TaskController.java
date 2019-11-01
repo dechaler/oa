@@ -38,11 +38,11 @@ public class TaskController {
 
     @ResponseBody
     @RequestMapping("/selectEmpTask")
-    public JsonResultType<Task> selectEmpTask(/*@SessionAttribute Employee employee,*/ RequestParams params, HttpServletResponse response) {
+    public JsonResultType<Task> selectEmpTask(@SessionAttribute Employee employee, RequestParams params, HttpServletResponse response) {
         int page = params.getPage();
         int limit = params.getLimit();
-        Integer empId = 100000;
-//       Integer empId = employee.getId();
+//        Integer empId = 100000;
+       Integer empId = employee.getId();
         PageHelper.startPage(page,limit);
        List<Task> tasks = taskService.selectEmpTaskByEmpId(empId);
        pageInfo = new PageInfo<>(tasks);

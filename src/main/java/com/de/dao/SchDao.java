@@ -45,4 +45,17 @@ public interface SchDao {
      */
 
     int delSchById(Integer id);
+    
+    
+    
+    
+    /**
+     *@描述信息：初始化日程数据
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/1
+     */
+    int initSch(List<Schedule> list);
 }

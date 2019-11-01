@@ -45,4 +45,13 @@
         DELETE FROM `schedule` WHERE id = #{id};
     </delete>
 
+
+
+    <insert id="initSch" useGeneratedKeys="true">
+        INSERT INTO `schedule`(sch_task,start_time,emp_id) values
+          <foreach collection="list" item="item" separator=",">
+              (#{item.schTask},#{item.startTime},#{item.employee.id})
+          </foreach>
+    </insert>
+
 </mapper>

@@ -34,8 +34,9 @@ public class SchController {
 
     @RequestMapping("/selectSch")
     @ResponseBody
-    public JsonResultType<Schedule> selectSchByDepartIdAndDate(RequestParams params, HttpServletResponse response, @SessionAttribute Employee employee) {
+    public JsonResultType<Schedule> selectSchByDepartIdAndDate(RequestParams params, HttpServletResponse response ,@SessionAttribute Employee employee) {
         Integer departId = employee.getDepartment().getId();
+//        Integer departId = params.getDepartId();
         String date = params.getDate();
         int page = params.getPage();
         int limit = params.getLimit();
