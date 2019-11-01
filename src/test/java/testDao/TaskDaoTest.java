@@ -1,5 +1,6 @@
 package testDao;
 
+import com.de.Utils.DateUtils;
 import com.de.dao.TaskDao;
 import com.de.entity.Task;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,11 +37,6 @@ public class TaskDaoTest {
 //       deleteTaskById(1);
 //       selectEmpTaskByEmpId(1000);
 
-
-        task.setContent("写代码");
-        task.setStartTime("2019-9-12");
-        task.setEndTime("2019-9-15");
-        updateTaskById(2,task);
     }
 
 
@@ -72,11 +69,14 @@ public class TaskDaoTest {
         }
 
     }
-    public void updateTaskById(Integer id, Task task){
-        int i = taskDao.updateTaskById(id, task);
-        if (i > 0) {
+    @Test
+    public void updateTaskById() throws ParseException {
+        Task task = new Task();
+        task.setContent("吃饭");
+        task.setStartTime(DateUtils.dateToStrDateTime(new Date(),DateUtils.DATEFORMATWITHTIME));
+        task.setEndTime(DateUtils.dateToStrDateTime(new Date(),DateUtils.DATEFORMATWITHTIME));
+        int i = taskDao.updateTaskById(728, task);
             System.out.println("成功修改" + i + "条任务");
-        }
     }
 
     @Test

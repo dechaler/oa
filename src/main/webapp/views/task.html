@@ -11,41 +11,84 @@
     <!--<style>-->
     <!--body .btn-class .layui-layer-btn .layui-layer-btn0{background:#009688; }-->
     <!--</style>-->
-
+<style>
+    .form-item{
+        margin-bottom: 8px;
+    }
+</style>
 </head>
 <body>
 <!--添加数据弹出层 start-->
-<form class="layui-form" id="pop" hidden="hidden">
-    <div class="layui-form-item" style="margin-top: 15px">
+<form class="layui-form" id="pop-add" hidden="hidden">
+    <div class="layui-form-item form-item" style="margin-top: 3%;">
         <label class="layui-form-label">计划任务</label>
         <div class="layui-input-inline">
-            <input type="text" autocomplete="off" id="ipt" name="content" lay-verify="required" class="layui-input" placeholder="请输入计划任务">
+            <input type="text" autocomplete="off" id="ipt-add" name="content" lay-verify="required" class="layui-input" placeholder="请输入计划任务">
         </div>
     </div>
 
-    <div class="layui-form-item">
-        <div class="layui-inline">
+    <div class="layui-form-item form-item">
+        <div class="layui-inline"  style="margin-bottom: 0;">
             <label class="layui-form-label">开始时间</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="startTime" id="startTime" lay-verify="required" placeholder="请选择开始时间">
+                <input type="text" autocomplete="off" class="layui-input" name="startTime" id="startTime-add" lay-verify="required" placeholder="请选择开始时间">
             </div>
         </div>
     </div>
-    <div class="layui-form-item">
-        <div class="layui-inline">
+    <div class="layui-form-item form-item">
+        <div class="layui-inline" style="margin-bottom: 0;">
             <label class="layui-form-label">结束时间</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="endTime" id="endTime" lay-verify="required|empty" placeholder="请选择结束时间">
+                <input type="text" autocomplete="off" class="layui-input" name="endTime" id="endTime-add" lay-verify="required|empty" placeholder="请选择结束时间">
             </div>
         </div>
     </div>
-    <div class="layui-form-item layui-inline" style="text-align:center; width: 100%; margin-top: 20px; margin-bottom: 30px">
+    <div class="layui-form-item layui-inline" style="text-align:center; width: 100%; margin-top: 6%; margin-bottom: 30px">
         <button type="button" class="layui-btn layui-btn" lay-submit lay-filter="add">添加</button>
-        <button type="button" class="layui-btn layui-btn-primary" lay-filter="close" id="close-btn">关闭</button>
+        <button type="button" class="layui-btn layui-btn-primary" lay-filter="close" id="close-btn-add">关闭</button>
     </div>
 </form>
-
 <!--添加数据弹出层 end-->
+
+<!--修改数据弹出层 start-->
+<form class="layui-form" id="pop-edit" hidden="hidden">
+
+    <div class="layui-form-item form-item" hidden="hidden">
+        <div class="layui-input-inline">
+            <input type="text" autocomplete="off" id="taskId-edit" name="taskId">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item form-item" style="margin-top: 3%;">
+        <label class="layui-form-label">计划任务</label>
+        <div class="layui-input-inline">
+            <input type="text" autocomplete="off" id="ipt-edit" name="content" lay-verify="required" class="layui-input" placeholder="请输入计划任务">
+        </div>
+    </div>
+
+    <div class="layui-form-item form-item">
+        <div class="layui-inline"  style="margin-bottom: 0;">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="startTime" id="startTime-edit" lay-verify="required" placeholder="请选择开始时间">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item form-item">
+        <div class="layui-inline" style="margin-bottom: 0;">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input" name="endTime" id="endTime-edit" lay-verify="required|empty" placeholder="请选择结束时间">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-inline" style="text-align:center; width: 100%; margin-top: 6%; margin-bottom: 30px">
+        <button type="button" class="layui-btn layui-btn" lay-submit lay-filter="edit">修改</button>
+        <button type="button" class="layui-btn layui-btn-primary" lay-filter="close" id="close-btn-edit">关闭</button>
+    </div>
+</form>
+<!--修改数据弹出层 end-->
 
 <table class="layui-hide" id="task_list" lay-filter="task"></table>
 

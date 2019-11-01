@@ -33,15 +33,26 @@ layui.use(['table','layer','laydate','form'], function(){
             }
         });
     };
+
     //日期时间选择器
     laydate.render({
-        elem: '#endTime'
+        elem: '#endTime-add'
         ,type: 'datetime'
     });
     laydate.render({
-        elem: '#startTime'
+        elem: '#startTime-add'
         ,type: 'datetime'
     });
+    laydate.render({
+        elem: '#endTime-edit'
+        ,type: 'datetime'
+    });
+    laydate.render({
+        elem: '#startTime-edit'
+        ,type: 'datetime'
+    });
+
+
 
     //初始化渲染
     table.render({
@@ -74,7 +85,14 @@ layui.use(['table','layer','laydate','form'], function(){
 
 
     //监听弹出层关闭按钮
-    $('#close-btn').on('click', function(){
+    $('#close-btn-add').on('click', function(){
+        layer.closeAll('page');
+        $("#ipt-add").val("");
+        $("#startTime-add").val("");
+        $("#endTime-add").val("");
+    });
+
+    $('#close-btn-edit').on('click', function(){
         layer.closeAll('page');
     });
 
@@ -91,7 +109,7 @@ layui.use(['table','layer','laydate','form'], function(){
                     title: '添加任务',
                     offset: 't',
                     type: 1,
-                    content: $('#pop'),
+                    content: $('#pop-add'),
                 });
                 break;
             case 'del_more':
@@ -137,11 +155,11 @@ layui.use(['table','layer','laydate','form'], function(){
         }
     });
 
-    //监听弹出层提交
+    //监听添加弹出层提交
     form.on('submit(add)',function (obj) {
         $.ajax({
             url:'/task/upTask',
-            type: 'GET',
+            type: 'POST',
             data: obj.field,
             dataType: 'json',
             success: function (res) {
@@ -153,11 +171,14 @@ layui.use(['table','layer','laydate','form'], function(){
                     });
                     // setTimeout('layer.closeAll(\'page\')', 1000);
                     setTimeout(()=>layer.closeAll('page'),1000);
-
+                    //重置输入框
+                    $("#ipt-add").val("");
+                    $("#startTime-add").val("");
+                    $("#endTime-add").val("");
                     //重新刷新页面
                     // 方式一（会闪）
                     // setTimeout('window.location.reload()',1000);
-                    reqDatas("/task/selectEmpTask",res.data);
+                    reqDatas("/task/selectEmpTask",null);
 
                 }else{
                     layer.msg("添加失败", {
@@ -174,25 +195,94 @@ layui.use(['table','layer','laydate','form'], function(){
         })
     });
 
+    //监听修改弹出层提交
+    form.on('submit(edit)',function (obj) {
+        console.log(obj.field);
+        $.ajax({
+            url:'/task/updateTask',
+            type: 'POST',
+            data: obj.field,
+            dataType: 'json',
+            success: function (res) {
+                if (res > 0) {
+                    layer.msg("修改成功", {
+                        icon: 1,
+                        time: 1000,
+                        offset: ''
+                    });
+                    console.log(res);
+                    // setTimeout('layer.closeAll(\'page\')', 1000);
+                    setTimeout(()=>layer.closeAll('page'),1000);
+                    //重新刷新页面
+                    // 方式一（会闪）
+                    // setTimeout('window.location.reload()',1000);
+                    reqDatas("/task/selectEmpTask",null);
+                }else{
+                    layer.msg("您没修改任何信息", {
+                        icon: 1,
+                        time: 1000,
+                        offset: '100px'
+                    });
+                    setTimeout(()=>layer.closeAll('page'),1000);
+                }
+            },
+            error: function () {
+                layer.alert("请求信息发生异常", {icon: 2, title: '提示', offset: '100px'});
+            }
+        })
+    });
+
+
+
     //监听行工具事件
     table.on('tool(task)', function(obj){
         var data = obj.data;
-        //console.log(obj)
-        if(obj.event === 'del'){
-            layer.confirm('真的删除行么', function(index){
-                obj.del();
-                layer.close(index);
-            });
-        } else if(obj.event === 'edit'){
-            layer.prompt({
-                formType: 2
-                ,value: data.email
-            }, function(value, index){
-                obj.update({
-                    email: value
+        var id = data.id;
+        switch (obj.event) {
+            case 'edit':
+                // layer.msg(obj.event);
+                $("#taskId-edit").val(id);
+                $("#ipt-edit").val(data.content);
+                $("#startTime-edit").val(data.startTime);
+                $("#endTime-edit").val(data.endTime);
+                layer.open({
+                    title: '修改任务',
+                    offset: 't',
+                    type: 1,
+                    content: $('#pop-edit'),
                 });
-                layer.close(index);
-            });
+                break;
+            case 'del':
+                // layer.msg(obj.event);
+                // layer.confirm()
+                layer.confirm('确定要删除信息吗？', {
+                    icon: 3,
+                    title: '提示',
+                    offset: '100px'
+                }, function (index) {
+                    $.ajax({
+                        url: '/task/deleteTask',
+                        type: 'POST',
+                        data: {"taskId":id},
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res > 0) {
+                                layer.msg("删除成功", {
+                                    icon: 1,
+                                    time: 1000,
+                                    offset: '100px'
+                                });
+                            }
+                            // setTimeout(()=>layer.close(index),1000);
+                            reqDatas("/task/selectEmpTask",res.data);
+                        },
+                        error: function () {
+                            layer.alert("请求信息发生异常",{icon: 2,title:'提示'});
+                        }
+                    })
+                });
+
+                break;
         }
     });
 });
