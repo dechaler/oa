@@ -170,11 +170,13 @@ layui.use(['table','layer','laydate','form'], function(){
                         offset: ''
                     });
                     // setTimeout('layer.closeAll(\'page\')', 1000);
-                    setTimeout(()=>layer.closeAll('page'),1000);
                     //重置输入框
-                    $("#ipt-add").val("");
-                    $("#startTime-add").val("");
-                    $("#endTime-add").val("");
+                    setTimeout(()=>layer.closeAll('page'),1000);
+                    setTimeout(function () {
+                        $("#ipt-add").val("");
+                        $("#startTime-add").val("");
+                        $("#endTime-add").val("");
+                    },1050);
                     //重新刷新页面
                     // 方式一（会闪）
                     // setTimeout('window.location.reload()',1000);

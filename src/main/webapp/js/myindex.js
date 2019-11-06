@@ -26,7 +26,7 @@ layui.use(['layer', 'form','element'], function() {
     var layer = layui.layer;
 
 
-    /*请求主页判断session
+    //请求主页判断session
     $.ajax({
         url: "../RequiredSession",
         type: "POST",
@@ -45,7 +45,8 @@ layui.use(['layer', 'form','element'], function() {
             alert("访问异常");
             location.href = "login.html";
         }
-    });*/
+    });
+
     //退出
     $("#logout").on('click',function(e){
         e.preventDefault();

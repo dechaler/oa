@@ -49,4 +49,15 @@
     <delete id="deleteFileById" parameterType="Integer">
         DELETE FROM `file` WHERE id = #{id};
     </delete>
+
+
+
+    <!--初始化文件信息-->
+    <insert id="FileInit" useGeneratedKeys="true">
+        INSERT INTO `file`(file_name,emp_id,upload_time,file_path)
+        VALUES
+        <foreach collection="list" item="file" separator=",">
+            (#{file.fileName},#{file.employee.id},#{file.upTime},#{file.filePath})
+        </foreach>
+    </insert>
 </mapper>

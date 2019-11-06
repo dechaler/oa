@@ -67,4 +67,16 @@ public interface FileDao {
     
     int deleteFileById(Integer id);
 
+
+    /**
+     *@描述信息：初始化文件信息
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/2
+     */
+
+    int FileInit(List<File> list);
+
 }

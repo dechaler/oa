@@ -28,6 +28,12 @@ public class FileServiceImpl implements FileService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public int upLoadFile(File file, java.io.File srcFile) throws IOException {
+        if (srcFile.exists()) {
+            String path = file.getFilePath();
+            java.io.File desFile = new java.io.File(path);
+            FileUtils.copyFile(srcFile, desFile);
+            return 1;
+        }
         int re = fileDao.upLoadFile(file);
         //其他操作
         if (re > 0) {

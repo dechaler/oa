@@ -8,44 +8,88 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <style>
+        .form-tool{
+            height: 39px;
+        }
+        .ipt-find{
+            left: 20%;
+        }
+    </style>
 </head>
-<body>
 
-<table class="layui-hide" id="test"></table>
+<table class="layui-hide" id="file_list" lay-filter="file_list"></table>
+<!--<table class="layui-table" id="file_list"></table>-->
+
+
+<!--头部工具栏-->
+<script type="text/html" id="hearToolbar">
+        <form class="layui-form layui-form-pane form-tool">
+            <div class="layui-form-item layui-inline">
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart">只看部门文件</button>
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="findAll"  lay-filter="findAll"  id="findAll">查看全部文件</button>
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File">
+                    <i class="layui-icon">&#xe601;</i> 批量下载</button>
+
+                <button type="button" class="layui-btn layui-btn-sm  layui-btn-danger" lay-event="myFile" lay-filter="myFile" id="myFile">
+                    <i class="layui-icon">&#xe66f;</i>管理我的文件</button>
+
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="upload"  lay-filter="upload" id="upload">
+                    <i class="layui-icon">&#xe67c;</i>上传文件</button>
+            </div>
+
+                <div class="layui-form-item layui-inline ipt-find">
+                    <div class="layui-input-inline">
+                        <input type="text" autocomplete="off"  lay-filter="find" class="layui-input ipt" placeholder="请输入文件名">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline ipt-find">
+                    <div class="layui-input-inline">
+                        <button type="button" class="layui-btn" lay-submit lay-filter="find">查找</button>
+                    </div>
+                </div>
+        </form>
+</script>
+
+<!--管理文件头部工具栏-->
+<script type="text/html" id="myHearToolbar">
+    <form class="layui-form layui-form-pane form-tool">
+        <div class="layui-form-item layui-inline">
+            <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart1">只看部门文件</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-event="findAll"  lay-filter="findAll"  id="findAll1">查看全部文件</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File1">
+                <i class="layui-icon">&#xe601;</i> 批量下载</button>
+
+            <button type="button" class="layui-btn layui-btn-sm  layui-btn-danger" lay-event="del_more" lay-filter="del_more" id="del_more">
+                <i class="layui-icon">&#xe640;</i>批量删除</button>
+
+            <button type="button" class="layui-btn layui-btn-sm" id="upload1" lay-event="upload1"  lay-filter="upload1">
+                <i class="layui-icon">&#xe67c;</i>上传文件</button>
+        </div>
+
+        <div class="layui-form-item layui-inline ipt-find">
+            <div class="layui-input-inline">
+                <input type="text" autocomplete="off"  lay-filter="find" class="layui-input ipt" placeholder="请输入文件名">
+            </div>
+        </div>
+        <div class="layui-form-item layui-inline ipt-find">
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn" lay-submit lay-filter="find">查找</button>
+            </div>
+        </div>
+    </form>
+</script>
+
+
+<!--列工具栏-->
+
+<script type="text/html" id="rowToolbar">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
 
 
 <script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../js/file.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
-
-<script>
-    layui.use('table', function(){
-        var table = layui.table;
-
-        table.render({
-            elem: '#test'
-            ,url:'/demo/table/user/'
-            ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-                //,curr: 5 //设定初始在第 5 页
-                ,groups: 1 //只显示 1 个连续页码
-                ,first: false //不显示首页
-                ,last: false //不显示尾页
-
-            }
-            ,cols: [[
-                {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:100, title: '用户名'}
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'city', width:80, title: '城市'}
-                ,{field:'sign', title: '签名', minWidth: 150}
-                ,{field:'experience', width:80, title: '积分', sort: true}
-                ,{field:'score', width:80, title: '评分', sort: true}
-                ,{field:'classify', width:80, title: '职业'}
-                ,{field:'wealth', width:135, title: '财富', sort: true}
-            ]]
-
-        });
-    });
-</script>
 </body>
 </html>

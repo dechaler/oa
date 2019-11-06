@@ -34,7 +34,6 @@ layui.use(['table','layer'], function(){
 
     //头工具栏事件
     table.on('toolbar(sch_list)', function(obj){
-
         switch (obj.event) {
             case 'findToday':
                 // layer.msg(obj.event);
@@ -52,7 +51,6 @@ layui.use(['table','layer'], function(){
                     data: {"date":dateFormat},
                     dataType: 'json',
                     success: function (res) {
-                        console.log(res.data);
                         table.render({
                             elem: '#sch_list'
                             ,toolbar: '#hearToolbar'
