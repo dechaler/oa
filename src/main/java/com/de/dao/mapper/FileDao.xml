@@ -27,7 +27,7 @@
         SELECT f.id,f.file_name, f.`file_path`,f.`upload_time`,e.`emp_name`,d.id did,d.`depart_name`
         FROM `file` f
         INNER JOIN employee e ON e.`id` = f.`emp_id`
-        INNER JOIN department d ON e.`depart_id` = d.`id`
+        INNER JOIN department d ON e.`depart_id` = d.`id` order by f.id desc
     </select>
 
     <select id="selectFileByDepartIdAndEmpId" resultMap="selectAllFileMap">
@@ -40,14 +40,23 @@
                 and  d.`id` = #{departId}
             </if>
             <if test="empId != null">
-                AND e.`id` = #{empId};
+                AND e.`id` = #{empId}
             </if>
         </where>
+        order by f.id desc
     </select>
 
+    <!--通过文件名查询文件-->
+    <select id="selectFileByFileName" resultMap="selectAllFileMap">
+        SELECT f.`id`,f.file_name, f.`file_path`,f.`upload_time`,e.`emp_name`,d.`id`,d.`depart_name` FROM `file` f
+          INNER JOIN employee e ON e.`id` = f.`emp_id`
+          INNER JOIN department d ON e.`depart_id` = d.`id`
+          WHERE file_name LIKE '%${name}%' ORDER BY f.id DESC
+
+    </select>
     <!--通过id删除文件-->
     <delete id="deleteFileById" parameterType="Integer">
-        DELETE FROM `file` WHERE id = #{id};
+        DELETE FROM `file` WHERE id = #{id}
     </delete>
 
 

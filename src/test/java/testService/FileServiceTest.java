@@ -44,12 +44,12 @@ public class FileServiceTest {
         file.setFilePath(desPath);
         file.setFileName(srcFile.getName());
         file.setEmployee(employee);
-        int re = fileService.upLoadFile(file, srcFile);
-        if (re > 0) {
-            System.out.println("成功上传");
-        } else {
-            System.out.println("上传失败");
-        }
+//        int re = fileService.upLoadFile(file, srcFile);
+//        if (re > 0) {
+//            System.out.println("成功上传");
+//        } else {
+//            System.out.println("上传失败");
+//        }
     }
 
     @Test

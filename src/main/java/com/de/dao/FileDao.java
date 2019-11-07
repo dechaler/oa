@@ -56,6 +56,19 @@ public interface FileDao {
 
     List<File> selectFileByDepartIdAndEmpId(@Param("departId") Integer departId, @Param("empId") Integer empId);
 
+
+
+    /**
+     *@描述信息：根据名字查询文件
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/7
+     */
+
+    List<File> selectFileByFileName(@Param("name") String name);
+
     /**
      *@描述信息：根据文件编号删除文件
      *
@@ -78,5 +91,8 @@ public interface FileDao {
      */
 
     int FileInit(List<File> list);
+
+
+
 
 }

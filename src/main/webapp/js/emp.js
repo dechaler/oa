@@ -109,31 +109,6 @@ layui.use(['table','layer','form'], function(){
 
     //显示全部
     form.on('submit(show_all)', function(){
-        // $.ajax({
-        //     url:'/emp/selectAllEmp',
-        //     type: 'GET',
-        //     dataType: 'json',
-        //     success: function (res) {
-        //         table.render({
-        //             elem: '#employee_list',
-        //             data: res.data,
-        //             toolbar: '#empToolbar',
-        //             cols: [[
-        //                 {field:'id', title: '员工号',sort: true}
-        //                 ,{field:'name', title: '员工名'}
-        //                 ,{field:'sex',  title: '性别'}
-        //                 ,{field:'age',  title: '年龄',sort: true}
-        //                 ,{field:'inerDate', title: '入职时间',sort: true}
-        //                 ,{field:'job_name', title:'职位',templet: '#job_name'}
-        //                 ,{field:'department_name',  title: '所属部门',templet: '#depart_name'}
-        //             ]]
-        //             ,page: true
-        //         });
-        //     },
-        //     error: function () {
-        //         layer.alert("请求信息发生异常",{icon: 2});
-        //     }
-        // })
         var params = {};
         reqDatatoTable(params);
     });

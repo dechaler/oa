@@ -2,6 +2,7 @@ package com.de.controller;
 
 import com.de.Utils.*;
 import com.de.entity.Employee;
+import com.de.entity.File;
 import com.de.service.FileService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,29 +32,36 @@ public class FIleController {
     @Autowired
     private FileService fileService;
     @Autowired
-    private JsonResultType<com.de.entity.File> jsonResultType;
+    private JsonResultType<File> jsonResultType;
     private PageInfo<com.de.entity.File> pageInfo;
 
 
 
     @RequestMapping(value = "/upLoadFile", method = RequestMethod.POST)
     @ResponseBody
-    public int upLoadFile(@SessionAttribute Employee employee, MultipartFile file,HttpServletResponse response) throws IOException, ParseException {
-        com.de.entity.File fileInfo = new com.de.entity.File();
+    public int upLoadFile(@SessionAttribute Employee employee, MultipartFile srcFile,HttpServletResponse response) throws IOException, ParseException {
+        String path = null;
+        File fileInfo = new File();
         fileInfo.setEmployee(employee);
-        fileInfo.setFileName(file.getOriginalFilename());
+        fileInfo.setFileName(srcFile.getOriginalFilename());
         fileInfo.setUpTime(DateUtils.dateToStrDateTime(new Date(),DateUtils.DATEFORMATWITHTIME));
-        String path = MyFileUtils.UPLOAD_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + file.getOriginalFilename();
+        if (OsUtils.isWinOs()){
+            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + srcFile.getOriginalFilename();
+        }
+
+        if (OsUtils.isLinOs()){
+//            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + srcFile.getOriginalFilename();
+        }
         fileInfo.setFilePath(path);
-//        int re = fileService.upLoadFile(fileInfo, file);
-//        re = ResponseInfo.verifyDatas(response,re);
-        return 1;
+        int re = fileService.upLoadFile(fileInfo, srcFile);
+        re = ResponseInfo.verifyDatas(response,re);
+        return re;
     }
 
 
     @RequestMapping("/selectAllFile")
     @ResponseBody
-    public JsonResultType<com.de.entity.File> selectAllFile(RequestParams params,HttpServletResponse response) {
+    public JsonResultType<File> selectAllFile(RequestParams params,HttpServletResponse response) {
         int page = params.getPage();
         int limit = params.getLimit();
         PageHelper.startPage(page,limit);
@@ -65,18 +73,33 @@ public class FIleController {
 
     @RequestMapping("/selectFileByDepartIdAndEmpId")
     @ResponseBody
-    public JsonResultType<com.de.entity.File> selectFileByDepartIdAndEmpId(@SessionAttribute Employee employee, RequestParams params,HttpServletResponse response) {
+    public JsonResultType<File> selectFileByDepartIdAndEmpId(@SessionAttribute Employee employee, RequestParams params,HttpServletResponse response) {
         int page = params.getPage();
         int limit = params.getLimit();
 //        Integer departId = params.getDepartId();
         Integer departId = employee.getDepartment().getId();
         Integer empId = params.getEmpId();
+        empId = (empId != null) ? (employee.getId()) : null;
         PageHelper.startPage(page,limit);
         List<com.de.entity.File> files = fileService.selectFileByDepartIdAndEmpId(departId,empId);
         pageInfo = new PageInfo<>(files);
         jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
         return jsonResultType;
     }
+
+    @RequestMapping("/selectFileByFileName")
+    @ResponseBody
+    public JsonResultType<File> selectFileByFileName(RequestParams params,HttpServletResponse response) {
+        int page = params.getPage();
+        int limit = params.getLimit();
+        String fileName = params.getFileName();
+        PageHelper.startPage(page,limit);
+        List<File> files = fileService.selectFileByFileName(fileName);
+        pageInfo = new PageInfo<>(files);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+
 
     @RequestMapping("/deleteFileById")
     @ResponseBody

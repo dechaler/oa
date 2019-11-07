@@ -50,7 +50,6 @@ layui.define(['index', "form"], function(exports){
         // var password = $("#LAY-user-login-password").val();
         // console.log("password= " + password);
 
-        console.log(obj.field);
         $.ajax({
             url: '/emp/login',
             type: 'POST',
@@ -58,7 +57,6 @@ layui.define(['index', "form"], function(exports){
             dataType: 'json',
             success: function (res) {
                 if (res.code == 0) {
-                    console.log(res);
                     layer.msg('登入成功', {
                         offset: '15px'
                         ,icon: 1
@@ -67,7 +65,6 @@ layui.define(['index', "form"], function(exports){
                         location.href = './index.html'; //主页
                     });
                 }else if (res.code == -2) {
-                    console.log(res);
                     layer.msg('验证码输入有误', {
                         offset: '15px'
                         ,icon: 2
@@ -76,7 +73,6 @@ layui.define(['index', "form"], function(exports){
                         reflush();
                         // location.href = './login.html';
                         var a = $("#LAY-user-login-vercode").val();
-                        console.log(a);
                     });
                 }else {
                     console.log(res);

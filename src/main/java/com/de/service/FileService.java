@@ -1,6 +1,7 @@
 package com.de.service;
 
 import com.de.entity.File;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface FileService {
      * @时间： 2019/10/11
      */
 
-     int upLoadFile(File file, java.io.File srcFile) throws IOException;
+     int upLoadFile(File file, MultipartFile srcFile) throws IOException;
 
 
 
@@ -56,6 +57,18 @@ public interface FileService {
      * @编写人：de
      * @时间： 2019/10/11
      */
+
+    /**
+     *@描述信息：根据名字查询文件
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/7
+     */
+
+    List<File> selectFileByFileName(String name);
+
 
     int deleteFileById(Integer onLineEmpId, Integer fileEmpId, Integer id, java.io.File desFile);
 }

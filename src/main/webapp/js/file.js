@@ -43,6 +43,7 @@ layui.use(['table','layer','form','upload'], function(){
         uploadFile('#upload','/file/upLoadFile');
     };
 
+    //请求数据工具函数
     reqDatatoTable = function (url,params,toolbar) {
         $.ajax({
             url:url,
@@ -50,8 +51,6 @@ layui.use(['table','layer','form','upload'], function(){
             dataType: 'json',
             data: params,
             success: function (res) {
-
-                console.log(res);
                 table.render({
                     elem: '#file_list'
                     ,toolbar: toolbar
@@ -88,10 +87,11 @@ layui.use(['table','layer','form','upload'], function(){
             elem: elem
             ,url: url
             // ,auto: false
+            ,field: 'srcFile'
             ,accept: 'file' //普通文件
             ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
                 // layer.load(); //上传loading
-                obj.preview(function(index, file, result) {
+                obj.preview(function(index, file) {
                     console.log(index); //得到文件索引
                     console.log(file); //得到文件对象
                 })
@@ -103,20 +103,48 @@ layui.use(['table','layer','form','upload'], function(){
                         time: 1000,
                         offset: '100px'
                     });
+                    $.ajax({
+                        url:'/file/selectFileByDepartIdAndEmpId',
+                        type: 'GET',
+                        //标识
+                        data: {empId:1},
+                        dataType: 'json',
+                        success: function (res) {
+                            table.render({
+                                elem: '#file_list'
+                                ,toolbar:'#myHearToolbar'
+                                ,defaultToolbar: []
+                                ,data:res.data
+                                ,skin:'line'
+                                ,cols: [[
+                                    {type: 'checkbox', fixed: 'left'}
+                                    ,{field:'id', title: 'ID',width:70, sort: true}
+                                    ,{field:'fileName', title: '文件名',width:500}
+                                    ,{field:'upTime', title: '上传时间',width:200, sort: true}
+                                    ,{field:'emp_name', title: '员工',width:100,templet: function (res) {
+                                            return res.employee.name;
+                                        }}
+                                    ,{field:'depart_name', title: '部门',templet: function (res) {
+                                            return res.employee.department.name;
+                                        }}
+                                    ,{fixed: 'right', title:'操作', toolbar: '#rowToolbar'}
+                                ]]
+                                ,page:true
+                            });
+                            uploadFile('#upload1','/file/upLoadFile');
+                        },
+                        error: function () {
+                            layer.alert("请求信息发生异常",{icon: 2,title:'提示'});
+                        }
+                    });
                 }
             }
         });
     };
 
+    //初始化页面渲染
 
-
-    //初始化渲染
-    tableRender("/file/selectAllFile","#hearToolbar");
-
-
-    // uploadFile('#upload','/file/');
-    // uploadFile('#upload1','/file/');
-
+    tableRender("/file/selectAllFile", "#hearToolbar");
 
 
     // 初始化页面渲染
@@ -151,6 +179,7 @@ layui.use(['table','layer','form','upload'], function(){
     //     ,page:true
     // });
 
+    //表格行工具栏
     table.on('toolbar(file_list)', function(obj){
         switch (obj.event) {
             case 'findDepart':
@@ -169,12 +198,11 @@ layui.use(['table','layer','form','upload'], function(){
                 layer.msg(obj.event);
                 break;
             case 'myFile':
-                // layer.msg(obj.event);
-                // tableRender('/file/selectAllFile','#myHearToolbar');
-                // reqDatatoTable('/file/selectAllFile',null,'#myHearToolbar');
                 $.ajax({
-                    url:'/file/selectAllFile',
+                    url:'/file/selectFileByDepartIdAndEmpId',
                     type: 'GET',
+                    //标识
+                    data: {empId:1},
                     dataType: 'json',
                     success: function (res) {
                         table.render({
@@ -205,37 +233,45 @@ layui.use(['table','layer','form','upload'], function(){
                     }
                 });
                 break;
+        }
+    });
 
-            // case 'upload':
-            //     // uploadFile('#upload','/file/');
-            //     break;
-            //
-            //
-            // case 'upload1':
-            //     break;
+    //按文件名查找文件
+    form.on('submit(find)',function (obj) {
+        // layer.msg("haha");
+        // console.log(obj);
+        // var ipt = $(".ipt").val();
+        // layer.msg(ipt);
+        // console.log(obj.field);
+        var val = $(".ipt").val();
+        if (val == "") {
+            layer.alert("请输入查询", {icon: 3, title: '提示'});
+            return;
+        }else{
+            reqDatatoTable('/file/selectFileByFileName',obj.field,'#hearToolbar');
+        }
+    });
+
+    form.on('submit(find1)',function (obj) {
+        // layer.msg("haha");
+        // console.log(obj.field);
+        var val = $(".ipt").val();
+        if (val == "") {
+            layer.alert("请输入查询", {icon: 3, title: '提示'});
+            return;
+        }else{
+            reqDatatoTable('/file/selectFileByFileName',obj.field,'#hearToolbar');
         }
     });
 
 
-    //上传文件
-    // upload.render({
-    //     elem: '#upload'
-    //     ,url: '/file/'
-    //     ,accept: 'file' //普通文件
-    //     ,done: function(res){
-    //         console.log(res)
-    //     }
-    // });
-
-    // upload.render({
-    //     elem: '#upload1'
-    //     ,url: '/file/'
-    //     ,accept: 'file' //普通文件
-    //     ,done: function(res){
-    //         console.log(res)
-    //     }
-    // });
-
+    //监听行工具栏
+    table.on('tool(file_list)', function(obj){
+        switch (obj.event) {
+            case 'del':
+                layer.msg(obj.event);
+        }
+    });
 
 });
 

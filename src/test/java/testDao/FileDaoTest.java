@@ -69,4 +69,12 @@ public class FileDaoTest {
         System.out.println("成功删除"+ re+"条记录");
 
     }
+
+    @Test
+    public void selectFileByFileName() {
+        List<File> files = fileDao.selectFileByFileName("体育");
+        for (int i = 0; i < files.size(); i++) {
+            System.out.println(files.get(i));
+        }
+    }
 }

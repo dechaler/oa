@@ -36,11 +36,18 @@
 
                 <button type="button" class="layui-btn layui-btn-sm" lay-event="upload"  lay-filter="upload" id="upload">
                     <i class="layui-icon">&#xe67c;</i>上传文件</button>
-            </div>
 
+                <!--<div class="layui-input-inline">-->
+                    <!--<input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">-->
+                <!--</div>-->
+                <!--<div class="layui-input-inline">-->
+                    <!--<button type="button" class="layui-btn" lay-submit lay-filter="find1">查找</button>-->
+                <!--</div>-->
+
+            </div>
                 <div class="layui-form-item layui-inline ipt-find">
                     <div class="layui-input-inline">
-                        <input type="text" autocomplete="off"  lay-filter="find" class="layui-input ipt" placeholder="请输入文件名">
+                        <input type="text" name="fileName" autocomplete="off" class="layui-input ipt" placeholder="请输入文件名">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline ipt-find">
@@ -69,12 +76,12 @@
 
         <div class="layui-form-item layui-inline ipt-find">
             <div class="layui-input-inline">
-                <input type="text" autocomplete="off"  lay-filter="find" class="layui-input ipt" placeholder="请输入文件名">
+                <input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">
             </div>
         </div>
         <div class="layui-form-item layui-inline ipt-find">
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn" lay-submit lay-filter="find">查找</button>
+                <button type="button" class="layui-btn" lay-submit lay-filter="find1">查找</button>
             </div>
         </div>
     </form>
