@@ -31,7 +31,7 @@
     </select>
 
     <select id="selectFileByDepartIdAndEmpId" resultMap="selectAllFileMap">
-        SELECT f.id,f.file_name, f.`upload_time`,e.`emp_name`,d.id did,d.`depart_name`
+        SELECT f.id,f.file_name,f.`file_path`, f.`upload_time`,e.`emp_name`,d.id did,d.`depart_name`
         FROM `file` f
         INNER JOIN employee e ON e.`id` = f.`emp_id`
         INNER JOIN department d ON e.`depart_id` = d.`id`
@@ -59,6 +59,14 @@
         DELETE FROM `file` WHERE id = #{id}
     </delete>
 
+    <!--批量删除文件-->
+    <delete id="deleteFileByIds">
+        DELETE FROM `file` WHERE id IN(
+        <foreach collection="fIds" item="fId" separator=",">
+            #{fId}
+        </foreach>
+        )
+    </delete>
 
 
     <!--初始化文件信息-->

@@ -70,5 +70,25 @@ public interface FileService {
     List<File> selectFileByFileName(String name);
 
 
-    int deleteFileById(Integer onLineEmpId, Integer fileEmpId, Integer id, java.io.File desFile);
+    /**
+     *@描述信息：通过文件名删除文件
+     *
+     * @参数：   文件id
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/11
+     */
+
+    int deleteFileById(Integer fileId, String filePath);
+
+
+    /**
+     *@描述信息：批量删除文件
+     *
+     * @参数：  文件id,文件路径
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/11
+     */
+    int deleteFileByIds(List<Integer> fIds,List<String> fPaths);
 }

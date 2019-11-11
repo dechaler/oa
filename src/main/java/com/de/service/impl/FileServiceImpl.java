@@ -34,7 +34,7 @@ public class FileServiceImpl implements FileService {
         String path = file.getFilePath();
         String dirpath = null;
         if (OsUtils.isWinOs()){
-           dirpath = MyFileUtils.WIN_PATH + file.getEmployee().getDepartment().getId();
+           dirpath = MyFileUtils.WIN_PATH + file.getEmployee().getId();
         }
         if (OsUtils.isLinOs()){
         }
@@ -44,8 +44,8 @@ public class FileServiceImpl implements FileService {
         }
         java.io.File desFile = new java.io.File(path);
         if (desFile.exists()) {
-            srcFile.transferTo(desFile);
-            return 1;
+//            srcFile.transferTo(desFile);
+            return -1;
         }else {
                 srcFile.transferTo(desFile);
                 int re = fileDao.upLoadFile(file);
@@ -79,33 +79,37 @@ public class FileServiceImpl implements FileService {
     //事务管理的删除文件，成功返回个数，失败返回0
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
-    public int deleteFileById(Integer onLineEmpId, Integer fileEmpId, Integer id, java.io.File desFile) {
-        if (onLineEmpId.equals(fileEmpId) && desFile.exists()) {
-            int re = fileDao.deleteFileById(id);
+    public int deleteFileById(Integer fileId, String filePath) {
+            int re = fileDao.deleteFileById(fileId);
             if (re > 0) {
+                java.io.File desFile = new java.io.File(filePath);
                 boolean flag = FileUtils.deleteQuietly(desFile);
                 if (flag) {
                     return re;
-                } else {
-                    //确保事务回滚
-                    throw new RuntimeException();
+                }else {
+                    return 0;
                 }
             } else {
                 return 0;
             }
-        } else {
-            return 0;
         }
+
+
+    @Override
+    public int deleteFileByIds(List<Integer> fIds,List<String> fPaths) {
+        java.io.File desFile;
+        int re = fileDao.deleteFileByIds(fIds);
+        if (re > 0) {
+            for (int i = 0; i < fPaths.size(); i++) {
+                desFile = new java.io.File(fPaths.get(i));
+                boolean flag = FileUtils.deleteQuietly(desFile);
+                if (!flag) {
+                    return 0;
+                }
+            }
+        }
+        return re;
     }
 }
-
-//                final String desPath = MyFileUtils.UPLOAD_PATH + fileEmpId + "/" + desFile.getName();
-//                final String desPath = desFile.getPath();
-//                java.io.File rollFile = new java.io.File(desPath);
-//                rollFile.createNewFile();
-//                FileUtils.copyToFile(is,rollFile);
-//                if (null != is)
-//                    is.close();
-//                throw e;
 
 

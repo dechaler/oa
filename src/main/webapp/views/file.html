@@ -26,8 +26,8 @@
 <script type="text/html" id="hearToolbar">
         <form class="layui-form layui-form-pane form-tool">
             <div class="layui-form-item layui-inline">
-                <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart">只看部门文件</button>
                 <button type="button" class="layui-btn layui-btn-sm" lay-event="findAll"  lay-filter="findAll"  id="findAll">查看全部文件</button>
+                <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart">只看部门文件</button>
                 <button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File">
                     <i class="layui-icon">&#xe601;</i> 批量下载</button>
 
@@ -36,20 +36,21 @@
 
                 <button type="button" class="layui-btn layui-btn-sm" lay-event="upload"  lay-filter="upload" id="upload">
                     <i class="layui-icon">&#xe67c;</i>上传文件</button>
-
-                <!--<div class="layui-input-inline">-->
-                    <!--<input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">-->
-                <!--</div>-->
-                <!--<div class="layui-input-inline">-->
-                    <!--<button type="button" class="layui-btn" lay-submit lay-filter="find1">查找</button>-->
-                <!--</div>-->
-
             </div>
                 <div class="layui-form-item layui-inline ipt-find">
                     <div class="layui-input-inline">
                         <input type="text" name="fileName" autocomplete="off" class="layui-input ipt" placeholder="请输入文件名">
                     </div>
                 </div>
+
+            <!--&lt;!&ndash;防止回车事件&ndash;&gt;-->
+            <!--<div class="layui-form-item layui-inline" style="display:none;">-->
+                <!--<div class="layui-input-inline">-->
+                    <!--<input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;防止回车事件&ndash;&gt;-->
+
                 <div class="layui-form-item layui-inline ipt-find">
                     <div class="layui-input-inline">
                         <button type="button" class="layui-btn" lay-submit lay-filter="find">查找</button>
@@ -62,8 +63,8 @@
 <script type="text/html" id="myHearToolbar">
     <form class="layui-form layui-form-pane form-tool">
         <div class="layui-form-item layui-inline">
-            <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart1">只看部门文件</button>
             <button type="button" class="layui-btn layui-btn-sm" lay-event="findAll"  lay-filter="findAll"  id="findAll1">查看全部文件</button>
+            <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart1">只看部门文件</button>
             <button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File1">
                 <i class="layui-icon">&#xe601;</i> 批量下载</button>
 
@@ -76,9 +77,17 @@
 
         <div class="layui-form-item layui-inline ipt-find">
             <div class="layui-input-inline">
-                <input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">
+            <input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">
             </div>
         </div>
+
+            <!--&lt;!&ndash;防止回车事件&ndash;&gt;-->
+            <!--<div class="layui-form-item layui-inline" style="display:none;">-->
+                <!--<div class="layui-input-inline">-->
+                    <!--<input type="text" name="fileName" autocomplete="off"  class="layui-input ipt" placeholder="请输入文件名">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;防止回车事件&ndash;&gt;-->
         <div class="layui-form-item layui-inline ipt-find">
             <div class="layui-input-inline">
                 <button type="button" class="layui-btn" lay-submit lay-filter="find1">查找</button>

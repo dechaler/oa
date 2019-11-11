@@ -32,7 +32,7 @@ layui.define(['index', "form"], function(exports){
         $("#LAY-user-login-vercode").val("");
         // $("#LAY-user-login-vercode").attr("value",""); 没效果
         $("#LAY-user-get-vercode").attr("src","/kaptcha/verifyCode?t=\" + (new Date).getTime()");
-    }
+    };
 
 
     //提交

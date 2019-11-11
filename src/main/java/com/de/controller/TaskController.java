@@ -78,7 +78,7 @@ public class TaskController {
     @RequestMapping(value = "/deleteTasks",method = RequestMethod.POST)
     public int deleteTasks(String taskIds, HttpServletResponse response) {
         //取参数
-        System.out.println(taskIds);
+//        System.out.println(taskIds);
         String substr = taskIds.substring(1, taskIds.length()- 1);
         String[] split = substr.split(",");
         List<Integer> tIds = new ArrayList<>();
@@ -86,7 +86,6 @@ public class TaskController {
         for (String s: split) {
             tIds.add(Integer.valueOf(s));
         }
-        System.out.println(tIds);
         int re = taskService.deleteTaskByIds(tIds);
         re = ResponseInfo.verifyDatas(response,re);
         return re;

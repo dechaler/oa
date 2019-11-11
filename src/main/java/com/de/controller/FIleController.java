@@ -17,8 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @编写人:de
@@ -46,7 +45,7 @@ public class FIleController {
         fileInfo.setFileName(srcFile.getOriginalFilename());
         fileInfo.setUpTime(DateUtils.dateToStrDateTime(new Date(),DateUtils.DATEFORMATWITHTIME));
         if (OsUtils.isWinOs()){
-            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + srcFile.getOriginalFilename();
+            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getId() + "/" + srcFile.getOriginalFilename();
         }
 
         if (OsUtils.isLinOs()){
@@ -101,11 +100,33 @@ public class FIleController {
     }
 
 
+
+
     @RequestMapping("/deleteFileById")
     @ResponseBody
-    public int deleteFileById(@SessionAttribute Employee employee, Integer fileEmpId, Integer fileId, java.io.File desFile, HttpServletResponse response) {
-        Integer empId = employee.getId();
-        int re = fileService.deleteFileById(empId, fileEmpId, fileId, desFile);
+    public int deleteFileById(Integer fileId, String  filePath, HttpServletResponse response) {
+        int re = fileService.deleteFileById(fileId, filePath);
+        re = ResponseInfo.verifyDatas(response,re);
+        return re;
+    }
+
+    @RequestMapping("/deleteFileByIds")
+    @ResponseBody
+    public int deleteFileByIds(String fIds,String fPaths,HttpServletResponse response){
+        String idsSubstr = fIds.substring(1, fIds.length()- 1);
+        String[] ids = idsSubstr.split(",");
+        List<Integer> idsList = new ArrayList<>();
+        for (int i = 0; i < ids.length; i++) {
+            idsList.add(Integer.valueOf(ids[i]));
+        }
+        String pathsSubstr = fPaths.substring(1, fPaths.length()- 1);
+        String[] paths = pathsSubstr.split(",");
+        List<String> pathsList = new ArrayList<>();
+        for (int i = 0; i < paths.length; i++) {
+            String s = paths[i].substring(1, paths[i].length()- 1);
+            pathsList.add(s);
+        }
+        int re = fileService.deleteFileByIds(idsList, pathsList);
         re = ResponseInfo.verifyDatas(response,re);
         return re;
     }

@@ -58,11 +58,11 @@ public class FileServiceTest {
         Integer fileEmpId = 1000;
         final String desPath = MyFileUtils.UPLOAD_PATH + fileEmpId + "/a.txt";
         java.io.File desFile = new java.io.File(desPath);
-        int re = fileService.deleteFileById(onLineEmpId, fileEmpId, 34,desFile);
-        if (re > 0) {
-            System.out.println("删除文件成功");
-        } else {
-            System.out.println("删除文件失败");
-        }
+//        int re = fileService.deleteFileById(onLineEmpId, fileEmpId, 34,desFile);
+//        if (re > 0) {
+//            System.out.println("删除文件成功");
+//        } else {
+//            System.out.println("删除文件失败");
+//        }
     }
 }

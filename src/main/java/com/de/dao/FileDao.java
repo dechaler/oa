@@ -82,6 +82,15 @@ public interface FileDao {
 
 
     /**
+     *@描述信息：批量删除文件
+     *
+     * @参数：   文件id
+     * @返回值：
+     * @编写人：de
+     * @时间： 2019/11/11
+     */
+    int deleteFileByIds(@Param("fIds") List<Integer> fIds);
+    /**
      *@描述信息：初始化文件信息
      *
      * @参数：
