@@ -28,7 +28,7 @@ layui.use(['table','layer','form','upload'], function(){
             ,cols: [[
                 {type: 'checkbox', fixed: 'left'}
                 ,{field:'id', title: 'ID',width:70, sort: true}
-                ,{field:'fileName', title: '文件名',width:500}
+                ,{field:'fileName', title: '文件名',width:500,templet: '#download',event: 'download'}
                 ,{field:'filePath', title: '文件路径', hide: true}
                 ,{field:'upTime', title: '上传时间',width:200, sort: true}
                 ,{field:'emp_name', title: '员工',width:100,templet: function (res) {
@@ -64,7 +64,7 @@ layui.use(['table','layer','form','upload'], function(){
                     ,cols: [[
                         {type: 'checkbox', fixed: 'left'}
                         ,{field:'id', title: 'ID',width:70, sort: true}
-                        ,{field:'fileName', title: '文件名',width:500}
+                        ,{field:'fileName', title: '文件名',width:500,templet: '#download',event: 'download'}
                         ,{field:'filePath', title: '文件路径', hide: true}
                         ,{field:'upTime', title: '上传时间',width:200, sort: true}
                         ,{field:'emp_name', title: '员工',width:100,templet: function (res) {
@@ -104,7 +104,7 @@ layui.use(['table','layer','form','upload'], function(){
                     ,cols: [[
                         {type: 'checkbox', fixed: 'left'}
                         ,{field:'id', title: 'ID',width:70, sort: true}
-                        ,{field:'fileName', title: '文件名',width:500}
+                        ,{field:'fileName', title: '文件名',width:500,templet: '#download',event: 'download'}
                         ,{field:'filePath', title: '文件路径', hide: true}
                         ,{field:'upTime', title: '上传时间',width:200, sort: true}
                         ,{field:'emp_name', title: '员工',width:100,templet: function (res) {
@@ -164,7 +164,7 @@ layui.use(['table','layer','form','upload'], function(){
                                 ,cols: [[
                                     {type: 'checkbox', fixed: 'left'}
                                     ,{field:'id', title: 'ID',width:70, sort: true}
-                                    ,{field:'fileName', title: '文件名',width:500}
+                                    ,{field:'fileName', title: '文件名',width:500,templet: '#download'}
                                     ,{field:'upTime', title: '上传时间',width:200, sort: true}
                                     ,{field:'emp_name', title: '员工',width:100,templet: function (res) {
                                             return res.employee.name;
@@ -205,12 +205,33 @@ layui.use(['table','layer','form','upload'], function(){
                 // layer.msg(obj.event);
                 reqDatatoTable("/file/selectAllFile",null,"#hearToolbar");
                 break;
-            case 'down_more_File':
+            /*case 'down_more_File':
                 var selectedData = table.checkStatus(obj.config.id);
                 var length = selectedData.data.length;
-                console.log(selectedData);
-                layer.msg(obj.event);
-                break;
+                if (length == 0) {
+                    layer.msg("请勾选要下载的文件", {icon: 3, time: 1000, offset: '100px'});
+                }
+                // console.log(selectedData);
+                // layer.msg(obj.event);
+                var fileNames  = [];
+                var filePaths = [];
+                for (let i = 0; i < length; i++) {
+                    fileNames.push( selectedData.data[i].fileName);
+                    filePaths.push( selectedData.data[i].filePath);
+                }
+                // console.log(fileNames);
+                // console.log(filePaths);
+                for (let i = 0; i < fileNames.length; i++) {
+                    var fileName = fileNames[i];
+                    var filePath = filePaths[i];
+                    console.log(fileName);
+                    // setInterval(function () {
+                    //     location.href="/file/download?fileName=" + fileName +"&filePath=" + filePath;
+                    //     return false;
+                    // },1000);
+                }
+                // location.href="/file/downloads?fileNames=" + fileNames +"&filePaths=" + filePaths;
+                break;*/
             case 'del_more':
                 // layer.msg('del_more');
                 var selectedData = table.checkStatus(obj.config.id);
@@ -283,7 +304,7 @@ layui.use(['table','layer','form','upload'], function(){
             layer.alert("请输入查询", {icon: 3, title: '提示'});
             return;
         }else{
-            reqDatatoTable('/file/selectFileByFileName',obj.field,'#HearToolbar');
+            reqDatatoTable('/file/selectFileByFileName',obj.field,'#hearToolbar');
         }
     });
 
@@ -293,8 +314,7 @@ layui.use(['table','layer','form','upload'], function(){
         var data = obj.data;
         var fileId = data.id;
         var filePath = data.filePath;
-        console.log(fileId);
-        console.log(filePath);
+        var fileName = data.fileName;
         switch (obj.event) {
             case 'del':
                 // layer.msg(obj.event);
@@ -323,11 +343,42 @@ layui.use(['table','layer','form','upload'], function(){
                         }
                     })
                 });
-
-
+                break;
+            case 'download':
+                location.href="/file/download?fileName="+ fileName +"&filePath=" + filePath;
+            //     layer.msg("download");
+            //     // $.ajax({
+            //     //     url: '/file/download',
+            //     //     type: 'POST',
+            //     //     data: {"filePath":filePath,"fileName":fileName},
+            //     //     success: function () {
+            //     //         console.log("success");
+            //     //     },
+            //     //     error: function () {
+            //     //         console.log("error");
+            //     //
+            //     //     }
+            //     //
+            //     // });
+            //     break;
         }
     });
 
+
+    // var data = $("#download > #dl");
+    // var data1 = $("#download");
+    // var data2 = $("#dl").value;
+    // var data3 = $("#file_list");
+    // console.log(data);
+    // console.log(data1);
+    // console.log(data2);
+    // console.log(data3);
+    //
+    //
+    // $("#dlfile").click(function (e) {
+    //     // e.preventDefault();
+    //     console.log("hhaa");
+    // });
 });
 
 

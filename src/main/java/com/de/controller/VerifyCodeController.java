@@ -17,7 +17,7 @@ import java.util.Date;
 /**
  * @编写人:de
  * @时间:2019/10/23
- * @描述:
+ * @描述:验证码
  */
 @Controller
 @RequestMapping("/kaptcha")

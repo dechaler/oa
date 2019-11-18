@@ -15,6 +15,12 @@
         .ipt-find{
             left: 20%;
         }
+        /* 鼠标移动到链接上 */
+        a:hover {
+            color: #555e68;
+            cursor:pointer;
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -28,8 +34,8 @@
             <div class="layui-form-item layui-inline">
                 <button type="button" class="layui-btn layui-btn-sm" lay-event="findAll"  lay-filter="findAll"  id="findAll">查看全部文件</button>
                 <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart">只看部门文件</button>
-                <button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File">
-                    <i class="layui-icon">&#xe601;</i> 批量下载</button>
+                <!--<button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File">-->
+                    <!--<i class="layui-icon">&#xe601;</i> 批量下载</button>-->
 
                 <button type="button" class="layui-btn layui-btn-sm  layui-btn-danger" lay-event="myFile" lay-filter="myFile" id="myFile">
                     <i class="layui-icon">&#xe66f;</i>管理我的文件</button>
@@ -58,6 +64,8 @@
                 </div>
         </form>
 </script>
+<!--头部工具栏-->
+
 
 <!--管理文件头部工具栏-->
 <script type="text/html" id="myHearToolbar">
@@ -65,8 +73,8 @@
         <div class="layui-form-item layui-inline">
             <button type="button" class="layui-btn layui-btn-sm" lay-event="findAll"  lay-filter="findAll"  id="findAll1">查看全部文件</button>
             <button type="button" class="layui-btn layui-btn-sm" lay-event="findDepart"  lay-filter="findDepart" id="findDepart1">只看部门文件</button>
-            <button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File1">
-                <i class="layui-icon">&#xe601;</i> 批量下载</button>
+            <!--<button type="button" class="layui-btn layui-btn-sm" lay-event="down_more_File"  lay-filter="down_more_File"  id="down_more_File1">-->
+                <!--<i class="layui-icon">&#xe601;</i> 批量下载</button>-->
 
             <button type="button" class="layui-btn layui-btn-sm  layui-btn-danger" lay-event="del_more" lay-filter="del_more" id="del_more">
                 <i class="layui-icon">&#xe640;</i>批量删除</button>
@@ -95,14 +103,18 @@
         </div>
     </form>
 </script>
+<!--管理文件头部工具栏-->
 
 
 <!--列工具栏-->
-
 <script type="text/html" id="rowToolbar">
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
+<!--列工具栏-->
 
+<script type="text/html" id="download">
+    <a class="">{{d.fileName}}</a>
+</script>
 
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script src="../js/file.js" charset="utf-8"></script>

@@ -6,18 +6,25 @@ import com.de.entity.File;
 import com.de.service.FileService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @编写人:de
@@ -27,7 +34,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/file")
 
-public class FIleController {
+public class FileController {
     @Autowired
     private FileService fileService;
     @Autowired
@@ -45,7 +52,7 @@ public class FIleController {
         fileInfo.setFileName(srcFile.getOriginalFilename());
         fileInfo.setUpTime(DateUtils.dateToStrDateTime(new Date(),DateUtils.DATEFORMATWITHTIME));
         if (OsUtils.isWinOs()){
-            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getId() + "/" + srcFile.getOriginalFilename();
+            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + fileInfo.getEmployee().getId() + "/" + srcFile.getOriginalFilename();
         }
 
         if (OsUtils.isLinOs()){
@@ -130,5 +137,95 @@ public class FIleController {
         re = ResponseInfo.verifyDatas(response,re);
         return re;
     }
+
+    //下载文件
+    @RequestMapping(value = "/download",method = RequestMethod.GET)
+    public void download(String filePath, String fileName, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        //设置响应类型为二进制
+        response.setContentType("application/octet-stream;charset=UTF-8");
+        //设置响应头
+//        response.addHeader("content-Type","application/octet-stream");
+
+        //防止文件名乱码
+        //浏览器设置
+        String userAgent = request.getHeader("User-Agent");
+        if (userAgent.contains("MSIE") || userAgent.contains("Trident")) {
+            //IE浏览器处理
+            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+        } else {
+            // 非IE浏览器的处理：
+            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+        }
+        response.setHeader("content-Disposition", "attachment;fileName="+ fileName);
+        ServletOutputStream sos = response.getOutputStream();
+        java.io.File file = new java.io.File(filePath);
+        if (file.exists()) {
+            InputStream is = FileUtils.openInputStream(file);
+            StreamUtils.copy(is, sos);
+            sos.flush();
+            is.close();
+            sos.close();
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @RequestMapping(value = "/downloads",method = RequestMethod.GET)
+    public void downloads(String filePaths, String fileNames, HttpServletResponse response, HttpServletRequest request) throws IOException {
+        //设置响应类型为二进制
+        //设置响应头
+//        response.addHeader("content-Type","application/octet-stream");
+        String[] fns = fileNames.split(",");
+        String[] fps = filePaths.split(",");
+        String fileName = null;
+        String filePath = null;
+        ServletOutputStream sos = null;
+        InputStream is = null;
+
+        if (fns.length == fps.length){
+            for (int i = 0; i < fns.length; i++) {
+                filePath = fps[i];
+                fileName = new String(fns[i].getBytes("UTF-8"), "ISO-8859-1");
+                response.setContentType("application/octet-stream;charset=UTF-8");
+                response.setHeader("content-Disposition", "attachment;fileName="+ fileName);
+                sos = response.getOutputStream();
+                java.io.File file = new java.io.File(filePath);
+                if (file.exists()) {
+                    is = FileUtils.openInputStream(file);
+                    StreamUtils.copy(is, sos);
+//                    StreamUtils.
+                    sos.flush();
+                }
+            }
+
+        }
+        if (null != is)
+            is.close();
+        if (null != sos)
+            sos.close();
+
+
+
+    }
+
+
+
+
+
+
+
 }
 

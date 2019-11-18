@@ -34,7 +34,7 @@ public class FileServiceImpl implements FileService {
         String path = file.getFilePath();
         String dirpath = null;
         if (OsUtils.isWinOs()){
-           dirpath = MyFileUtils.WIN_PATH + file.getEmployee().getId();
+           dirpath = MyFileUtils.WIN_PATH + file.getEmployee().getDepartment().getId() + "/" + file.getEmployee().getId();
         }
         if (OsUtils.isLinOs()){
         }
