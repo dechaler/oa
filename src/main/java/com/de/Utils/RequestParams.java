@@ -24,6 +24,9 @@ public class RequestParams extends MyPageParams {
     //flag（考勤）
     private Integer kqFlag;
 
+    //way（考勤）
+    private Integer kqWay;
+
     private String departName;
 
     private String fileName;
@@ -101,5 +104,13 @@ public class RequestParams extends MyPageParams {
 
     public void setDepartName(String departName) {
         this.departName = departName;
+    }
+
+    public Integer getKqWay() {
+        return kqWay;
+    }
+
+    public void setKqWay(Integer kqWay) {
+        this.kqWay = kqWay;
     }
 }

@@ -5,7 +5,7 @@ layui.use(['table','layer'], function(){
     table.render({
         elem: '#sch_list'
         ,url:'/sch/selectSch'
-        ,toolbar: '#hearToolbar'
+        // ,toolbar: '#hearToolbar'
         ,title: '日程表'
         ,parseData: function(res){ //res 即为原始返回的数据
             // console.log(res.data);

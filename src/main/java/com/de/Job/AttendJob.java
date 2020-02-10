@@ -62,7 +62,7 @@ public class AttendJob {
 //        }
         AttendJob attendJob = context.getBean("attendJob", AttendJob.class);
         attendJob.InitAttendInfoWithShangBan();
-//        attendJob.InitAttendInfoWithXiaBan();
+        attendJob.InitAttendInfoWithXiaBan();
     }
 
 }

@@ -55,22 +55,34 @@ public class AttendServiceImpl implements AttendService {
         }
     }
 
-//    通过员工号和考勤标识（可选）查询该员工的考勤信息
     @Override
-    public List<Attendance> selectAttendInfoByEmpIdAndDateScopeAndFlag(Integer empId,String startDate,String endDate,Integer flag) {
-        if ((null != flag)) {
-            if ((null != startDate) && (null != endDate)) {
-                List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndFlag(empId, startDate, endDate, flag);
+    public List<Attendance> selectClockInInfo(Integer empId) {
+        List<Attendance> attendances = attendDao.selectClockInInfo(empId);
+        return attendances;
+    }
+
+    @Override
+    public List<Attendance> selectAttendInfoByEmpId(Integer empId) {
+        List<Attendance> attendances = attendDao.selectAttendInfoByEmpId(empId);
+        return attendances;
+    }
+
+    //    通过员工号和考勤标识（可选）查询该员工的考勤信息
+    @Override
+    public List<Attendance> selectAttendInfoByEmpIdAndDateScopeAndWay(Integer empId,String startDate,String endDate,Integer way) {
+        if ((null != way && !"".equals(way))) {
+            if ((null != startDate && !"".equals(startDate)) && (null != endDate && !"".equals(endDate))) {
+                List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndWay(empId, startDate, endDate, way);
                 return attendances;
             } else{
-                    List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndFlag(empId, null,null,flag);
+                    List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndWay(empId, null,null,way);
                     return attendances;
                 }
-        }else if ((null != startDate) && (null != endDate)) {
-            List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndFlag(empId, startDate,endDate,null);
+        }else if  ((null != startDate && !"".equals(startDate)) && (null != endDate && !"".equals(endDate))) {
+            List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndWay(empId, startDate,endDate,null);
             return attendances;
         }else{
-            List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndFlag(empId, null,null,null);
+            List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndWay(empId, null,null,null);
             return attendances;
         }
     }

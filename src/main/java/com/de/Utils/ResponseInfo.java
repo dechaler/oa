@@ -3,6 +3,7 @@ package com.de.Utils;
 import com.github.pagehelper.PageInfo;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @编写人:de
@@ -24,6 +25,21 @@ public class ResponseInfo {
             jsonResultType.setCode("" + 0);
             jsonResultType.setCount("" + pageInfo.getTotal());
             jsonResultType.setData(pageInfo.getList());
+            return jsonResultType;
+        } else {
+            jsonResultType.setCode("" + 0);
+            jsonResultType.setMsg("数据为空");
+            jsonResultType.setData(null);
+            return jsonResultType;
+        }
+    }
+
+
+    public static <T> JsonResultType<T> verifyDatas(List<T> datas, HttpServletResponse response, JsonResultType<T> jsonResultType){
+        if (response.getStatus() == HttpServletResponse.SC_OK) {
+            jsonResultType.setCode("" + 0);
+            jsonResultType.setCount("" + datas.size());
+            jsonResultType.setData(datas);
             return jsonResultType;
         } else {
             jsonResultType.setCode("" + 0);

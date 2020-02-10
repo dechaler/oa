@@ -40,8 +40,10 @@ public class AttendController {
     @RequestMapping(value = "/signIn",method = RequestMethod.POST)
     public int signIn(Attendance attendance, @SessionAttribute Employee employee, HttpServletResponse response) throws ParseException {
         attendance.setEmployee(employee);
-        String attendDate = DateUtils.dateToStrDateTime(new Date(), DateUtils.DATEFORMATWITHDATE);
-        attendance.setAttendDate(attendDate);
+        String signTime = DateUtils.dateToStrDateTime(new Date(), DateUtils.DATEFORMATWITHTIME);
+        attendance.setSignTime(signTime);
+        String attendTime = DateUtils.dateToStrDateTime(new Date(), DateUtils.DATEFORMATWITHDATE);
+        attendance.setAttendDate(attendTime);
         int re = attendService.signIn(attendance);
         re = ResponseInfo.verifyDatas(response, re);
         return re;
@@ -49,17 +51,45 @@ public class AttendController {
 
     @ResponseBody
     @RequestMapping("/selectAttendInfo")
-    public JsonResultType<Attendance> selectAttendInfoByEmpIdAndDateScopeAndFlag(@SessionAttribute Employee employee, RequestParams params,HttpServletResponse response){
+    public JsonResultType<Attendance> selectAttendInfoByEmpIdAndDateScopeAndWay(@SessionAttribute Employee employee, RequestParams params,HttpServletResponse response){
         int page = params.getPage();
         int limit = params.getLimit();
         Integer id = employee.getId();
         String startDate = params.getStartDate();
         String endDate = params.getEndDate();
-        Integer kqFlag = params.getKqFlag();
+        if (startDate.startsWith("undefined") || endDate.startsWith("undefined")) {
+            startDate = "";
+            endDate = "";
+        }
+        Integer kqWay = params.getKqWay();
         PageHelper.startPage(page,limit);
-        List<Attendance> attendances = attendService.selectAttendInfoByEmpIdAndDateScopeAndFlag(id, startDate, endDate, kqFlag);
+        List<Attendance> attendances = attendService.selectAttendInfoByEmpIdAndDateScopeAndWay(id, startDate, endDate, kqWay);
         pageInfo = new PageInfo<>(attendances);
         jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/selectAllAttendInfo")
+    public JsonResultType<Attendance> selectAttendInfoByEmpId(@SessionAttribute Employee employee, RequestParams params,HttpServletResponse response){
+        int page = params.getPage();
+        int limit = params.getLimit();
+        Integer id = employee.getId();
+        PageHelper.startPage(page,limit);
+        List<Attendance> attendances = attendService.selectAttendInfoByEmpId(id);
+        pageInfo = new PageInfo<>(attendances);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+
+
+    @ResponseBody
+    @RequestMapping("/selectClockInInfo")
+    public JsonResultType<Attendance> selectClockInInfo(@SessionAttribute Employee employee,HttpServletResponse response){
+        Integer id = employee.getId();
+        List<Attendance> attendances = attendService.selectClockInInfo(id);
+        jsonResultType = ResponseInfo.verifyDatas(attendances,response,jsonResultType);
         return jsonResultType;
     }
 }

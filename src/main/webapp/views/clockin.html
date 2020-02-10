@@ -11,41 +11,50 @@
 </head>
 <body>
 
-<table class="layui-hide" id="test"></table>
+<table class="layui-hide" id="clockIn" lay-filter="clockIn"></table>
 
-
+<!--打卡按钮-->
+<script type="text/html" id="rowToolbar">
+    {{#  if(d.flag == 0){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="clockIn">打卡</a>
+    {{# }else{ }}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled">已打卡</a>
+    {{# } }}
+</script>
 <script src="../layui/layui.js" charset="utf-8"></script>
+<script src="../js/kaoqin.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 
 <script>
-    layui.use('table', function(){
+    layui.use(['table','form','layer'], function(){
         var table = layui.table;
-
+        //渲染打卡
         table.render({
-            elem: '#test'
-            ,url:'/demo/table/user/'
-            ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-                //,curr: 5 //设定初始在第 5 页
-                ,groups: 1 //只显示 1 个连续页码
-                ,first: false //不显示首页
-                ,last: false //不显示尾页
-
+            elem: '#clockIn'
+            ,url:'/attendance/selectClockInInfo'
+            ,parseData: function(res){ //res 即为原始返回的数据
+                console.log(res);
             }
             ,cols: [[
-                {field:'id', width:80, title: 'ID', sort: true}
-                ,{field:'username', width:100, title: '用户名'}
-                ,{field:'sex', width:80, title: '性别', sort: true}
-                ,{field:'city', width:80, title: '城市'}
-                ,{field:'sign', title: '签名', minWidth: 150}
-                ,{field:'experience', width:80, title: '积分', sort: true}
-                ,{field:'score', width:80, title: '评分', sort: true}
-                ,{field:'classify', width:80, title: '职业'}
-                ,{field:'wealth', width:135, title: '财富', sort: true}
+                {field:'empId', title: '员工号', sort: true,templet:function (res) {
+                        return res.employee.id}}
+                ,{field:'name', title: '员工名',templet:function (res) {
+                        return res.employee.name  }}
+                ,{field:'sex', title: '所属部门',templet:function (res) {
+                        return res.employee.department.name }}
+                ,{field:'way', title: '打卡类型',templet:function (res) {
+                        if(res.way == 0){
+                            return "上班";
+                        }else{
+                            return "下班";
+                        }}}
+                ,{field:'attendDate', title: '日期'}
+                // ,{field:'flag', title: '标志', hidden:true}
+                ,{fixed: 'right', title:'操作', width:120,toolbar: '#rowToolbar'}
             ]]
-
+            ,id: 'table'
         });
-    });
+    })
 </script>
 </body>
 </html>

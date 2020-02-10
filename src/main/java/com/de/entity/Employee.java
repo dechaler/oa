@@ -126,20 +126,20 @@ public class Employee implements Serializable {
     }
 
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", sex='" + sex + '\'' +
-                ", age=" + age +
-                ", phone=" + phone +
-                ", job='" + job.getId() + '\'' +
-                ", inerDate='" + inerDate + '\'' +
-     //           ", depart_id='" + department.getId() + '\'' +
-       //         ", depart_name='" + department.getName() + '\'' +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Employee{" +
+//                "id=" + id +
+//                ", name='" + name + '\'' +
+//                ", password='" + password + '\'' +
+//                ", sex='" + sex + '\'' +
+//                ", age=" + age +
+//                ", phone=" + phone +
+//                ", job='" + job.getId() + '\'' +
+//                ", inerDate='" + inerDate + '\'' +
+//     //           ", depart_id='" + department.getId() + '\'' +
+//       //         ", depart_name='" + department.getName() + '\'' +
+//                '}';
+//    }
 }
 

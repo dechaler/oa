@@ -84,7 +84,26 @@ public class AttendDaoTest {
         String endDate = DateUtils.dateToStrDateTime(new Date(),format);
         Date date = DateUtils.getFutureOrBeforeDate(new Date(), -1);
         String startDate = DateUtils.dateToStrDateTime(date,format);
-        List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndFlag(1000,startDate,endDate,null);
+        List<Attendance> attendances = attendDao.selectAttendInfoByEmpIdAndDateScopeAndWay(1000,startDate,endDate,null);
+        for (Attendance attendance : attendances){
+            System.out.println(attendance);
+        }
+    }
+
+
+    @Test
+    public void selectClockInInfo(){
+        List<Attendance> attendances = attendDao.selectClockInInfo(10000);
+        for (Attendance attendance : attendances){
+            System.out.println(attendance);
+        }
+    }
+
+
+
+    @Test
+    public void selectAllInInfo(){
+        List<Attendance> attendances = attendDao.selectAllAttendInfo();
         for (Attendance attendance : attendances){
             System.out.println(attendance);
         }

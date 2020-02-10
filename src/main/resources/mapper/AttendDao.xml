@@ -46,6 +46,20 @@
         INNER JOIN kaoqin k ON k.`emp_id`= e.`id`
     </select>
 
+    <select id="selectAttendInfoByEmpId" resultMap="selectAllAttendInfoMap">
+    SELECT k.`id`, k.`kq_date`,k.kq_way,k.kq_flag,k.kq_time,e.emp_name,k.`emp_id` kid,d.depart_name FROM
+    employee e
+     INNER JOIN department d ON e.`depart_id`=d.`id`
+    INNER JOIN kaoqin k ON k.`emp_id`= e.`id`
+    WHERE k.emp_id = #{empId}
+    </select>
+
+    <select id="selectClockInInfo" resultMap="selectAllAttendInfoMap">
+        SELECT k.`emp_id` kid,e.`emp_name`,d.`depart_name`,k.kq_way,k.`kq_date`,k.kq_flag FROM kaoqin k
+        JOIN employee e ON e.`id`=k.`emp_id`
+        JOIN department	d ON e.`depart_id`=d.`id`
+        WHERE e.`id` = #{empId} AND k.`kq_date` = DATE_FORMAT(NOW(),'%Y-%m-%d')
+    </select>
 
     <!--通过员工号查看员工信息-->
     <!--<resultMap id="selectAttendInfoByEmpIdMap" type="Attendance">-->
@@ -60,7 +74,7 @@
             <!--</association>-->
         <!--</association>-->
     <!--</resultMap>-->
-    <select id="selectAttendInfoByEmpIdAndDateScopeAndFlag"  resultMap="selectAllAttendInfoMap">
+    <select id="selectAttendInfoByEmpIdAndDateScopeAndWay"  resultMap="selectAllAttendInfoMap">
         SELECT k.`id`, k.`kq_date`,k.kq_way,k.kq_flag,k.kq_time,e.emp_name,k.`emp_id` kid,d.depart_name FROM
         employee e
         INNER JOIN department d ON e.`depart_id`=d.`id`
@@ -68,8 +82,8 @@
         <if test="startDate != null and endDate != null">
             and kq_date BETWEEN #{startDate} AND #{endDate}
         </if>
-        <if test="flag != null">
-            and k.kq_flag = #{flag}
+        <if test="way != null">
+            and k.kq_way = #{way}
         </if>
     </select>
 </mapper>

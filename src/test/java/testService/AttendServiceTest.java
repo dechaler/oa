@@ -50,7 +50,7 @@ public class AttendServiceTest {
         Date date = DateUtils.getFutureOrBeforeDate(new Date(), -1);
         String endDate = DateUtils.dateToStrDateTime(new Date(),format);
         String startDate = DateUtils.dateToStrDateTime(date,format);
-        List<Attendance> attendances = attendService.selectAttendInfoByEmpIdAndDateScopeAndFlag(1000, null,null,null);
+        List<Attendance> attendances = attendService.selectAttendInfoByEmpIdAndDateScopeAndWay(1000, null,null,null);
         for (Attendance attendance : attendances) {
             System.out.println(attendance);
         }

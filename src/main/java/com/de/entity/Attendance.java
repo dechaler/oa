@@ -104,7 +104,8 @@ public class Attendance {
                 ", signTime='" + signTime + '\'' +
                 ", way='" + way + '\'' +
                 ", flag='" + flag + '\'' +
-                ", employee=" + employee.getId() +
+                ", employeeId=" + employee.getId() +
+                ", employeeName=" + employee.getName() +
                 ", department=" + employee.getDepartment().getName() +
                 '}';
     }

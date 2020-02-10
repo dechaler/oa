@@ -7,7 +7,7 @@
     <!--添加请假信息-->
     <insert id="addLeave" parameterType="Leave" useGeneratedKeys="true" keyProperty="id">
     INSERT INTO qingjia(emp_id,reason,le_start_time,le_end_time,status)
-    VALUES(#{employee.id},#{reason},#{startTime},#{endTime},#{status});
+    VALUES(#{employee.id},#{reason},#{startTime},#{endTime},0);
   </insert>
 
     <!--查询请假信息-->
@@ -20,11 +20,13 @@
         <result property="status" column="status"/>
         <association property="employee" javaType="Employee" >
             <id property="id" column="emp_id"/>
+            <result property="name" column="emp_name"/>
         </association>
     </resultMap>
     <select id="selectLeaveInfoByEmpId" resultMap="selectLeaveInfoByEmpIdMap">
-        SELECT id,reason, le_start_time,le_end_time,emp_id,`status` FROM qingjia
-        WHERE emp_id = 1000 ORDER BY le_start_time DESC;
+        SELECT q.id,reason,le_start_time,le_end_time, q.emp_id,`status`,emp_name FROM qingjia q
+        JOIN employee e ON e.`id` = q.`emp_id`
+        WHERE q.emp_id = 100000 ORDER BY le_start_time DESC
     </select>
 
 
