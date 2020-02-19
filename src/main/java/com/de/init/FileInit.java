@@ -1,7 +1,7 @@
 package com.de.init;
 
-import com.de.Utils.DateUtils;
-import com.de.Utils.MyFileUtils;
+import com.de.utils.DateUtils;
+import com.de.utils.MyFileUtils;
 import com.de.dao.FileDao;
 import com.de.entity.Employee;
 import com.de.entity.File;

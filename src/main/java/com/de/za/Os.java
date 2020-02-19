@@ -1,6 +1,6 @@
 package com.de.za;
 
-import com.de.Utils.OsUtils;
+import com.de.utils.OsUtils;
 
 /**
  * @编写人:de

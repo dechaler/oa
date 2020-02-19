@@ -24,7 +24,7 @@
     </bean>
 
     <!--配置拦截器-->
-    <!--<mvc:default-servlet-handler/>-->
+    <mvc:default-servlet-handler/>
     <!--<mvc:interceptors>-->
     <!--&lt;!&ndash;<mvc:interceptor>&ndash;&gt;-->
         <!--&lt;!&ndash;<mvc:mapping path="views/index.html"/>&ndash;&gt;-->

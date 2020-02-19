@@ -4,10 +4,10 @@ layui.use(['table','layer','laydate','form'], function(){
     var laydate = layui.laydate;
     var form = layui.form;
     var layer = layui.layer;
-
+    context = '/oa';
     var reqDatas = function(url,data){
         $.ajax({
-            url:url,
+            url:context + url,
             // url:'/task/selectEmpTask',
             type: 'GET',
             dataType: 'json',
@@ -57,7 +57,7 @@ layui.use(['table','layer','laydate','form'], function(){
     //初始化渲染
     table.render({
         elem: '#task_list'
-        ,url:'/task/selectEmpTask'
+        ,url:context + '/task/selectEmpTask'
         ,toolbar: '#headToolbar'
         ,title: '用户数据表'
         ,parseData: function(res){ //res 即为原始返回的数据
@@ -128,7 +128,7 @@ layui.use(['table','layer','laydate','form'], function(){
                         offset: '100px'
                     }, function (index) {
                         $.ajax({
-                            url: '/task/deleteTasks',
+                            url: context + '/task/deleteTasks',
                             type: 'POST',
                             data: {"taskIds":JSON.stringify(tIds)},
                             dataType: 'json',
@@ -158,7 +158,7 @@ layui.use(['table','layer','laydate','form'], function(){
     //监听添加弹出层提交
     form.on('submit(add)',function (obj) {
         $.ajax({
-            url:'/task/upTask',
+            url:context + '/task/upTask',
             type: 'POST',
             data: obj.field,
             dataType: 'json',
@@ -201,7 +201,7 @@ layui.use(['table','layer','laydate','form'], function(){
     form.on('submit(edit)',function (obj) {
         console.log(obj.field);
         $.ajax({
-            url:'/task/updateTask',
+            url:context + '/task/updateTask',
             type: 'POST',
             data: obj.field,
             dataType: 'json',
@@ -263,7 +263,7 @@ layui.use(['table','layer','laydate','form'], function(){
                     offset: '100px'
                 }, function (index) {
                     $.ajax({
-                        url: '/task/deleteTask',
+                        url: context + '/task/deleteTask',
                         type: 'POST',
                         data: {"taskId":id},
                         dataType: 'json',

@@ -1,4 +1,4 @@
-package com.de.Utils;
+package com.de.utils;
 
 /**
  * @编写人:de
@@ -8,4 +8,5 @@ package com.de.Utils;
 public class MyFileUtils {
     public final static String UPLOAD_PATH = "src/main/webappWEB-INF/";
     public final static String WIN_PATH = "D:/java/upload/";
+    public final static String LIN_PATH = "/home/oa/upload/";
 }

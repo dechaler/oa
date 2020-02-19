@@ -2,9 +2,10 @@ layui.use(['table','layer'], function(){
     var layer = layui.layer;
     var table = layui.table;
     var $ = layui.$;
+    context = '/oa';
     table.render({
         elem: '#sch_list'
-        ,url:'/sch/selectSch'
+        ,url:context + '/sch/selectSch'
         // ,toolbar: '#hearToolbar'
         ,title: '日程表'
         ,parseData: function(res){ //res 即为原始返回的数据
@@ -46,7 +47,7 @@ layui.use(['table','layer'], function(){
                 }
                 // console.log(dateFormat);
                 $.ajax({
-                    url: '/sch/selectSch',
+                    url: context + '/sch/selectSch',
                     type: 'GET',
                     data: {"date":dateFormat},
                     dataType: 'json',
@@ -80,7 +81,7 @@ layui.use(['table','layer'], function(){
             case 'findAll':
                 // layer.msg(obj.event);
                 $.ajax({
-                    url: '/sch/selectSch',
+                    url: context + '/sch/selectSch',
                     type: 'GET',
                     dataType: 'json',
                     success: function (res) {

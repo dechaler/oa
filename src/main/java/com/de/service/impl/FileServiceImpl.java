@@ -1,7 +1,7 @@
 package com.de.service.impl;
 
-import com.de.Utils.MyFileUtils;
-import com.de.Utils.OsUtils;
+import com.de.utils.MyFileUtils;
+import com.de.utils.OsUtils;
 import com.de.dao.FileDao;
 import com.de.entity.File;
 import com.de.service.FileService;
@@ -37,6 +37,8 @@ public class FileServiceImpl implements FileService {
            dirpath = MyFileUtils.WIN_PATH + file.getEmployee().getDepartment().getId() + "/" + file.getEmployee().getId();
         }
         if (OsUtils.isLinOs()){
+            dirpath = MyFileUtils.LIN_PATH + file.getEmployee().getDepartment().getId() + "/" + file.getEmployee().getId();
+
         }
         java.io.File dirFile = new java.io.File(dirpath);
         if (!dirFile.exists()){

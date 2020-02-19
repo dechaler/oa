@@ -1,8 +1,8 @@
 package com.de.controller;
 
-import com.de.Utils.JsonResultType;
-import com.de.Utils.RequestParams;
-import com.de.Utils.ResponseInfo;
+import com.de.utils.JsonResultType;
+import com.de.utils.RequestParams;
+import com.de.utils.ResponseInfo;
 import com.de.entity.Employee;
 import com.de.service.EmpService;
 import com.github.pagehelper.PageHelper;
@@ -11,6 +11,7 @@ import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +37,7 @@ public class EmpController {
 
 
     @ResponseBody
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public JsonResultType<Employee> login(Employee employee, String verifyCode,HttpSession session,HttpServletResponse response){
         String code = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         Integer id = employee.getId();

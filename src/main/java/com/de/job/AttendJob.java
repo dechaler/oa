@@ -1,7 +1,7 @@
-package com.de.Job;
+package com.de.job;
 
-import com.de.Utils.DateUtils;
-import com.de.Utils.KqWay;
+import com.de.utils.DateUtils;
+import com.de.utils.KqWay;
 import com.de.dao.AttendDao;
 import com.de.dao.EmpDao;
 import org.springframework.beans.factory.annotation.Autowired;

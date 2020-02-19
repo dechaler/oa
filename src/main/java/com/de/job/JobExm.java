@@ -1,4 +1,4 @@
-package com.de.Job;
+package com.de.job;
 
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package testDao;
 
-import com.de.Utils.DateUtils;
+import com.de.utils.DateUtils;
 import com.de.dao.TaskDao;
 import com.de.entity.Task;
 import org.junit.Test;

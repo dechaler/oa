@@ -1,7 +1,7 @@
 package testService;
 
-import com.de.Utils.DateUtils;
-import com.de.Utils.KqFlag;
+import com.de.utils.DateUtils;
+import com.de.utils.KqFlag;
 import com.de.entity.Attendance;
 import com.de.entity.Employee;
 import com.de.service.AttendService;

@@ -20,6 +20,7 @@
 // })
 
 //layui 组件
+context = '/oa';
 layui.use(['layer', 'form','element'], function() {
     var $ = layui.$;
     var element = layui.element;
@@ -28,7 +29,7 @@ layui.use(['layer', 'form','element'], function() {
 
     //请求主页判断session
     $.ajax({
-        url: "../RequiredSession",
+        url: context + "/RequiredSession",
         type: "POST",
         dataType: "json",
         async: false,
@@ -42,7 +43,7 @@ layui.use(['layer', 'form','element'], function() {
             }
         },
         error: function () {
-            alert("访问异常");
+            // alert("访问异常");
             location.href = "login.html";
         }
     });

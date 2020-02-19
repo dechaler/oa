@@ -1,7 +1,7 @@
 package com.de.controller;
-import com.de.Utils.JsonResultType;
-import com.de.Utils.RequestParams;
-import com.de.Utils.ResponseInfo;
+import com.de.utils.JsonResultType;
+import com.de.utils.RequestParams;
+import com.de.utils.ResponseInfo;
 import com.de.entity.Employee;
 import com.de.entity.Task;
 import com.de.service.TaskService;
@@ -75,19 +75,19 @@ public class TaskController {
    }
 
     @ResponseBody
-    @RequestMapping(value = "/deleteTasks",method = RequestMethod.POST)
-    public int deleteTasks(String taskIds, HttpServletResponse response) {
-        //取参数
+        @RequestMapping(value = "/deleteTasks",method = RequestMethod.POST)
+        public int deleteTasks(String taskIds, HttpServletResponse response) {
+            //取参数
 //        System.out.println(taskIds);
-        String substr = taskIds.substring(1, taskIds.length()- 1);
-        String[] split = substr.split(",");
-        List<Integer> tIds = new ArrayList<>();
+            String substr = taskIds.substring(1, taskIds.length()- 1);
+            String[] split = substr.split(",");
+            List<Integer> tIds = new ArrayList<>();
 
-        for (String s: split) {
-            tIds.add(Integer.valueOf(s));
-        }
-        int re = taskService.deleteTaskByIds(tIds);
-        re = ResponseInfo.verifyDatas(response,re);
-        return re;
+            for (String s: split) {
+                tIds.add(Integer.valueOf(s));
+            }
+            int re = taskService.deleteTaskByIds(tIds);
+            re = ResponseInfo.verifyDatas(response,re);
+            return re;
     }
 }

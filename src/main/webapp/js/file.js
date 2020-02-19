@@ -5,14 +5,14 @@ layui.use(['table','layer','form','upload'], function(){
     var form = layui.form;
     var $ = layui.$;
     var upload = layui.upload;
-
+    context = '/oa';
 
 
     //表格工具函数
     tableRender = function (url,toolbar) {
         table.render({
             elem: '#file_list'
-            ,url: url
+            ,url: context + url
             ,toolbar:toolbar
             ,parseData: function(res){ //res 即为原始返回的数据
                 // console.log(res);
@@ -48,7 +48,7 @@ layui.use(['table','layer','form','upload'], function(){
     //请求数据工具函数1
     reqDatatoTable = function (url,params,toolbar) {
         $.ajax({
-            url:url,
+            url:context + url,
             type: 'POST',
             dataType: 'json',
             data: params,
@@ -88,7 +88,7 @@ layui.use(['table','layer','form','upload'], function(){
     //请求数据工具函数2
     reqDatatoMyTable =function(url,params,toolbar){
         $.ajax({
-            url:url,
+            url:context + url,
             type: 'POST',
             dataType: 'json',
             data: params,
@@ -130,7 +130,7 @@ layui.use(['table','layer','form','upload'], function(){
      uploadFile = function(elem,url){
         upload.render({
             elem: elem
-            ,url: url
+            ,url: context + url
             // ,auto: false
             ,field: 'srcFile'
             ,accept: 'file' //普通文件
@@ -149,7 +149,7 @@ layui.use(['table','layer','form','upload'], function(){
                         offset: '100px'
                     });
                     $.ajax({
-                        url:'/file/selectAllFile',
+                        url:'/oa/file/selectAllFile',
                         type: 'GET',
                         //标识
                         // data: {empId:status},
@@ -164,7 +164,7 @@ layui.use(['table','layer','form','upload'], function(){
                                 ,cols: [[
                                     {type: 'checkbox', fixed: 'left'}
                                     ,{field:'id', title: 'ID',width:70, sort: true}
-                                    ,{field:'fileName', title: '文件名',width:500,templet: '#download'}
+                                    ,{field:'fileName', title: '文件名',width:500,templet: '#download',event: 'download'}
                                     ,{field:'upTime', title: '上传时间',width:200, sort: true}
                                     ,{field:'emp_name', title: '员工',width:100,templet: function (res) {
                                             return res.employee.name;
@@ -183,6 +183,10 @@ layui.use(['table','layer','form','upload'], function(){
                     });
                 }else if (res === -1) {
                     layer.alert("请勿上传同名文件", {icon: 2, title: '提示'});
+                }else if (res === -2) {
+                    layer.alert("不允许上传该类型文件", {icon: 2, title: '提示'});
+                }else if (res === -3) {
+                    layer.alert("文件大小不能超过5m", {icon: 2, title: '提示'})
                 }
             }
         });
@@ -253,7 +257,7 @@ layui.use(['table','layer','form','upload'], function(){
                         offset: '100px'
                     }, function (index) {
                         $.ajax({
-                            url: '/file/deleteFileByIds',
+                            url: '/oa/file/deleteFileByIds',
                             type: 'POST',
                             data: {"fIds":JSON.stringify(fIds),"fPaths":JSON.stringify(fPaths)},
                             dataType: 'json',
@@ -324,7 +328,7 @@ layui.use(['table','layer','form','upload'], function(){
                     offset: '100px'
                 }, function (index) {
                     $.ajax({
-                        url: '/file/deleteFileById',
+                        url: '/oa/file/deleteFileById',
                         type: 'POST',
                         data: {"fileId":fileId, "filePath":filePath},
                         dataType: 'json',
@@ -345,40 +349,12 @@ layui.use(['table','layer','form','upload'], function(){
                 });
                 break;
             case 'download':
-                location.href="/file/download?fileName="+ fileName +"&filePath=" + filePath;
-            //     layer.msg("download");
-            //     // $.ajax({
-            //     //     url: '/file/download',
-            //     //     type: 'POST',
-            //     //     data: {"filePath":filePath,"fileName":fileName},
-            //     //     success: function () {
-            //     //         console.log("success");
-            //     //     },
-            //     //     error: function () {
-            //     //         console.log("error");
-            //     //
-            //     //     }
-            //     //
-            //     // });
-            //     break;
+                location.href="/oa/file/download?fileName="+ fileName +"&filePath=" + filePath;
+
         }
     });
 
 
-    // var data = $("#download > #dl");
-    // var data1 = $("#download");
-    // var data2 = $("#dl").value;
-    // var data3 = $("#file_list");
-    // console.log(data);
-    // console.log(data1);
-    // console.log(data2);
-    // console.log(data3);
-    //
-    //
-    // $("#dlfile").click(function (e) {
-    //     // e.preventDefault();
-    //     console.log("hhaa");
-    // });
 });
 
 

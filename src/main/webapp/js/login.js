@@ -3,9 +3,9 @@ layui.define(['index', "form"], function(){
         ,setter = layui.setter
         ,admin = layui.admin
         ,form = layui.form;
-    alert("3");
+        context = '/oa';
     form.render();
-    alert("2");
+
 
     // 验证
     form.verify({
@@ -32,7 +32,7 @@ layui.define(['index', "form"], function(){
         //         //     }
         //         // )
         admin.req({
-            url: '/emp/login' //实际使用请改成服务端真实接口
+            url: context + '/emp/login' //实际使用请改成服务端真实接口
             ,data: obj.field
             ,done: function(res){
                 //请求成功后，写入 access_token

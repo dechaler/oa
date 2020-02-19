@@ -1,6 +1,6 @@
 package testDao;
 
-import com.de.Utils.DateUtils;
+import com.de.utils.DateUtils;
 import com.de.dao.EmpDao;
 import com.de.dao.FileDao;
 import com.de.entity.Employee;

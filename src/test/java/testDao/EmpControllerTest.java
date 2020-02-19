@@ -1,6 +1,6 @@
 package testDao;
 
-import com.de.Utils.JsonResultType;
+import com.de.utils.JsonResultType;
 import com.de.entity.Employee;
 import com.de.service.EmpService;
 import org.junit.Test;

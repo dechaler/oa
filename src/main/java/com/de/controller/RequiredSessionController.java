@@ -1,6 +1,6 @@
 package com.de.controller;
 
-import com.de.Utils.JsonResultType;
+import com.de.utils.JsonResultType;
 import com.de.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

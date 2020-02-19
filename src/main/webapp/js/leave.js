@@ -6,11 +6,12 @@ layui.use(['table','layer','laydate','form'], function(){
     var $ = layui.$;
     var laydate = layui.laydate;
     var form = layui.form;
+    context = '/oa';
 
 
     var reqDatas = function(url,data){
         $.ajax({
-            url:url,
+            url:context + url,
             // url:'/task/selectEmpTask',
             type: 'GET',
             dataType: 'json',
@@ -98,7 +99,7 @@ layui.use(['table','layer','laydate','form'], function(){
     form.on('submit(add)',function (obj) {
         console.log(obj.field);
         $.ajax({
-            url:'/leave/addLeave',
+            url:context + '/leave/addLeave',
             type: 'POST',
             data: obj.field,
             dataType: 'json',

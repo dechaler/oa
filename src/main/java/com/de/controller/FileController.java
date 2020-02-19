@@ -1,6 +1,6 @@
 package com.de.controller;
 
-import com.de.Utils.*;
+import com.de.utils.*;
 import com.de.entity.Employee;
 import com.de.entity.File;
 import com.de.service.FileService;
@@ -46,17 +46,28 @@ public class FileController {
     @RequestMapping(value = "/upLoadFile", method = RequestMethod.POST)
     @ResponseBody
     public int upLoadFile(@SessionAttribute Employee employee, MultipartFile srcFile,HttpServletResponse response) throws IOException, ParseException {
+        byte[] bytes = srcFile.getBytes();
+        //控制文件上传不超过5m
+        if (bytes.length > 1024 * 1000 * 5) {
+            return -3;
+        }
+        String filename = srcFile.getOriginalFilename();
+        String[] split = filename.split("\\.");
+        String type = split[split.length-1];
+        if (!FileTypeUtils.isHas(type)) {
+            return -2;
+        }
         String path = null;
         File fileInfo = new File();
         fileInfo.setEmployee(employee);
-        fileInfo.setFileName(srcFile.getOriginalFilename());
+        fileInfo.setFileName(filename);
         fileInfo.setUpTime(DateUtils.dateToStrDateTime(new Date(),DateUtils.DATEFORMATWITHTIME));
         if (OsUtils.isWinOs()){
             path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + fileInfo.getEmployee().getId() + "/" + srcFile.getOriginalFilename();
         }
 
         if (OsUtils.isLinOs()){
-//            path = MyFileUtils.WIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + srcFile.getOriginalFilename();
+            path = MyFileUtils.LIN_PATH + fileInfo.getEmployee().getDepartment().getId() + "/" + fileInfo.getEmployee().getId() + "/" + srcFile.getOriginalFilename();
         }
         fileInfo.setFilePath(path);
         int re = fileService.upLoadFile(fileInfo, srcFile);

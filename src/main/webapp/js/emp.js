@@ -3,6 +3,7 @@ layui.use(['table','layer','form'], function(){
     var $ = layui.$;
     var form = layui.form;
     var layer = layui.layer;
+    context = '/oa';
 
     /*form.on('select(selecting)', function(data){
         console.log(data.elem); //得到select原始DOM对象
@@ -12,7 +13,7 @@ layui.use(['table','layer','form'], function(){
     //页面初始化
     table.render({
         elem: '#employee_list',
-        url:'/emp/selectAllEmp',
+        url:context + '/emp/selectAllEmp',
         type: 'GET',
         toolbar: '#empToolbar',
         // contentType:'application/json',
@@ -116,7 +117,7 @@ layui.use(['table','layer','form'], function(){
 
     reqDatatoTable = function (params) {
         $.ajax({
-            url:'/emp/selectAllEmp',
+            url:context + '/emp/selectAllEmp',
             type: 'GET',
             dataType: 'json',
             data: params,

@@ -1,6 +1,6 @@
 package com.de.init;
 
-import com.de.Utils.DateUtils;
+import com.de.utils.DateUtils;
 import com.de.dao.SchDao;
 import com.de.entity.Employee;
 import com.de.entity.Schedule;

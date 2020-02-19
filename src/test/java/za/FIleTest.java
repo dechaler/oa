@@ -1,6 +1,6 @@
 package za;
 
-import com.de.Utils.MyFileUtils;
+import com.de.utils.MyFileUtils;
 
 import java.io.File;
 import java.io.IOException;

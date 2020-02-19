@@ -1,6 +1,6 @@
 package za;
 
-import com.de.Utils.DateUtils;
+import com.de.utils.DateUtils;
 import org.junit.Test;
 
 import java.text.ParseException;

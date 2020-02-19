@@ -100,7 +100,7 @@
         <!--<property name="targetMethod" value="hello"/>-->
         <!--<property name="concurrent" value="false"/>-->
     <!--</bean>-->
-    <!--<bean id="Job" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+    <!--<bean id="job" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
         <!--<property name="targetObject" ref="jobExm"/>-->
         <!--<property name="targetMethod" value="hello"/>-->
         <!--<property name="concurrent" value="false"/>-->

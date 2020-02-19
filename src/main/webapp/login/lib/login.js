@@ -1,5 +1,6 @@
 layui.define(['index', "form"], function(exports){
     var $ = layui.$,form = layui.form;
+    context = '/oa';
     form.render();
     // 验证
     form.verify({
@@ -25,18 +26,18 @@ layui.define(['index', "form"], function(exports){
     // $("#LAY-user-login-vercode").attr("value",22);
 
     $("#LAY-user-get-vercode").click(function () {
-       this.src = "/kaptcha/verifyCode?t=" + (new Date).getTime()
+       this.src = context + "/kaptcha/verifyCode?t=" + (new Date).getTime()
     });
     //刷新验证码和置空
     var reflush = function(){
         $("#LAY-user-login-vercode").val("");
         // $("#LAY-user-login-vercode").attr("value",""); 没效果
-        $("#LAY-user-get-vercode").attr("src","/kaptcha/verifyCode?t=\" + (new Date).getTime()");
+        $("#LAY-user-get-vercode").attr("src", context + "/kaptcha/verifyCode?t=\" + (new Date).getTime()");
     };
-
 
     //提交
     form.on('submit(LAY-user-login-submit)', function(obj){
+        // console.log(obj);
         //请求登入接口
         // $.ajax({
         //         //     ur1:'/emp/login?verifyCode=' + verifyCode
@@ -51,7 +52,7 @@ layui.define(['index', "form"], function(exports){
         // console.log("password= " + password);
 
         $.ajax({
-            url: '/emp/login',
+            url: context + '/emp/login',
             type: 'POST',
             data: obj.field,
             dataType: 'json',
@@ -89,14 +90,14 @@ layui.define(['index', "form"], function(exports){
             error: function () {
                 layer.msg('登陆异常，请重新登陆', {
                     offset: '15px'
-                    ,icon: 1
+                    ,icon: 2
                     ,time: 1000
                 }, function(){
-                    // location.href = './login.html'; //后台主页
+                    location.href = './login.html'; //后台主页
                 });
             }
-        })
 
+        });
         // admin.req({
         //     // url: '/emp/login?verifyCode='+verifyCode+'&id='+id+'&password='+password//实际使用请改成服务端真实接口
         //     url: '/emp/login'   //实际使用请改成服务端真实接口
@@ -118,7 +119,6 @@ layui.define(['index', "form"], function(exports){
         //         });
         //     }
         // });
-
     });
     exports('login', {});
-})
+});

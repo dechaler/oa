@@ -1,4 +1,4 @@
-package com.de.Utils;
+package com.de.utils;
 
 /**
  * @编写人:de

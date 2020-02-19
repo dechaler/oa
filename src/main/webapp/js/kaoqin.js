@@ -6,11 +6,12 @@ layui.use(['table','form','layer','laydate'], function(){
     var form = layui.form;
     var layer = layui.layer;
     var laydate = layui.laydate;
+    context = '/oa';
 
     //封装考勤页面ajax请求
     var reqDataFromkaoqin = function(url,data,kqWay,startDate,endDate){
         $.ajax({
-            url:url,
+            url:context + url,
             type: 'GET',
             dataType: 'json',
             data:data,
@@ -85,7 +86,7 @@ layui.use(['table','form','layer','laydate'], function(){
                         offset: '100px'
                     }, function (index) {
                         $.ajax({
-                            url: '/attendance/signIn',
+                            url: context + '/attendance/signIn',
                             type: 'POST',
                             async:false,
                             data:{"way":way,"flag":flag},
@@ -114,7 +115,7 @@ layui.use(['table','form','layer','laydate'], function(){
                     }, function (index) {
                         console.log(11);
                         $.ajax({
-                            url: '/attendance/signIn',
+                            url: context + '/attendance/signIn',
                             type: 'POST',
                             async:false,
                             // dataType: 'json',

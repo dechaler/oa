@@ -36,6 +36,7 @@
     <resultMap id="selectEmpMap" type="Employee">
         <id property="id" column="id"/>
         <result property="name" column="emp_name"/>
+        <result property="phone" column="phone"/>
         <!--<result property="password" column="emp_pwd"/>-->
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
@@ -60,10 +61,9 @@
 
     <!--根据id查询员工信息-->
     <select id="selectEmpById" parameterType="Integer" resultMap="selectEmpMap">
-        SELECT e.id,emp_name,sex,age,phone,iner_date,j.`id` jid,j.`job_name`,d.id did,d.depart_name
-        FROM employee e
-                 LEFT JOIN department d ON e.depart_id = d.id
-                 LEFT JOIN job j ON e.job_id = j.id
+        SELECT e.id,e.emp_name,e.sex,e.phone,j.job_name,e.iner_date,d.id did,d.depart_name FROM employee e
+        JOIN department d ON e.`depart_id`=d.`id`
+        JOIN job j ON j.`id`=e.`job_id`
         WHERE e.id = #{id}
     </select>
 

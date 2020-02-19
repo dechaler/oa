@@ -28,10 +28,11 @@
 <script>
     layui.use(['table','form','layer'], function(){
         var table = layui.table;
+        context = '/oa';
         //渲染打卡
         table.render({
             elem: '#clockIn'
-            ,url:'/attendance/selectClockInInfo'
+            ,url:context + '/attendance/selectClockInInfo'
             ,parseData: function(res){ //res 即为原始返回的数据
                 console.log(res);
             }
