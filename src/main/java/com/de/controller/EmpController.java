@@ -111,6 +111,16 @@ public class EmpController {
         return re;
     }
 
+    @RequestMapping("/selectEmpById")
+    @ResponseBody
+    public JsonResultType selectEmpById(Employee employee, HttpSession session,HttpServletResponse response){
+        Employee emp = (Employee)session.getAttribute("employee");
+        Integer id = emp.getId();
+        Employee temp = empService.selectEmpById(id);
+        JsonResultType jsonResultType = ResponseInfo.verifyDatas(temp, response, this.jsonResultType);
+        return jsonResultType;
+
+    }
 
     @RequestMapping("/logout")
     @ResponseBody

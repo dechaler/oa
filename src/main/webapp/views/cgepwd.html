@@ -21,54 +21,38 @@
                 <div class="layui-card-body" pad15="">
 
                     <div class="layui-form" lay-filter="">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">当前密码</label>
-                            <div class="layui-input-inline">
-                                <input type="password" name="oldPassword" lay-verify="required" lay-vertype="tips" class="layui-input layui-form-danger">
-                            </div>
-                        </div>
+                        <!--<div class="layui-form-item">-->
+                            <!--<label class="layui-form-label">当前密码</label>-->
+                            <!--<div class="layui-input-inline">-->
+                                <!--<input type="password" name="oldPassword" lay-verify="required" lay-vertype="tips" class="layui-input layui-form-danger">-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <div class="layui-form-item">
                             <label class="layui-form-label">新密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" name="password" lay-verify="pass" lay-vertype="tips" autocomplete="off" id="LAY_password" class="layui-input">
+                                <input type="password" name="password" lay-verify="required|pwd"  autocomplete="off" id="LAY_password" class="layui-input">
                             </div>
-                            <div class="layui-form-mid layui-word-aux">6到16个字符</div>
+                            <div class="layui-form-mid layui-word-aux">至少6个字符</div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">确认新密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" name="repassword" lay-verify="repass" lay-vertype="tips" autocomplete="off" class="layui-input">
+                                <input type="password" name="repassword" lay-verify="required"  autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <button class="layui-btn" lay-submit="" lay-filter="setmypass">确认修改</button>
+                                <button class="layui-btn" lay-submit="" lay-filter="repwd">确认修改</button>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="../layui/layui.js"></script>
-<script>
-    layui.config({
-        base: '../layuiadmin/' //静态资源所在路径
-    }).extend({
-        index: 'lib/index' //主入口模块
-    }).use('index');
-</script>
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
+<script src="../js/repwd.js"></script>
 <style id="LAY_layadmin_theme">.layui-side-menu,.layadmin-pagetabs .layui-tab-title li:after,.layadmin-pagetabs .layui-tab-title li.layui-this:after,.layui-layer-admin .layui-layer-title,.layadmin-side-shrink .layui-side-menu .layui-nav>.layui-nav-item>.layui-nav-child{background-color:#20222A !important;}.layui-nav-tree .layui-this,.layui-nav-tree .layui-this>a,.layui-nav-tree .layui-nav-child dd.layui-this,.layui-nav-tree .layui-nav-child dd.layui-this a{background-color:#009688 !important;}.layui-layout-admin .layui-logo{background-color:#20222A !important;}</style>
 </body>
 </html>

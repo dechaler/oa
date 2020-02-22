@@ -27,7 +27,7 @@ public class JsonResultType<T> {
     private String count;
 
 // 规定数据列表的字段名称，默认：data
-    private List<T> data;
+    private Object data;
 
     public JsonResultType() {
     }
@@ -37,6 +37,14 @@ public class JsonResultType<T> {
         this.code = code;
         this.msg = msg;
         this.count = count;
+        this.data = data;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
         this.data = data;
     }
 
@@ -72,13 +80,6 @@ public class JsonResultType<T> {
         this.count = count;
     }
 
-    public List<T> getData() {
-        return data;
-    }
-
-    public void setData(List<T> data) {
-        this.data = data;
-    }
 
 //    @Override
 //    public String toString() {

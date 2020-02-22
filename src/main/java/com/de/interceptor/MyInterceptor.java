@@ -1,4 +1,4 @@
-package com.de.Interceptor;
+package com.de.interceptor;
 
 import com.de.entity.Employee;
 import org.springframework.web.servlet.HandlerInterceptor;

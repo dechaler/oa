@@ -28,6 +28,10 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!--<welcome-file-list>-->
+        <!--<welcome-file>/views/login.html</welcome-file>-->
+    <!--</welcome-file-list>-->
+
     <!--需要请求静态资源则配置-->
     <servlet-mapping>
         <servlet-name>default</servlet-name>

@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>layout 后台大布局 - Layui</title>
-    <link rel="stylesheet" href="./layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -87,8 +87,8 @@
         layui.com - 底部固定区域
     </div>
 </div>
-<script src="./js/jquery-3.3.1.js"></script>
-<script src="./layui/layui.js"></script>
+<script src="../js/jquery-3.3.1.js"></script>
+<script src="../layui/layui.js"></script>
 <script src="./js/index.myindex.js"></script>
 
 

@@ -26,7 +26,7 @@
     <select id="selectLeaveInfoByEmpId" resultMap="selectLeaveInfoByEmpIdMap">
         SELECT q.id,reason,le_start_time,le_end_time, q.emp_id,`status`,emp_name FROM qingjia q
         JOIN employee e ON e.`id` = q.`emp_id`
-        WHERE q.emp_id = 100000 ORDER BY le_start_time DESC
+        WHERE q.emp_id = #{empId} ORDER BY le_start_time DESC
     </select>
 
 

@@ -48,6 +48,9 @@ public interface EmpService {
      */
     int updateEmpById(Integer id,Employee employee);
 
+    int updateInfoById(Integer id,Employee employee);
+
+
     /**
      *@描述信息：根据员工号更新员工密码
      *
@@ -89,5 +92,6 @@ public interface EmpService {
      * @时间： 2019/9/4
      */
     Employee selectEmpById(Integer id);
+
 
 }

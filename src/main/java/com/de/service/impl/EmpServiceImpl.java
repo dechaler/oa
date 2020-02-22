@@ -46,6 +46,12 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
+    public int updateInfoById(Integer id, Employee employee) {
+        int re = empDao.updateInfoById(id, employee);
+        return re;
+    }
+
+    @Override
     public int updatePwdById(Integer id, String newPwd) {
         int result = empDao.updatePwdById(id, newPwd);
         if (result > 0)
@@ -65,7 +71,6 @@ public class EmpServiceImpl implements EmpService {
     public Employee selectEmpById(Integer id) {
         return empDao.selectEmpById(id);
     }
-
 
 //    @Override
 //    public Employee selectEmpById(Integer id) {

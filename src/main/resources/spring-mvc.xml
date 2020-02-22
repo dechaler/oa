@@ -29,7 +29,7 @@
     <!--&lt;!&ndash;<mvc:interceptor>&ndash;&gt;-->
         <!--&lt;!&ndash;<mvc:mapping path="views/index.html"/>&ndash;&gt;-->
         <!--&lt;!&ndash;&lt;!&ndash;<mvc:exclude-mapping path="/admin/**"/>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;&lt;!&ndash;<bean class="com.de.Interceptor.MyInterceptor"/>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;<bean class="com.de.interceptor.MyInterceptor"/>&ndash;&gt;&ndash;&gt;-->
         <!--&lt;!&ndash;<bean class="org.springframework.web.servlet.handler.MappedInterceptor">&ndash;&gt;-->
             <!--&lt;!&ndash;&lt;!&ndash;<property name="pathMatcher"&ndash;&gt;&ndash;&gt;-->
         <!--&lt;!&ndash;</bean>&ndash;&gt;-->

@@ -63,7 +63,7 @@ layui.define(['index', "form"], function(exports){
                         ,icon: 1
                         ,time: 1000
                     }, function(){
-                        location.href = './index.html'; //主页
+                        location.href = '../../oa/views/index.html'; //主页
                     });
                 }else if (res.code == -2) {
                     layer.msg('验证码输入有误', {

@@ -36,7 +36,7 @@ layui.use(['layer', 'form','element'], function() {
         success: function (res) {
             if (res.code == 0) {
                 $("#black_box").hide();
-                $("#emp").html(res.data[0].name);
+                // $("#emp").html(res.data[0].name);
             } else {
                 // alert("请先登录");
                 location.href = "login.html";
@@ -45,6 +45,22 @@ layui.use(['layer', 'form','element'], function() {
         error: function () {
             // alert("访问异常");
             location.href = "login.html";
+        }
+    });
+
+
+    $.ajax({
+        url: context + "/emp/selectEmpById",
+        type: "POST",
+        dataType: "json",
+        async: false,
+        success: function (res) {
+            if (res.code == 0) {
+                $("#emp").html(res.data.name);
+            }
+        },
+        error: function () {
+            console.log("访问异常");
         }
     });
 

@@ -26,6 +26,9 @@ public class EmpControllerTest {
 
     @Test
     public void testEmpController(){
+        Employee employee = new Employee();
+        employee.setName("dc");
+        empService.updateInfoById(100000,employee);
     }
 
 

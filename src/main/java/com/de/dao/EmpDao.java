@@ -1,6 +1,5 @@
 package com.de.dao;
 
-import com.de.entity.Department;
 import com.de.entity.Employee;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -46,6 +45,17 @@ public interface EmpDao {
     int updateEmpById(@Param("id") Integer id,@Param("emp") Employee employee);
 
     /**
+     *@描述信息：本人修改休息
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/2/21
+     */
+
+    int updateInfoById(@Param("id") Integer id,@Param("emp") Employee employee);
+
+    /**
      *@描述信息：根据员工号更新员工密码
      *
      * @参数：   员工id，员工新密码
@@ -64,9 +74,7 @@ public interface EmpDao {
      * @编写人：de
      * @时间： 2019/9/4
      */
-
     List<Employee> selectAllEmp();
-
 
     /**
      *@描述信息：根据员工id查询员工信息
@@ -98,7 +106,7 @@ public interface EmpDao {
      * @时间： 2019/9/8
      */
 
-    Department selectDepartByDepartId(Integer departId);
+//    Department selectDepartByDepartId(Integer departId);
 
 
     /**
@@ -111,7 +119,6 @@ public interface EmpDao {
      */
 
     List<Integer> selectAllEmpId();
-
 
     /**
      *@描述信息：根据员工id或者员工名查询员工信息

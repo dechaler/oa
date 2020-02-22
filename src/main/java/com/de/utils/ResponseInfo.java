@@ -56,4 +56,18 @@ public class ResponseInfo {
            return  -1;
         }
     }
+
+    public static JsonResultType verifyDatas(Object data, HttpServletResponse response, JsonResultType jsonResultType){
+        if (response.getStatus() == HttpServletResponse.SC_OK) {
+            jsonResultType.setCode("" + 0);
+            jsonResultType.setCount("" + 1);
+            jsonResultType.setData(data);
+            return jsonResultType;
+        } else {
+            jsonResultType.setCode("" + 0);
+            jsonResultType.setMsg("数据为空");
+            jsonResultType.setData(null);
+            return jsonResultType;
+        }
+    }
 }

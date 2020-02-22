@@ -21,6 +21,6 @@ public class TestController {
 
     @RequestMapping("/jump")
     public String sayHi() {
-        return "../index.jsp";  //请求转发
+        return "/za/index.jsp";  //请求转发
     }
 }

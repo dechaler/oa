@@ -81,18 +81,18 @@
 
     <!--配置job实例-->
     <!--上班Job-->
-    <!--<bean id="InitAttendInfoWithShangBan" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
-        <!--<property name="targetObject" ref="attendJob"/>-->
-        <!--<property name="targetMethod" value="InitAttendInfoWithShangBan"/>-->
-        <!--<property name="concurrent" value="false"/>-->
-    <!--</bean>-->
+    <bean id="InitAttendInfoWithShangBan" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="attendJob"/>
+        <property name="targetMethod" value="InitAttendInfoWithShangBan"/>
+        <property name="concurrent" value="false"/>
+    </bean>
 
     <!--下班Job-->
-    <!--<bean id="InitAttendInfoWithXiaBan" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
-        <!--<property name="targetObject" ref="attendJob"/>-->
-        <!--<property name="targetMethod" value="InitAttendInfoWithXiaBan"/>-->
-        <!--<property name="concurrent" value="false"/>-->
-    <!--</bean>-->
+    <bean id="InitAttendInfoWithXiaBan" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="attendJob"/>
+        <property name="targetMethod" value="InitAttendInfoWithXiaBan"/>
+        <property name="concurrent" value="false"/>
+    </bean>
 
     <!--演示job-->
     <!--<bean id="JobExm" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
@@ -108,15 +108,15 @@
 
     <!--配置触发器-->
     <!--上班触发器-->
-    <!--<bean id="shangbanCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-        <!--<property name="jobDetail" ref="InitAttendInfoWithShangBan"/>-->
-        <!--<property name="cronExpression" value="0 0 02 * * ? * "/>-->
-    <!--</bean>-->
+    <bean id="shangbanCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="InitAttendInfoWithShangBan"/>
+        <property name="cronExpression" value="0 0 00 * * ? * "/>
+    </bean>
     <!--下班触发器-->
-    <!--<bean id="xiabanCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
-        <!--<property name="jobDetail" ref="InitAttendInfoWithXiaBan"/>-->
-        <!--<property name="cronExpression" value="0 0 14 * * ? * "/>-->
-    <!--</bean>-->
+    <bean id="xiabanCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="InitAttendInfoWithXiaBan"/>
+        <property name="cronExpression" value="0 0 00 * * ? * "/>
+    </bean>
 
     <!--演示触发器-->
     <!--<bean id="jobExmCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">-->
@@ -126,15 +126,15 @@
 
     <!--配置调度工厂-->
 
-    <!--<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" id="schedulerFactoryBean">
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" id="schedulerFactoryBean">
             <property name="triggers">
                 <list>
-                    &lt;!&ndash;<ref bean="shangbanCronTrigger"/>&ndash;&gt;
-                    &lt;!&ndash;<ref bean="xiabanCronTrigger"/>&ndash;&gt;
-                    <ref bean="jobExmCronTrigger"/>
+                    <ref bean="shangbanCronTrigger"/>
+                    <ref bean="xiabanCronTrigger"/>
+                    <!--<ref bean="jobExmCronTrigger"/>-->
                 </list>
             </property>
-        </bean>-->
+        </bean>
 
 
     <!--验证码-->
