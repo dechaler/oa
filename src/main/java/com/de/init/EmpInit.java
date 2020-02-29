@@ -4,6 +4,7 @@ import com.de.utils.DateUtils;
 import com.de.dao.EmpDao;
 import com.de.entity.Employee;
 import com.de.entity.Job;
+import com.de.utils.EncryptionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
@@ -34,11 +35,12 @@ public class EmpInit {
             //随机数
             int rand = new Random().nextInt(33);
             int age = 18 + rand;
+//            employee.setId(100000 + i);
             employee.setAge(age);
             String name = "emp" + i;
             employee.setName(name);
             String pwd = "12345678";
-            employee.setPassword(pwd);
+            employee.setPassword(EncryptionUtil.md5Encryption(pwd,99999+ i + "",1024));
             String sex;
             if (rand % 2 == 0) {
                     sex = "男";

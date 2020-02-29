@@ -191,8 +191,16 @@
 
       <!--PageHelper-->
 
+      <!--shiro-->
+      <dependency>
+          <groupId>org.apache.shiro</groupId>
+          <artifactId>shiro-spring</artifactId>
+          <version>1.4.0</version>
+      </dependency>
 
-    <!--jackson start-->
+      <!--shiro-->
+
+      <!--jackson start-->
 
       <dependency>
           <groupId>com.fasterxml.jackson.core</groupId>

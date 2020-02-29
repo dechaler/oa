@@ -168,6 +168,7 @@ public class FileController {
             fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
         }
         response.setHeader("content-Disposition", "attachment;fileName="+ fileName);
+        //处理文件路径，防止下载其他不相关文件（如系统配置文件）
         ServletOutputStream sos = response.getOutputStream();
         java.io.File file = new java.io.File(filePath);
         if (file.exists()) {

@@ -3,6 +3,7 @@ package com.de.service.impl;
 import com.de.dao.EmpDao;
 import com.de.entity.Employee;
 import com.de.service.EmpService;
+import com.de.utils.EncryptionUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +31,8 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public int login(Integer id, String pwd) {
         String result = empDao.login(id);
-        if (null != result && result.equals(pwd)) {
+        String temp = EncryptionUtil.md5Encryption(pwd, id + "", 1024);
+        if (null != result && result.equals(temp)) {
             return 1;
         }
         return 0;
@@ -53,12 +55,12 @@ public class EmpServiceImpl implements EmpService {
 
     @Override
     public int updatePwdById(Integer id, String newPwd) {
+        newPwd = EncryptionUtil.md5Encryption(newPwd,id + "",1024);
         int result = empDao.updatePwdById(id, newPwd);
         if (result > 0)
             return result;
         else
             return 0;
-
     }
 
     @Override
