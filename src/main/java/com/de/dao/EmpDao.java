@@ -67,6 +67,18 @@ public interface EmpDao {
 
 
     /**
+     *@描述信息：添加员工，默认密码为12345678
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/8
+     */
+
+    int addEmp(@Param("emp") Employee employee);
+
+
+    /**
      *@描述信息：查询全部员工信息
      *
      * @参数：
@@ -108,7 +120,16 @@ public interface EmpDao {
 
 //    Department selectDepartByDepartId(Integer departId);
 
+    /**
+     *@描述信息：删除员工
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/8
+     */
 
+    int delEmpById(Integer id);
     /**
      *@描述信息：查询所有员工号
      *
@@ -129,6 +150,9 @@ public interface EmpDao {
      * @时间： 2019/10/9
      */
     List<Employee> selectEmpByIdOrNameOrDepartName(@Param("id") Integer id,@Param("name") String name, @Param("departName") String departName);
+
+
+    int updateDepartIdById(@Param("id") Integer id,@Param("departId") Integer departId);
 
     /**
      *@描述信息：初始化员工数据

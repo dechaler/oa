@@ -88,4 +88,8 @@
 
     </insert>
 
+    <delete id="delTaskByEmpId">
+        delete from task where emp_id = #{empId}
+    </delete>
+
 </mapper>

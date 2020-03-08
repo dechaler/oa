@@ -1,3 +1,6 @@
 #ipt-add,#startTime-add,#endTime-add{
     width: 340px;
 }
+.my-input{
+    width: 40%;
+}

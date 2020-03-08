@@ -68,6 +68,9 @@
         )
     </delete>
 
+    <delete id="delFileByEmpId">
+        delete from `file` where emp_id = #{empId}
+    </delete>
 
     <!--初始化文件信息-->
     <insert id="FileInit" useGeneratedKeys="true">

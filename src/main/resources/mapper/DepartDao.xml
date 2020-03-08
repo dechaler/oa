@@ -34,4 +34,7 @@
         FROM department d LEFT JOIN employee e ON
                 d.`emp_id` = e.id
     </select>
+    <select id="selectAllDepartIdAndName" resultMap="selectAllDepartMap">
+        select id,depart_name from department
+    </select>
 </mapper>

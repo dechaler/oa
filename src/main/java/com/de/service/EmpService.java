@@ -82,6 +82,16 @@ public interface EmpService {
 //    List<Employee> selectEmpByName(String name);
 
 
+    /**
+     *@描述信息：添加员工信息，默认为
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/8
+     */
+
+    int addEmp(Employee employee);
 
     /**
      *@描述信息：根据员工id查询员工信息
@@ -93,5 +103,17 @@ public interface EmpService {
      */
     Employee selectEmpById(Integer id);
 
+
+
+    /**
+     *@描述信息：删除员工
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/8
+     */
+
+    int delEmpById(Integer id);
 
 }

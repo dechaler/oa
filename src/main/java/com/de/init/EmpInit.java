@@ -1,5 +1,6 @@
 package com.de.init;
 
+import com.de.entity.Department;
 import com.de.utils.DateUtils;
 import com.de.dao.EmpDao;
 import com.de.entity.Employee;
@@ -62,6 +63,15 @@ public class EmpInit {
 
     }
 
+    public void initEmpDEpart() {
+        List<Employee> list = empDao.selectAllEmp();
+        for (int i = 0; i < list.size(); i++) {
+            Department department = new Department();
+            int de_id = 1 + new Random().nextInt(6);
+            empDao.updateDepartIdById(list.get(i).getId(),de_id);
+        }
+    }
+
     //生成随机手机号
     private static String getTel() {
         int index=getNum(0,telFirst.length-1);
@@ -82,10 +92,12 @@ public class EmpInit {
 //       String tel = getTel();
 //        System.out.println(tel);
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//        EmpInit empInit = context.getBean("empInit", EmpInit.class);
         EmpInit empInit = context.getBean("empInit", EmpInit.class);
-        List<Employee> init = empInit.init();
-        for (Employee employee : init){
-            System.out.println(employee);
-        }
+//        List<Employee> init = empInit.init();
+//        for (Employee employee : init){
+//            System.out.println(employee);
+//        }
+        empInit.initEmpDEpart();
     }
 }

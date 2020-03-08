@@ -44,4 +44,17 @@ public class DepartController {
         return jsonResultType;
 
     }
+
+
+
+
+    @ResponseBody
+    @RequestMapping("/selectDepart")
+    public JsonResultType<Department> selectDepart(RequestParams params , HttpServletResponse response) {
+        List<Department> departments = departService.selectAllDepartIdAndName();
+        pageInfo = new PageInfo<>(departments);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+
+    }
 }

@@ -13,13 +13,20 @@ public class RequestParams extends MyPageParams {
     //部门号
     private Integer departId;
 
+    private Integer jobId;
+
+    private Integer age;
     //日期
     private String Date;
+
+    private long phone;
 
     //日期范围
     private String startDate;
 
     private String endDate;
+
+    private String sex;
 
     //flag（考勤）
     private Integer kqFlag;
@@ -31,6 +38,37 @@ public class RequestParams extends MyPageParams {
 
     private String fileName;
 
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public long getPhone() {
+        return phone;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public void setPhone(long phone) {
+        this.phone = phone;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     public String getFileName() {
         return fileName;

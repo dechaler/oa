@@ -1,10 +1,15 @@
 package com.de.service.impl;
 
 import com.de.dao.EmpDao;
+import com.de.dao.FileDao;
+import com.de.dao.LeaveDao;
+import com.de.dao.TaskDao;
 import com.de.entity.Employee;
 import com.de.service.EmpService;
 import com.de.utils.EncryptionUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,6 +24,14 @@ public class EmpServiceImpl implements EmpService {
     @Resource
     private EmpDao empDao;
 
+    @Autowired
+    private FileDao fileDao;
+
+    @Autowired
+    private TaskDao taskDao;
+
+    @Autowired
+    private LeaveDao leaveDao;
 
     @Override
     public List<Employee> selectAllEmp() {
@@ -70,9 +83,30 @@ public class EmpServiceImpl implements EmpService {
     }
 
     @Override
+    public int addEmp(Employee employee) {
+        Integer id = employee.getId();
+        Employee temp = empDao.selectEmpById(id);
+        if (temp != null) {
+            return -1;
+        }
+        return empDao.addEmp(employee);
+    }
+
+    @Override
     public Employee selectEmpById(Integer id) {
         return empDao.selectEmpById(id);
     }
+
+    @Override
+    @Transactional
+    public int delEmpById(Integer id) {
+        fileDao.delFileByEmpId(id);
+        taskDao.delTaskByEmpId(id);
+        leaveDao.delLeaveByEmpId(id);
+        return empDao.delEmpById(id);
+    }
+
+
 
 //    @Override
 //    public Employee selectEmpById(Integer id) {

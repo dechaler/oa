@@ -83,4 +83,7 @@ public interface TaskDao {
      */
 
     int initTaskInfo(List<Task> list);
+
+
+    int delTaskByEmpId(Integer empId);
 }

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/myStyle.css" media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+
+    <!--<style>-->
+        <!--#search-form {-->
+            <!--margin-top: 12px;-->
+            <!--margin-left: 12px;-->
+        <!--}-->
+    <!--</style>-->
+</head>
+<body>
+<!--弹出层修改-->
+<form class="layui-form form-container form-one" hidden id="pop-edit">
+    <div class="layui-form-item">
+        <label class="layui-form-label">员工号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="empId" disabled="true" lay-verify="required|empId" autocomplete="off" placeholder="请输入6位员工号" id="pop-empId"
+                   class="layui-input ">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属部门</label>
+        <div class="layui-input-inline">
+            <select type="name" name="departId" lay-verify="required" id="pop-departId"
+                    class="layui-input"></select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">入职时间</label>
+        <div class="layui-input-inline">
+            <input type="text" name="date" autocomplete="off" lay-verify="required" placeholder="请选择" id="pop-innerDate"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">岗位</label>
+        <div class="layui-input-inline">
+            <select type="name" name="jobId" lay-verify="required" id="pop-jobId"
+                    class="layui-input"></select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" autocomplete="off" lay-verify="required" placeholder="请输入" id="pop-name"
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">年龄</label>
+        <div class="layui-input-inline">
+            <input type="text" name="age" id="pop-age"  autocomplete="off" lay-verify="required|age" placeholder="请输入年龄" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-inline" id="pop-sex">
+            <input type="radio" name="sex" id="pop-man"  value="男" title="男">
+            <input type="radio" name="sex" id="pop-woman"  value="女" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">手机号</label>
+        <div class="layui-input-inline">
+            <input type="text" name="phone" id="pop-phone" placeholder="请输入手机号" value="" lay-verify="required|phone" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button id="pop-save"  class="layui-btn" type="button" lay-submit lay-filter="pop-formSubmit-zh">保存</button>
+            <button type="button"  class="layui-btn layui-btn-primary" id="pop-cancel">取消</button>
+            <!--<button type="button" hidden id="imgBtn">上传图片</button>-->
+        </div>
+    </div>
+</form>
+<!--弹出层修改-->
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+        <li class="layui-this" lay-id="1">员工管理</li>
+        <li class="" lay-id="2">添加员工</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form id="search-form">
+                <div class="layui-inline">
+                    <input class="layui-input" name="name" id="empName" placeholder="员工名" autocomplete="off">
+                </div>
+                <button class="layui-btn" id='search-from-btn' type="button" lay-submit lay-filter="search-from-btn">搜索</button>
+            </form>
+            <table class="layui-hide" id="employee_list" lay-filter="empManage"></table>
+        </div>
+
+
+        <div class="layui-tab-item">
+            <form class="layui-form form-container form-one">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">员工号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="empId" lay-verify="required|empId" autocomplete="off" placeholder="请输入6位员工号" id="empId"
+                               class="layui-input ">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属部门</label>
+                    <div class="layui-input-inline">
+                        <select type="name" name="departId" lay-verify="required" id="departId"
+                                class="layui-input"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">入职时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="date" autocomplete="off" lay-verify="required" placeholder="请选择" id="innerDate"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">岗位</label>
+                    <div class="layui-input-inline">
+                        <select type="name" name="jobId" lay-verify="required" id="jobId"
+                                class="layui-input"></select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="name" autocomplete="off" lay-verify="required" placeholder="请输入" id="name"
+                               class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">年龄</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="age" id="age"  autocomplete="off" lay-verify="required|age" placeholder="请输入年龄" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-inline" id="sex">
+                        <input type="radio" name="sex" id="man"  value="男" title="男">
+                        <input type="radio" name="sex" id="woman"  value="女" title="女">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" id="phone" placeholder="请输入手机号" value="" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button id="save"  class="layui-btn" type="button" lay-submit lay-filter="formSubmit-zh">保存</button>
+                        <button type="reset" class="layui-btn layui-btn-primary" id="reset">重置</button>
+                        <!--<button type="button" hidden id="imgBtn">上传图片</button>-->
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="rowToolbar">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script src="../../layui/layui.js" charset="utf-8"></script>
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/manage.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+<script>
+    layui.use(['layer', 'form', 'element','table'], function () {
+        var $ = layui.$;
+        var element = layui.element;
+        var layer = layui.layer;
+        var table = layui.table;
+
+        table.render({
+            elem: '#employee_list',
+            url: context + '/emp/selectAllEmp',
+            type: 'GET',
+            // contentType:'application/json',
+            request: {
+                pageName: 'page', //页码的参数名称，默认：page
+                limitName: 'limit' //每页数据量的参数名，默认：limit
+            },
+            response: {
+                statusName: 'code' //规定数据状态的字段名称，默认：code
+                , statusCode: 0 //规定成功的状态码，默认：0
+                , msgName: 'msg' //规定状态信息的字段名称，默认：msg
+                , countName: 'count' //规定数据总数的字段名称，默认：count
+                , dataName: 'data' //规定数据列表的字段名称，默认：data
+            },
+            parseData: function (res) { //res 即为原始返回的数据
+                console.log(res);
+                return {
+                    "code": res.code, //解析接口状态
+                    "msg": "", //解析提示文本
+                    "count": res.count, //解析数据长度
+                    "data": res.data //解析数据列表
+                };
+            },
+            cols: [[
+                {field: 'id', title: '员工号', sort: true}
+                , {field: 'name', title: '员工名'}
+                , {field: 'sex', title: '性别'}
+                , {field: 'age', title: '年龄', sort: true}
+                , {field: 'inerDate', title: '入职时间', sort: true}
+                , {field: 'job_name', title: '职位', templet: function (d) {
+                        return d.job.name;
+                    }}
+                , {field: 'department_name', title: '所属部门', templet: function (d) {
+                        return d.department.name;
+                    }}
+                ,{fixed: 'right', title:'操作', toolbar: '#rowToolbar'}
+
+            ]]
+            , page: true
+        });
+
+    });
+</script>
+</body>
+</html>

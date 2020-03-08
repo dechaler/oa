@@ -1,18 +1,19 @@
 package com.de.controller;
 
+import com.de.entity.Department;
+import com.de.entity.Employee;
+import com.de.entity.Job;
+import com.de.service.EmpService;
+import com.de.utils.EncryptionUtil;
 import com.de.utils.JsonResultType;
 import com.de.utils.RequestParams;
 import com.de.utils.ResponseInfo;
-import com.de.entity.Employee;
-import com.de.service.EmpService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -120,6 +121,81 @@ public class EmpController {
         JsonResultType jsonResultType = ResponseInfo.verifyDatas(temp, response, this.jsonResultType);
         return jsonResultType;
 
+    }
+
+    /**
+     *@描述信息：添加员工
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/8
+     */
+
+    @PostMapping("/addEmp")
+    @ResponseBody
+    public int addEmp(RequestParams params,HttpServletResponse response) {
+        Integer empId = params.getEmpId();
+        Integer departId = params.getDepartId();
+        String name = params.getName();
+        Integer jobId = params.getJobId();
+        String date = params.getDate();
+        long phone = params.getPhone();
+        Integer age = params.getAge();
+        String sex = params.getSex();
+        Employee employee = new Employee();
+        employee.setSex(sex);
+        employee.setAge(age);
+        employee.setId(empId);
+        employee.setName(name);
+        employee.setPhone(phone);
+        employee.setInerDate(date);
+        Job job = new Job();
+        job.setId(jobId);
+        Department department = new Department();
+        department.setId(departId);
+        //默认密码12345678
+        employee.setPassword(EncryptionUtil.md5Encryption("12345678",empId + "",1024));
+        employee.setJob(job);
+        employee.setDepartment(department);
+        int re = empService.addEmp(employee);
+
+
+        return ResponseInfo.verifyDatas(response,re);
+    }
+
+    @PostMapping("/updateEmp")
+    @ResponseBody
+    public int updateEmp(RequestParams params , HttpServletResponse response){
+        Integer empId = params.getEmpId();
+        Integer departId = params.getDepartId();
+        String name = params.getName();
+        Integer jobId = params.getJobId();
+        String date = params.getDate();
+        long phone = params.getPhone();
+        Integer age = params.getAge();
+        String sex = params.getSex();
+        Employee employee = new Employee();
+        employee.setSex(sex);
+        employee.setAge(age);
+        employee.setName(name);
+        employee.setPhone(phone);
+        employee.setInerDate(date);
+        Job job = new Job();
+        job.setId(jobId);
+        Department department = new Department();
+        department.setId(departId);
+        employee.setJob(job);
+        employee.setDepartment(department);
+        int re = empService.updateEmpById(empId,employee);
+        return ResponseInfo.verifyDatas(response,re);
+    }
+
+    @PostMapping("/delEmp")
+    @ResponseBody
+    public int delEmp(Integer id,HttpServletResponse response){
+        int re = empService.delEmpById(id);
+        return ResponseInfo.verifyDatas(response,re);
     }
 
     @RequestMapping("/logout")

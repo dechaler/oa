@@ -33,4 +33,19 @@ public interface DepartDao {
      */
 
     List<Department> selectAllDepart();
+
+
+
+    /**
+     *@描述信息：查询部门id和部门名
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/8
+     */
+
+
+    List<Department> selectAllDepartIdAndName();
+
 }

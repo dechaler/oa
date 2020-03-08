@@ -32,4 +32,9 @@ public class DepartServiceImpl implements DepartService {
     public List<Department> selectAllDepart() {
         return departDao.selectAllDepart();
     }
+
+    @Override
+    public List<Department> selectAllDepartIdAndName() {
+        return departDao.selectAllDepartIdAndName();
+    }
 }

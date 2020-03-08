@@ -29,5 +29,7 @@
         WHERE q.emp_id = #{empId} ORDER BY le_start_time DESC
     </select>
 
-
+    <delete id="delLeaveByEmpId">
+        delete from qingjia where emp_id = #{empId}
+    </delete>
 </mapper>

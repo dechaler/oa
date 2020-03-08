@@ -104,4 +104,9 @@ public interface FileDao {
 
 
 
+    int delFileByEmpId(Integer empId);
+
+
+
+
 }

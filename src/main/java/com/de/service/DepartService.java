@@ -15,5 +15,7 @@ public interface DepartService {
 
     List<Department> selectAllDepart();
 
+    List<Department> selectAllDepartIdAndName();
+
 
 }

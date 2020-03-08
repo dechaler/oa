@@ -33,4 +33,7 @@ public interface LeaveDao {
      */
 
     List<Leave> selectLeaveInfoByEmpId(@Param("empId") Integer empId);
+
+
+    int delLeaveByEmpId(Integer empId);
 }
