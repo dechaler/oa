@@ -51,14 +51,14 @@
     employee e
      INNER JOIN department d ON e.`depart_id`=d.`id`
     INNER JOIN kaoqin k ON k.`emp_id`= e.`id`
-    WHERE k.emp_id = #{empId}
+    WHERE k.emp_id = #{empId}  ORDER BY kq_time DESC
     </select>
 
     <select id="selectClockInInfo" resultMap="selectAllAttendInfoMap">
         SELECT k.`emp_id` kid,e.`emp_name`,d.`depart_name`,k.kq_way,k.`kq_date`,k.kq_flag FROM kaoqin k
         JOIN employee e ON e.`id`=k.`emp_id`
         JOIN department	d ON e.`depart_id`=d.`id`
-        WHERE e.`id` = #{empId} AND k.`kq_date` = DATE_FORMAT(NOW(),'%Y-%m-%d')
+        WHERE e.`id` = #{empId} AND k.`kq_date` = DATE_FORMAT(NOW(),'%Y-%m-%d') ORDER BY kq_way ASC
     </select>
 
     <!--通过员工号查看员工信息-->
