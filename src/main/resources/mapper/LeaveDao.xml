@@ -10,6 +10,10 @@
     VALUES(#{employee.id},#{reason},#{startTime},#{endTime},0);
   </insert>
 
+    <update id="updateStatusById">
+        update qingjia set status = #{status} where id = #{id}
+    </update>
+
     <!--查询请假信息-->
 
     <resultMap id="selectLeaveInfoByEmpIdMap" type="Leave">
@@ -27,6 +31,11 @@
         SELECT q.id,reason,le_start_time,le_end_time, q.emp_id,`status`,emp_name FROM qingjia q
         JOIN employee e ON e.`id` = q.`emp_id`
         WHERE q.emp_id = #{empId} ORDER BY le_start_time DESC
+    </select>
+
+    <select id="selectLeaveAllInfo" resultMap="selectLeaveInfoByEmpIdMap">
+        SELECT q.id,reason,le_start_time,le_end_time, q.emp_id,`status`,emp_name FROM qingjia q
+        JOIN employee e ON e.`id` = q.`emp_id` ORDER BY le_start_time DESC
     </select>
 
     <delete id="delLeaveByEmpId">

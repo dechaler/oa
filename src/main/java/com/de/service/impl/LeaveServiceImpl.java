@@ -31,4 +31,14 @@ public class LeaveServiceImpl implements LeaveService {
         List<Leave> leaves = leaveDao.selectLeaveInfoByEmpId(empId);
         return leaves;
     }
+
+    @Override
+    public List<Leave> selectLeaveAllInf() {
+        return leaveDao.selectLeaveAllInfo();
+    }
+
+    @Override
+    public int updateStatusById(Integer status, Integer id) {
+        return leaveDao.updateStatusById(status,id);
+    }
 }

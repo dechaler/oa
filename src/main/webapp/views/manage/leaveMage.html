@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/myStyle.css" media="all">
+</head>
+<body>
+<table class="layui-hide" id="mage_leave" lay-filter="empManage"></table>
+<script type="text/html" id="rowToolbar">
+    {{#  if(d.status == 0){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="agree">同意</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="disagree">拒绝</a>
+    {{# }else if(d.status == 1){ }}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled">已同意</a>
+    {{# }else{ }}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled">已拒绝</a>
+    {{#  } }}
+
+</script>
+<script src="../../layui/layui.js" charset="utf-8"></script>
+<script src="../../js/manage.js"></script>
+<script>
+    layui.use('table', function(){
+        var table = layui.table;
+        table.render({
+            elem: '#mage_leave'
+            ,url:'/oa/leave/selectAllLeaveInfo'
+            ,cols: [[
+                {field:'id', hide:true, title: 'ID', sort: true}
+                ,{
+                    field: 'empId', title: '员工号', templet: function (res) {
+                        return res.employee.id
+                    }
+                }
+                , {
+                    field: 'name', title: '员工名', templet: function (res) {
+                        return res.employee.name
+                    }
+                }
+                ,{field:'reason', title: '请假原因'}
+                ,{field:'startTime', title: '开始时间'}
+                ,{field:'endTime', title: '结束时间'}
+                // ,{field:'status', title: '状态',templet:function (res) {
+                //         if (res.status == 0) {
+                //             return '<span style="color: #ffff00;">' + '待审核';
+                //         } else if (res.status == 1) {
+                //             return '<span style="color: #00ff00;">' + '已同意';
+                //         } else if (res.status == -1) {
+                //             return '<span style="color: #ff0000;">' + '未同意';
+                //         }}}
+                ,{fixed: 'right', title:'操作', toolbar: '#rowToolbar'}
+            ]]
+            ,page:true
+            ,id: 'table'
+        });
+    });
+</script>
+</body>
+</html>

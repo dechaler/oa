@@ -254,4 +254,50 @@ layui.use(['layer', 'form','element','table','laydate'], function() {
         layer.closeAll('page');
     });
 
+
+
+    //监听人事管理-请假管理
+    table.on('tool(empManage)', function(obj){
+        var data = obj.data;
+        console.log(data);
+        switch (obj.event) {
+            case 'agree':
+                // alert(obj.event);
+                var status = 1;
+                $.ajax({
+                    url: context + '/leave/updateStatusById',
+                    type: 'POST',
+                    async:false,
+                    data:{"status":status,"id":data.id},
+                    success: function (res) {
+                        table.reload('table');
+                    },
+                    error: function () {
+                        layer.alert("请求信息发生异常", {icon: 2, title: '提示'});
+                    }
+                });
+                table.reload('table');
+                break;
+
+            case 'disagree':
+                // alert(obj.event);
+                var status = -1;
+                $.ajax({
+                    url: context + '/leave/updateStatusById',
+                    type: 'POST',
+                    async:false,
+                    data:{"status":status,"id":data.id},
+                    success: function (res) {
+                        table.reload('table');
+                    },
+                    error: function () {
+                        layer.alert("请求信息发生异常", {icon: 2, title: '提示'});
+                    }
+                });
+                table.reload('table');
+                break;
+        }
+    });
+
+
 });

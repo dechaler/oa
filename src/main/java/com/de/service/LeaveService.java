@@ -31,4 +31,9 @@ public interface LeaveService {
      */
 
     List<Leave> selectLeaveInfoByEmpId(Integer empId);
+
+    List<Leave> selectLeaveAllInf();
+
+
+    int updateStatusById(Integer status,Integer id);
 }

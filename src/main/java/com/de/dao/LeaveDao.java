@@ -34,6 +34,9 @@ public interface LeaveDao {
 
     List<Leave> selectLeaveInfoByEmpId(@Param("empId") Integer empId);
 
+    int updateStatusById(@Param("status") Integer status, @Param("id") Integer id);
+
+    List<Leave> selectLeaveAllInfo();
 
     int delLeaveByEmpId(Integer empId);
 }

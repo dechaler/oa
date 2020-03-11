@@ -58,4 +58,34 @@ public class LeaveController {
         jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
         return jsonResultType;
     }
+
+
+    /**
+     *@描述信息：人事管理查询全部请假信息（除人事部）
+     *
+     * @参数：
+     * @返回值：
+     * @编写人：de
+     * @时间： 2020/3/11
+     */
+
+    @RequestMapping("/selectAllLeaveInfo")
+    @ResponseBody
+    public JsonResultType<Leave> selectAllLeaveInfo(RequestParams params, HttpServletResponse response) {
+        int page = params.getPage();
+        int limit = params.getLimit();
+        PageHelper.startPage(page,limit);
+        List<Leave> leaves = leaveService.selectLeaveAllInf();
+        pageInfo = new PageInfo<>(leaves);
+        jsonResultType = ResponseInfo.verifyDatas(response,jsonResultType,pageInfo);
+        return jsonResultType;
+    }
+
+    @RequestMapping("/updateStatusById")
+    @ResponseBody
+    public int updateStatusById(Integer status,Integer id, HttpServletResponse response) {
+        int re = leaveService.updateStatusById(status, id);
+        return ResponseInfo.verifyDatas(response, re);
+    }
+
 }

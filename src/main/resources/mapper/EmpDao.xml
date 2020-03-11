@@ -39,8 +39,9 @@
 
     <!--添加员工-->
     <insert id="addEmp" parameterType="Employee" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO employee(emp_name, emp_pwd,sex,age,phone,job_id,iner_date,depart_id)
+        INSERT INTO employee(id,emp_name, emp_pwd,sex,age,phone,job_id,iner_date,depart_id)
         VALUES(
+        #{emp.id},
         <if test="emp.name != null and emp.name != ''">
             #{emp.name},
         </if>
