@@ -20,6 +20,7 @@ public class Employee implements Serializable {
     private String inerDate;
     private Department department;
     private Job job;
+    private int role;
 
     public Employee() {
     }
@@ -66,6 +67,14 @@ public class Employee implements Serializable {
         this.department = department;
     }
 
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
 
     public Integer getId() {
         return id;

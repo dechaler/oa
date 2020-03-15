@@ -14,9 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 public class MyInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Employee employee = (Employee)request.getSession().getAttribute("employee");
-        if (null != employee)
-            return true;
-        else
+        String requestURI = request.getRequestURI();
+        System.out.println("请求前拦截：" + requestURI);
+        if (null != employee) {
+            int role = employee.getRole();
+            if (role != 1) {
+                if (requestURI.indexOf("manage") != -1) {
+                    return false;
+                }else {
+                    return true;
+                }
+            }else {
+                return true;
+            }
+        }
+        else {
+            response.sendRedirect(request.getContextPath() + "/views/login.html");
             return false;
+        }
     }
 }

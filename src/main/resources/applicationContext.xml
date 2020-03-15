@@ -110,12 +110,15 @@
     <!--上班触发器-->
     <bean id="shangbanCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="InitAttendInfoWithShangBan"/>
-        <property name="cronExpression" value="0 0 00 * * ? * "/>
+        <!--<property name="cronExpression" value="0 0 00 * * ? * "/>-->
+        <!--除周末外触发-->
+        <property name="cronExpression" value="0 0 00 ? * MON-FRI"/>
     </bean>
     <!--下班触发器-->
     <bean id="xiabanCronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="InitAttendInfoWithXiaBan"/>
-        <property name="cronExpression" value="0 0 00 * * ? * "/>
+        <!--<property name="cronExpression" value="0 0 00 * * ? * "/>-->
+        <property name="cronExpression" value="0 0 00 ? * MON-FRI"/>
     </bean>
 
     <!--演示触发器-->

@@ -60,6 +60,7 @@
         <result property="sex" column="sex"/>
         <result property="age" column="age"/>
         <result property="inerDate" column="iner_date"/>
+        <result property="role" column="role"/>
         <association property="job" javaType="Job">
             <id property="id" column="jid"/>
             <result property="name" column="job_name"/>
@@ -80,7 +81,7 @@
 
     <!--根据id查询员工信息-->
     <select id="selectEmpById" parameterType="Integer" resultMap="selectEmpMap">
-        SELECT e.id,e.emp_name,e.sex,e.age,e.phone,j.job_name,e.iner_date,d.id did,d.depart_name FROM employee e
+        SELECT e.id,e.emp_name,e.sex,e.age,e.phone,j.job_name,e.iner_date,e.role,d.id did,d.depart_name FROM employee e
         JOIN department d ON e.`depart_id`=d.`id`
         JOIN job j ON j.`id`=e.`job_id`
         WHERE e.id = #{id}

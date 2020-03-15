@@ -207,6 +207,10 @@ public class FileController {
         ServletOutputStream sos = null;
         InputStream is = null;
 
+        //拒绝直接url下载文件，预防非法攻击
+        if (filePaths.indexOf("home") == -1 || filePaths.indexOf("D:") == -1) {
+            return;
+        }
         if (fns.length == fps.length){
             for (int i = 0; i < fns.length; i++) {
                 filePath = fps[i];

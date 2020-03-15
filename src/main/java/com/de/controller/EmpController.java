@@ -39,12 +39,19 @@ public class EmpController {
 
     @ResponseBody
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public JsonResultType<Employee> login(Employee employee, String verifyCode,HttpSession session,HttpServletResponse response){
+    public JsonResultType<Employee> login(Employee employee, String verifyCode,Integer status,HttpSession session,HttpServletResponse response){
         String code = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         Integer id = employee.getId();
+        Employee emp = empService.selectEmpById(id);
+        int role = emp.getRole();
         String password = employee.getPassword();
        //先验证码验证信息
         if (code.equals(verifyCode)) {
+            if (status == 1 && status != role) {
+                jsonResultType.setCode("" + -1);
+                jsonResultType.setMsg("你没有管理权限");
+                return jsonResultType;
+            }
             int re = empService.login(id, password);
             if (re > 0) {
                 employee = empService.selectEmpById(id);
@@ -54,15 +61,18 @@ public class EmpController {
                 if (flag) {
                     jsonResultType.setCode("" + 0);
                     jsonResultType.setCount("" + list.size());
+                    jsonResultType.setMsg("登陆成功");
                     jsonResultType.setData(list);
                     return jsonResultType;
                 } else {
                     jsonResultType.setCode("" + -1);
+                    jsonResultType.setMsg("登陆失败，信息有误，请重新填写");
                     jsonResultType.setData(new ArrayList<>());
                     return jsonResultType;
                 }
             } else {
                 jsonResultType.setCode("" + -1);
+                jsonResultType.setMsg("登陆失败，信息有误，请重新填写");
                 jsonResultType.setData(new ArrayList<>());
                 return jsonResultType;
             }
@@ -70,6 +80,7 @@ public class EmpController {
             jsonResultType.setCode("" + -2);
             List<Employee> list = new ArrayList<>();
             jsonResultType.setData(list);
+            jsonResultType.setMsg("验证码输入有误");
             return jsonResultType;
         }
     }

@@ -144,7 +144,7 @@ layui.use(['layer', 'form','element','table','laydate'], function() {
 
     });
 
-    //监听表头工具栏按钮
+    //监听行工具栏按钮
     table.on('tool(empManage)', function(obj){
         var data = obj.data;
         switch (obj.event) {
@@ -257,7 +257,7 @@ layui.use(['layer', 'form','element','table','laydate'], function() {
 
 
     //监听人事管理-请假管理
-    table.on('tool(empManage)', function(obj){
+    table.on('tool(leaveManage)', function(obj){
         var data = obj.data;
         console.log(data);
         switch (obj.event) {
@@ -299,5 +299,22 @@ layui.use(['layer', 'form','element','table','laydate'], function() {
         }
     });
 
+    //退出
+    $("#logout").on('click',function(e){
+        e.preventDefault();
+        layer.confirm('确定退出吗？', {icon: 3, title:'提示'},function(index){
+            //do something
+            // layer.close(index);
+            $.ajax({
+                url: "/oa/emp/logout",
+                type: "POST",
+                success: function (res) {
+                    if (res == 1) {
+                        location.href="./login.html";
+                    }
+                }
+            })
 
+        });
+    });
 });

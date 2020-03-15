@@ -37,7 +37,7 @@ layui.define(['index', "form"], function(exports){
 
     //提交
     form.on('submit(LAY-user-login-submit)', function(obj){
-        // console.log(obj);
+        // console.log(obj.field);
         //请求登入接口
         // $.ajax({
         //         //     ur1:'/emp/login?verifyCode=' + verifyCode
@@ -58,7 +58,8 @@ layui.define(['index', "form"], function(exports){
             dataType: 'json',
             success: function (res) {
                 if (res.code == 0) {
-                    layer.msg('登入成功', {
+                    console.log(res);
+                    layer.msg(res.msg, {
                         offset: '15px'
                         ,icon: 1
                         ,time: 1000
@@ -66,7 +67,8 @@ layui.define(['index', "form"], function(exports){
                         location.href = '../../oa/views/index.html'; //主页
                     });
                 }else if (res.code == -2) {
-                    layer.msg('验证码输入有误', {
+                    console.log(res);
+                    layer.msg(res.msg, {
                         offset: '15px'
                         ,icon: 2
                         ,time: 1000
@@ -77,13 +79,12 @@ layui.define(['index', "form"], function(exports){
                     });
                 }else {
                     console.log(res);
-                    layer.msg('登陆失败，信息有误，请重新填写', {
+                    layer.msg(res.msg, {
                         offset: '15px'
                         ,icon: 2
                         ,time: 1000
                     }, function(){
                         location.href = './login.html';
-
                     });
                 }
             },
@@ -98,6 +99,10 @@ layui.define(['index', "form"], function(exports){
             }
 
         });
+
+
+
+
         // admin.req({
         //     // url: '/emp/login?verifyCode='+verifyCode+'&id='+id+'&password='+password//实际使用请改成服务端真实接口
         //     url: '/emp/login'   //实际使用请改成服务端真实接口
