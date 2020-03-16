@@ -1,6 +1,7 @@
 layui.define(['index', "form"], function(exports){
     var $ = layui.$,form = layui.form;
     context = '/oa';
+    radioValue = null;
     form.render();
     // 验证
     form.verify({
@@ -35,6 +36,12 @@ layui.define(['index', "form"], function(exports){
         $("#LAY-user-get-vercode").attr("src", context + "/kaptcha/verifyCode?t=\" + (new Date).getTime()");
     };
 
+
+    //获取单选框的值
+    form.on('radio(sel-login)',function (obj) {
+        radioValue = obj.value;
+        console.log(radioValue);
+    });
     //提交
     form.on('submit(LAY-user-login-submit)', function(obj){
         // console.log(obj.field);
@@ -64,7 +71,11 @@ layui.define(['index', "form"], function(exports){
                         ,icon: 1
                         ,time: 1000
                     }, function(){
-                        location.href = '../../oa/views/index.html'; //主页
+                       if (radioValue == 0) {
+                           location.href = '../../oa/views/index.html'; //主页
+                        } else {
+                           location.href = '../../oa/views/manage/index.html'; //主页
+                        }
                     });
                 }else if (res.code == -2) {
                     console.log(res);
