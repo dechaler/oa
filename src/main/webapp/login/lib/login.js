@@ -1,7 +1,7 @@
 layui.define(['index', "form"], function(exports){
     var $ = layui.$,form = layui.form;
     context = '/oa';
-    radioValue = null;
+    radioValue = 0;
     form.render();
     // 验证
     form.verify({
