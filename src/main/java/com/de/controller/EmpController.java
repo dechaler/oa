@@ -42,11 +42,17 @@ public class EmpController {
     public JsonResultType<Employee> login(Employee employee, String verifyCode,Integer status,HttpSession session,HttpServletResponse response){
         String code = (String)session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         Integer id = employee.getId();
-        Employee emp = empService.selectEmpById(id);
-        int role = emp.getRole();
         String password = employee.getPassword();
        //先验证码验证信息
         if (code.equals(verifyCode)) {
+            Employee emp = empService.selectEmpById(id);
+            if (null  == emp) {
+                jsonResultType.setCode("" + -1);
+                jsonResultType.setMsg("登陆失败，信息有误，请重新填写");
+                jsonResultType.setData(new ArrayList<>());
+                return jsonResultType;
+            }
+            int role = emp.getRole();
             if (status == 1 && status != role) {
                 jsonResultType.setCode("" + -1);
                 jsonResultType.setMsg("你没有管理权限");

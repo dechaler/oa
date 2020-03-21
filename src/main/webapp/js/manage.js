@@ -149,7 +149,7 @@ layui.use(['layer', 'form','element','table','laydate'], function() {
         var data = obj.data;
         switch (obj.event) {
             case 'del':
-                layer.confirm('确定要删除信息吗？', {
+                layer.confirm('确定要删除吗？', {
                     icon: 3,
                     title: '提示',
                     offset: '100px'
