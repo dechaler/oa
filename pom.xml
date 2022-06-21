@@ -13,7 +13,7 @@
         <junit.version>4.12</junit.version>
         <javax.servlet.version>4.0.0</javax.servlet.version>
         <jstl.vesion>1.2</jstl.vesion>
-        <mysql.connection.java.version>8.0.17</mysql.connection.java.version>
+        <mysql.connection.java.version>8.0.28</mysql.connection.java.version>
         <druid.version>1.1.9</druid.version>
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis.spring.version>1.3.2</mybatis.spring.version>
