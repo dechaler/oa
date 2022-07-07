@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <spring.version>5.0.7.RELEASE</spring.version>
+        <spring.version>5.2.21.RELEASE</spring.version>
         <junit.version>4.12</junit.version>
         <javax.servlet.version>4.0.0</javax.servlet.version>
         <jstl.vesion>1.2</jstl.vesion>
